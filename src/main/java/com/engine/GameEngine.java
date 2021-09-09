@@ -35,9 +35,9 @@ public class GameEngine {
 
         String[] command;
         command = Parser.parseInput(input);
-
+        command[1] = command[1].toLowerCase();
         // perform actions
-        switch (command[0]) {
+        switch (command[0].toLowerCase()) {
             case "q":
                 gameBuilder.append("Exiting game");
                 System.exit(0);
@@ -45,7 +45,6 @@ public class GameEngine {
                 break;
             case "look":
                 if (command[1] == null || command[1].isBlank() || command[1].equals("around")) {
-                    System.out.println(command[1]);
                     gameBuilder.append(examineRoom());
                 } else {
                     gameBuilder.append(getLookResult(command[1]));
@@ -83,8 +82,6 @@ public class GameEngine {
                 }
                 break;
             case "fight":
-                System.out.println(command[1].equals("zombie"));
-                System.out.println(checkForZombies());
                 if (checkForZombies() && (command.length == 1 || command[1].equals("zombie"))) {
                     Zombie zombie = new Zombie(6, currentLocation);
                     player.setFightingZombie(true);

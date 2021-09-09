@@ -13,7 +13,6 @@ public class NPC {
     public NPC(String character) {
         if (characters.containsKey(character)) {
             dialogue = characters.get(character).get("dialogue");
-            System.out.println(characters.get(character));
             description = characters.get(character).get("description").get(0);
         } else {
             dialogue = new ArrayList<>();

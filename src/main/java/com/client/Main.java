@@ -14,6 +14,7 @@ public class Main extends Application {
         primaryStage.setTitle("Samurai Zombies in Space");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
     }
 
 
