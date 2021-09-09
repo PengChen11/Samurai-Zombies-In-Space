@@ -1,25 +1,26 @@
 package com.controller;
 
-import com.character.Player;
 import com.engine.GameEngine;
 import com.item.Item;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class GameSceneController implements Initializable {
@@ -39,6 +40,9 @@ public class GameSceneController implements Initializable {
     @FXML
     private Circle currentLocationCircle;
 
+    @FXML
+    private Slider fontSlider;
+
 
     private final GameEngine gameEngine = new GameEngine();
 
@@ -51,11 +55,14 @@ public class GameSceneController implements Initializable {
         mapCoordinates.put("Central Hub", new double[] {198,278});
         mapCoordinates.put("Bar", new double[] {262,111});
         mapCoordinates.put("Medical Bay", new double[] {80,118});
+
+
     }
 
     private TextField getInputTextField() {
         return inputTextField;
     }
+
 
     /*
      * handles reading of user input from the Text Input Field in the Game Scene.
@@ -64,13 +71,28 @@ public class GameSceneController implements Initializable {
     public void handleTextFieldInput(ActionEvent event) {
         getInputTextField().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
-                storyTextArea.appendText(" > " + inputTextFieldString() + "\n");
-                storyTextArea.appendText(String.valueOf(gameEngine.runGameLoop(inputTextFieldString())));
+                storyTextArea.setText(" > " + inputTextFieldString() + "\n");
+                String append = String.valueOf(gameEngine.runGameLoop(inputTextFieldString()));
+                storyTextArea.appendText(append);
+                setTextColor();
+
                 getPlayerInventory();
                 getPlayerCurrentLocation();
                 getInputTextField().clear();
             }
         });
+    }
+
+    private void setTextColor() {
+        if(storyTextArea.getText().contains("fight")){
+            storyTextArea.setStyle("-fx-text-fill : red; -fx-control-inner-background: black;");
+        }else if(storyTextArea.getText().contains("talk")){
+            storyTextArea.setStyle("-fx-text-fill : yellow; -fx-control-inner-background: black;");
+        }else if(storyTextArea.getText().contains("go")){
+            storyTextArea.setStyle("-fx-text-fill : blue; -fx-control-inner-background: black;");
+        }else{
+            storyTextArea.setStyle("-fx-text-fill : green; -fx-control-inner-background: black;");
+        }
     }
 
     private void getPlayerCurrentLocation() {
@@ -98,12 +120,25 @@ public class GameSceneController implements Initializable {
         while ((str = br.readLine()) != null) {
             storyTextArea.appendText(str + '\n');
         }
+        setFontSlider();
+    }
+
+    private void setFontSlider() {
+        if(fontSlider != null){
+            fontSlider.valueProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                   storyTextArea.setFont(Font.font(t1.doubleValue()));
+                }
+            });
+        }
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            setFontSlider();
             introStoryToTextarea();
 
         } catch (IOException e) {
@@ -118,5 +153,8 @@ public class GameSceneController implements Initializable {
     private void appendInputToStoryTextarea(String strToDisplay) {
         storyTextArea.appendText(strToDisplay + '\n');
     }
+
+
+
 
 }
