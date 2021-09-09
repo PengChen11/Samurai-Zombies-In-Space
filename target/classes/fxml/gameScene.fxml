@@ -75,7 +75,7 @@
                   </ImageInput>
                </effect>
             </Canvas>
-            <Circle fx:id="currentLocationCircle" layoutX="182.0" layoutY="482.0" radius="10.0" stroke="#c236a8" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
+            <Circle fx:id="currentLocationCircle" layoutX="182.0" layoutY="474.0" radius="10.0" stroke="#c236a8" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
                <fill>
                   <RadialGradient centerX="0.5" centerY="0.5" focusAngle="56.31" focusDistance="-0.046511627906976716" radius="1.0">
                      <stops>

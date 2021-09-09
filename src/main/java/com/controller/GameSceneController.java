@@ -44,13 +44,13 @@ public class GameSceneController implements Initializable {
 
     private final HashMap<String, double[]> mapCoordinates = new HashMap<>();
     public GameSceneController() {
-        mapCoordinates.put("Ship", new double[] {162,657});
-        mapCoordinates.put("Repair Workshop", new double[] {205,522});
-        mapCoordinates.put("Landing Dock", new double[] {172,446});
-        mapCoordinates.put("Escape Shuttle", new double[] {54,362});
-        mapCoordinates.put("Central Hub", new double[] {192,265});
-        mapCoordinates.put("Bar", new double[] {268,113});
-        mapCoordinates.put("Medical Bay", new double[] {60,109});
+        mapCoordinates.put("Ship", new double[] {151,689});
+        mapCoordinates.put("Repair Workshop", new double[] {290,538});
+        mapCoordinates.put("Landing Dock", new double[] {182,482});
+        mapCoordinates.put("Escape Shuttle", new double[] {62,395});
+        mapCoordinates.put("Central Hub", new double[] {198,278});
+        mapCoordinates.put("Bar", new double[] {262,111});
+        mapCoordinates.put("Medical Bay", new double[] {80,118});
     }
 
     private TextField getInputTextField() {
