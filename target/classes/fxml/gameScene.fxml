@@ -70,7 +70,7 @@
                <effect>
                   <ImageInput>
                      <source>
-                        <Image url="file:/C:/StudentWork/Samurai-Zombies-In-Space/src/main/resources/images/map.png" />
+                        <Image url="@../images/map.png" />
                      </source>
                   </ImageInput>
                </effect>
