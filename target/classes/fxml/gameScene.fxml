@@ -19,7 +19,7 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="632.0" style="-fx-background-color: black;">
                            <children>
-                              <TextArea fx:id="storyTextArea" editable="false" layoutY="74.0" prefHeight="567.0" prefWidth="632.0" scrollTop="100.0" style="-fx-control-inner-background: black; -fx-text-fill: green;" wrapText="true">
+                              <TextArea id="textStyle" fx:id="storyTextArea" editable="false" layoutY="74.0" prefHeight="567.0" prefWidth="632.0" scrollTop="100.0" style="-fx-control-inner-background: black; -fx-text-fill: green;" wrapText="true">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -57,7 +57,9 @@
                   <Pane layoutX="640.0" prefHeight="124.0" prefWidth="158.0" style="-fx-background-color: black;" styleClass="-fix-border">
                      <children>
                         <Slider layoutX="9.0" layoutY="30.0" />
-                        <Slider layoutX="9.0" layoutY="80.0" />
+                        <Slider fx:id="fontSlider" layoutX="9.0" layoutY="80.0" max=" 24" min="12" value="12"  />
+                        <Text fill="#eee4e4" layoutX="26.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Volume" />
+                        <Text fill="#eee4e4" layoutX="26.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Font Size" />
                      </children>
                   </Pane>
                </children>
