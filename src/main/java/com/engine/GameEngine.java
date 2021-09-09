@@ -10,6 +10,8 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.HashMap;
 import java.util.List;
@@ -167,15 +169,20 @@ public class GameEngine {
         }
         return gameBuilder;
     }
-
+//provide instructions when the user type 'help'
     private StringBuilder showInstructions() {
         StringBuilder builder = new StringBuilder();
-        builder.append("\n Commands: ")
-                .append("\n    Movement: go (north, south, east, west) \n")
-                .append("\n    Observation: look")
-                .append("\n    Get Information: talk")
-                .append("\n    Actions: get, drop, fight, heal")
-                .append("\n q to quit\n");
+        List<String> instructions =null;
+        try
+        {
+            //read all the lines from the file into a list of string
+            instructions = Files.readAllLines(Path.of("cfg/instructions.txt"));
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        }
+        //for each line, append it to the string builder object
+        instructions.stream().forEach(eachLine->builder.append("\n"+eachLine));
         return builder;
     }
 
