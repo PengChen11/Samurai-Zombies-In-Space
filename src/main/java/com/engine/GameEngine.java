@@ -34,8 +34,8 @@ public class GameEngine {
         inventory = player.getInventory();
 
         String[] command;
-        command = Parser.parseInput(input);
-        command[1] = command[1].toLowerCase();
+        command = Parser.parseInput(input.toLowerCase());
+
         // perform actions
         switch (command[0].toLowerCase()) {
             case "q":
@@ -237,10 +237,10 @@ public class GameEngine {
     }
 
     private String examineRoom() {
-        String description = "";
+        StringBuilder description = new StringBuilder();
         try {
             JSONObject current = getJsonObject();
-            description = (String) current.get("Description");
+            description = new StringBuilder((String) current.get("Description"));
             List<Item> items = new ArrayList<>();
             for (Map.Entry<String, Item> item : catalog.entrySet()) {
                 if (item.getValue().getLocation().equals(currentLocation)) {
@@ -248,13 +248,13 @@ public class GameEngine {
                 }
             }
             if (items.size() > 0) {
-                description += "\nItems in room: [";
+                description.append("\nItems in room: [");
                 for (Item item : items) {
-                    description += " " + item.getName() + " ";
+                    description.append(" ").append(item.getName()).append(" ");
                 }
-                description += "]\n";
+                description.append("]\n");
             } else {
-                description += "\nRuh roh. No items here!";
+                description.append("\nRuh roh. No items here!");
             }
             return description + "\n";
         } catch (NullPointerException e) {
