@@ -44,7 +44,7 @@ public class GameEngine {
                 //TODO: Exit game scene without closing whole game
                 break;
             case "look":
-                if (command[1] == null || command[1].isBlank() || command[1].equals("around")) {
+                if (command[1] == null || command[1].isBlank() || "around".equalsIgnoreCase(command[1])) {
                     gameBuilder.append(examineRoom());
                 } else {
                     gameBuilder.append(getLookResult(command[1]));
@@ -71,7 +71,8 @@ public class GameEngine {
                 break;
             case "use":
                 if (command.length == 2) {
-                    if (command[1].equals("health kit") && player.checkInventoryName("health kit")) {
+                    if ("health kit".equalsIgnoreCase(command[1]) && player.checkInventoryName("health " +
+                            "kit")) {
                         gameBuilder.append(healPlayer());
                     }
                     else if (command[1].equals("lever") && player.checkInventoryName("lever")){
@@ -82,7 +83,7 @@ public class GameEngine {
                 }
                 break;
             case "fight":
-                if (checkForZombies() && (command.length == 1 || command[1].equals("zombie"))) {
+                if (checkForZombies() && (command.length == 1 || "zombie".equalsIgnoreCase(command[1]))) {
                     Zombie zombie = new Zombie(6, currentLocation);
                     player.setFightingZombie(true);
                     while (player.getFightingZombie()) {
