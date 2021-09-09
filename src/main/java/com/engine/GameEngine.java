@@ -37,7 +37,7 @@ public class GameEngine {
         command = Parser.parseInput(input.toLowerCase());
 
         // perform actions
-        switch (command[0].toLowerCase()) {
+        switch (command[0]) {
             case "q":
                 gameBuilder.append("Exiting game");
                 System.exit(0);
