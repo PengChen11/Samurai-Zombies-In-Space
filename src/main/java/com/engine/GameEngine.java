@@ -34,17 +34,17 @@ public class GameEngine {
         inventory = player.getInventory();
 
         String[] command;
-        command = Parser.parseInput(input);
-        command[1] = command[1].toLowerCase();
+        command = Parser.parseInput(input.toLowerCase());
+
         // perform actions
-        switch (command[0].toLowerCase()) {
+        switch (command[0]) {
             case "q":
                 gameBuilder.append("Exiting game");
                 System.exit(0);
                 //TODO: Exit game scene without closing whole game
                 break;
             case "look":
-                if (command[1] == null || command[1].isBlank() || command[1].equals("around")) {
+                if (command[1] == null || command[1].isBlank() || "around".equalsIgnoreCase(command[1])) {
                     gameBuilder.append(examineRoom());
                 } else {
                     gameBuilder.append(getLookResult(command[1]));
@@ -70,11 +70,14 @@ public class GameEngine {
                 gameBuilder.append(character.getDialogue());
                 break;
             case "use":
+                System.out.println(Arrays.toString(command));
                 if (command.length == 2) {
-                    if (command[1].equals("health kit") && player.checkInventoryName("health kit")) {
+                    if ("health kit".equalsIgnoreCase(command[1]) && player.checkInventoryName("health " +
+                            "kit")) {
                         gameBuilder.append(healPlayer());
                     }
-                    else if (command[1].equals("lever") && player.checkInventoryName("lever")){
+                    else if ("lever".equalsIgnoreCase(command[1]) && player.checkInventoryName(
+                            "lever")){
                         gameBuilder.append("What should I use this on?");
                     } else {
                         gameBuilder.append("You can't do that Dave.");
@@ -82,7 +85,7 @@ public class GameEngine {
                 }
                 break;
             case "fight":
-                if (checkForZombies() && (command.length == 1 || command[1].equals("zombie"))) {
+                if (checkForZombies() && (command.length == 1 || "zombie".equalsIgnoreCase(command[1]))) {
                     Zombie zombie = new Zombie(6, currentLocation);
                     player.setFightingZombie(true);
                     while (player.getFightingZombie()) {
@@ -237,10 +240,10 @@ public class GameEngine {
     }
 
     private String examineRoom() {
-        String description = "";
+        StringBuilder description = new StringBuilder();
         try {
             JSONObject current = getJsonObject();
-            description = (String) current.get("Description");
+            description = new StringBuilder((String) current.get("Description"));
             List<Item> items = new ArrayList<>();
             for (Map.Entry<String, Item> item : catalog.entrySet()) {
                 if (item.getValue().getLocation().equals(currentLocation)) {
@@ -248,13 +251,13 @@ public class GameEngine {
                 }
             }
             if (items.size() > 0) {
-                description += "\nItems in room: [";
+                description.append("\nItems in room: [");
                 for (Item item : items) {
-                    description += " " + item.getName() + " ";
+                    description.append(" ").append(item.getName()).append(" ");
                 }
-                description += "]\n";
+                description.append("]\n");
             } else {
-                description += "\nRuh roh. No items here!";
+                description.append("\nRuh roh. No items here!");
             }
             return description + "\n";
         } catch (NullPointerException e) {
