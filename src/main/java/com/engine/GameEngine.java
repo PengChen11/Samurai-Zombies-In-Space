@@ -70,12 +70,14 @@ public class GameEngine {
                 gameBuilder.append(character.getDialogue());
                 break;
             case "use":
+                System.out.println(Arrays.toString(command));
                 if (command.length == 2) {
                     if ("health kit".equalsIgnoreCase(command[1]) && player.checkInventoryName("health " +
                             "kit")) {
                         gameBuilder.append(healPlayer());
                     }
-                    else if (command[1].equals("lever") && player.checkInventoryName("lever")){
+                    else if ("lever".equalsIgnoreCase(command[1]) && player.checkInventoryName(
+                            "lever")){
                         gameBuilder.append("What should I use this on?");
                     } else {
                         gameBuilder.append("You can't do that Dave.");
