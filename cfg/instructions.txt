@@ -1,7 +1,0 @@
-             Commands:
-=============================================
-Movement: go (north, south, east, west)
-Observation: look [around]
-Get Information: talk [NPC]
-Actions: get [item], drop [item], fight [zombie], heal, use [item]
-q to quit

@@ -7,7 +7,6 @@ import com.item.Item;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,6 +19,8 @@ public class GameEngine {
 
     public String currentLocation = "Landing Dock";
     private final Player player = Player.PLAYER;
+    //private Instruction instructs;
+    private Map<String,Map<String,List<String>>> instructs=new Instruction().instruct;
 
     //public StringBuilder status = showStatus(currentLocation);
     public List<Item> inventory;
@@ -41,7 +42,6 @@ public class GameEngine {
             zombieNPC = new Zombie(6, currentLocation);
 
         }
-
         String[] command;
         command = Parser.parseInput(input.toLowerCase());
 
@@ -77,7 +77,7 @@ public class GameEngine {
                 if (command.length > 1) {
                     gameBuilder.append(pickUpItem((command[1])));
                 } else {
-                    gameBuilder.append("\n \"Sorry, Dave. I can't get that.\n");
+                    gameBuilder.append(instructs.get("get").get("instructions").get(0));
                 }
                 break;
             case "drop":
@@ -96,9 +96,9 @@ public class GameEngine {
                     }
                     else if ("lever".equalsIgnoreCase(command[1]) && player.checkInventoryName(
                             "lever")){
-                        gameBuilder.append("What should I use this on?");
+                        gameBuilder.append(instructs.get("use").get("instructions").get(0));
                     } else {
-                        gameBuilder.append("You can't do that Dave.");
+                        gameBuilder.append(instructs.get("use").get("instructions").get(1));
                     }
                 }
                 break;
@@ -111,7 +111,7 @@ public class GameEngine {
 
 
                 } else {
-                    gameBuilder.append("\nDave, stay focused. You can pick a fight later.");
+                    gameBuilder.append(instructs.get("fight").get("instructions").get(8));
                 }
                 break;
             case "help":
@@ -154,55 +154,48 @@ public class GameEngine {
     //TODO:probably needs separation of responsibilities on this one.... we shouldnt make swords in a fight loop.. it should only be responsible for fighitng
     private StringBuilder fightLoop(Zombie zombie) {
         StringBuilder gameBuilder = new StringBuilder();
-
         Item zombieKatana = new Item("zombie katana", "Central Hub");
-        gameBuilder.append("\nYou're attacking the zombie.");
+        gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(0));
 
         if (currentLocation.contains("Landing Dock")) {
-            gameBuilder.append("\nPlayer: " + player.getHealth() + "HP. Zombie: " + zombie.getHealth() + "HP.");
+            gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(1).split(":")[0]+": " + player.getHealth()+instructs.get("fight").get("instructions").get(1).split(":")[1] + ": " + zombie.getHealth()
+                    + instructs.get("fight").get("instructions").get(1).split(":")[2]);
 
             if (player.getHealth() > 0 && player.checkInventory(zombieKatana)) {
                 zombie.takeDamage(player.attack() * 2);
-                gameBuilder.append("\nYou swing your katana. Zomburai has " + zombie.getHealth() + "HP.");
+                gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(2).split(":")[0] + zombie.getHealth() +instructs.get("fight").get("instructions").get(2).split(":")[1]);
             } else {
                 zombie.takeDamage(player.attack());
-                gameBuilder.append("\nYou used your fists. Zomburai has " + zombie.getHealth() + "HP.");
+                gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(3).split(":")[0] + zombie.getHealth() + instructs.get("fight").get("instructions").get(3).split(":")[1]);
+
             }
             if (zombie.getHealth() > 0) {
                 player.takeDamage(zombie.attack());
-                gameBuilder.append("\nThe Zomburai hits you. You have " + player.getHealth() + "HP.");
+                gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(4).split(":")[0] + player.getHealth() +instructs.get("fight").get("instructions").get(4).split(":")[1]);
+
             }
 
 
             if (player.getHealth() <= 0 || zombie.getHealth() <= 0) {
                 if (player.getHealth() > 0) {
-                    gameBuilder.append("\nYou managed to kill the Zomburai!\n");
+                    gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(5)+"\n");
                     player.setFightingZombie(false);
                     //zombie.setLocation(); <<<<<<< this should be a random location... gotta find out how to get that form the json
                 } else {
-                    gameBuilder.append("\nLooks like you've been killed. Womp womp.\n");
+                    gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(6));
                     player.setFightingZombie(false);
                 }
             }
         } else {
-            gameBuilder.append("\nJust because you can, doesn't mean you should.");
+            gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(7));
         }
         return gameBuilder;
     }
-//provide instructions when the user type 'help'
+    //provide instructions when the user type 'help'
     private StringBuilder showInstructions() {
         StringBuilder builder = new StringBuilder();
-        List<String> instructions =null;
-        try
-        {
-            //read all the lines from the file into a list of string
-            instructions = Files.readAllLines(Path.of("cfg/instructions.txt"));
-        }
-        catch (IOException ex){
-            ex.printStackTrace();
-        }
-        //for each line, append it to the string builder object
-        instructions.stream().forEach(eachLine->builder.append("\n"+eachLine));
+           //for each line, append it to the string builder object
+        instructs.get("help").get("instructions").stream().forEach(eachLine->builder.append("\n"+eachLine));
         return builder;
     }
 
@@ -215,14 +208,14 @@ public class GameEngine {
         }
         String response;
         if (object.equals("around")) {
-            response = "Don't look too hard now.";
+            response = instructs.get("look").get("instructions").get(0);
         } else if (catalog.containsKey(object)) {
             response = catalog.get(object).getDescription();
         }  else if (NPC.checkCast(object)) {
             NPC character = new NPC(objectToFind);
             response = character.getDescription();
         } else {
-            response = "You don't see a " + object + ".";
+            response = instructs.get("look").get("instructions").get(1) + object + ".";
         }
         return response + "\n";
     }
@@ -231,8 +224,8 @@ public class GameEngine {
     public StringBuilder showStatus(String location) {
         StringBuilder builder = new StringBuilder();
         System.out.println(player.getAreasVisited());
-        System.out.println("Zombies currently following you: " + player.getZombiesFollowing());
-        builder.append("\n You are currently in the ")
+        System.out.println(instructs.get("status").get("instructions").get(0) + player.getZombiesFollowing());
+        builder.append(instructs.get("status").get("instructions").get(1))
                 .append(location).append("\n\n");
         return builder;
     }
@@ -278,13 +271,13 @@ public class GameEngine {
                 }
             }
             if (items.size() > 0) {
-                description.append("\nItems in room: [");
+                description.append(instructs.get("examine").get("instructions").get(0));
                 for (Item item : items) {
                     description.append(" ").append(item.getName()).append(" ");
                 }
                 description.append("]\n");
             } else {
-                description.append("\nRuh roh. No items here!");
+                description.append(instructs.get("examine").get("instructions").get(1));
             }
             return description + "\n";
         } catch (NullPointerException e) {
@@ -303,12 +296,12 @@ public class GameEngine {
             }
             if (current.containsKey(direction)) {
                 currentLocation = next;
-                return "You moved " + direction + "\n";
+                return instructs.get("head").get("instructions").get(0) + direction + "\n";
             }
         } catch (NullPointerException e) {
-            System.out.println("Can't go that way\n");
+            System.out.println(instructs.get("head").get("instructions").get(1));
         }
-        return "Can't go that way\n";
+        return instructs.get("head").get("instructions").get(2);
     }
 
     private JSONObject getJsonObject() {
@@ -324,7 +317,7 @@ public class GameEngine {
 
     private String dropItem(String playerItem) {
         if (!player.checkInventoryName(playerItem)) {
-            return "You can't drop what you don't have, Dave.";
+            return instructs.get("drop").get("instructions").get(0);
         }
 
         //inventory.removeIf(item -> item.getName().equals(playerItem));
@@ -339,17 +332,17 @@ public class GameEngine {
             inventory.add(emptyItem);
         }
 
-        return "You dropped the " + playerItem + " in the " + currentLocation;
+        return instructs.get("drop").get("instructions").get(1) + playerItem + instructs.get("drop").get("instructions").get(2) + currentLocation;
     }
 
     private String healPlayer() {
         String response = "";
         StringBuilder builder = new StringBuilder();
         if (player.getHealth() >= 30) {
-            response = "\nYou're at max health.";
+            response = instructs.get("heal").get("instructions").get(0);
         } else {
             player.setHealth(player.getHealth() + 5);
-            response = "\nYour current health is: " + player.getHealth() + "HP. ";
+            response = instructs.get("heal").get("instructions").get(1) + player.getHealth() + instructs.get("heal").get("instructions").get(2);
         }
         return response;
     }
@@ -360,10 +353,10 @@ public class GameEngine {
             item.setLocation("player");
             player.addToInventory(item);
             catalog.replace(thing, item);
-            return "Placed " + thing + " in your inventory\n";
+            return instructs.get("pick").get("instructions").get(0) + thing + instructs.get("pick").get("instructions").get(1);
         } else if (item != null && item.getLocation().equals("player")) {
-            return "You already have the " + thing;
+            return instructs.get("pick").get("instructions").get(2) + thing;
         }
-        return thing + " doesn't exist\n";
+        return thing + instructs.get("pick").get("instructions").get(3);
     }
 }
