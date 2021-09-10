@@ -147,39 +147,53 @@ public class GameEngine {
 
     private StringBuilder fightLoop(Zombie zombie) {
         StringBuilder gameBuilder = new StringBuilder();
-
+        List<String> attacks = null;
+        try
+        {
+            attacks=Files.readAllLines(Path.of("cfg/zombieAttack.txt"));
+        }
+        catch (IOException ex){
+            ex.printStackTrace();
+        }
         Item zombieKatana = new Item("zombie katana", "Central Hub");
-        gameBuilder.append("\nYou're attacking the zombie.");
+        gameBuilder.append("\n"+attacks.get(0));
 
         if (currentLocation.contains("Landing Dock")) {
-            gameBuilder.append("\nPlayer: " + player.getHealth() + "HP. Zombie: " + zombie.getHealth() + "HP.");
+            gameBuilder.append("\n"+attacks.get(1).split(":")[0]+": " + player.getHealth()+attacks.get(1).split(":")[1] + ": " + zombie.getHealth()
+                    + attacks.get(1).split(":")[2]);
 
             if (player.getHealth() > 0 && player.checkInventory(zombieKatana)) {
+
                 zombie.takeDamage(player.attack() * 2);
-                gameBuilder.append("\nYou swing your katana. Zomburai has " + zombie.getHealth() + "HP.");
+                gameBuilder.append("\n"+attacks.get(2).split(":")[0] + zombie.getHealth() +attacks.get(2).split(":")[1]);
             } else {
                 zombie.takeDamage(player.attack());
-                gameBuilder.append("\nYou used your fists. Zomburai has " + zombie.getHealth() + "HP.");
+                gameBuilder.append("\n"+attacks.get(3).split(":")[0] + zombie.getHealth() + attacks.get(3).split(":")[1]);
+
+               
             }
 
 //                        Thread.sleep(500); // Only works with sout. gameBuilder does a delay and then prints
             if (zombie.getHealth() > 0) {
+
                 player.takeDamage(zombie.attack());
-                gameBuilder.append("\nThe Zomburai hits you. You have " + player.getHealth() + "HP.");
+                gameBuilder.append("\n"+attacks.get(4).split(":")[0] + player.getHealth() +attacks.get(4).split(":")[1]);
+
+               
             }
 
 
             if (player.getHealth() <= 0 || zombie.getHealth() <= 0) {
                 if (player.getHealth() > 0) {
-                    gameBuilder.append("\nYou managed to kill the Zomburai!\n");
+                    gameBuilder.append("\n"+attacks.get(5)+"\n");
                     player.setFightingZombie(false);
                 } else {
-                    gameBuilder.append("\nLooks like you've been killed. Womp womp.\n");
+                    gameBuilder.append("\n"+attacks.get(6));
                     player.setFightingZombie(false);
                 }
             }
         } else {
-            gameBuilder.append("\nJust because you can, doesn't mean you should.");
+            gameBuilder.append("\n"+attacks.get(7));
         }
         return gameBuilder;
     }

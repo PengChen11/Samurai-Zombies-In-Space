@@ -1,0 +1,8 @@
+You're attacking the zombie.
+Player:HP. Zombie:HP.
+You swing your katana. Zombie has:HP
+You used your fists. Zombie has :HP
+The Zombie hits you. You have :HP
+You managed to kill the Zombie!
+Looks like you've been killed. Womp womp.
+Just because you can, doesn't mean you should.
