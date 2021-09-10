@@ -35,8 +35,12 @@ public class GameEngine {
     public StringBuilder runGameLoop(String input) {
         StringBuilder gameBuilder = new StringBuilder();
         inventory = player.getInventory();
-        //instructs=new Instruction().getInstruction();
-        //System.out.println(instructs.get("fight").get("instructions"));
+
+        // initialize a zombie if there is a zombie in current location
+        Zombie zombie = null;
+        if (checkForZombies()) {
+            zombie = new Zombie(6, currentLocation);
+        }
         String[] command;
         command = Parser.parseInput(input.toLowerCase());
 
@@ -50,6 +54,15 @@ public class GameEngine {
             case "look":
                 if (command[1] == null || command[1].isBlank() || "around".equalsIgnoreCase(command[1])) {
                     gameBuilder.append(examineRoom());
+                    // the zombie should attack you if there is a zombie in the room
+                        if (checkForZombies()) {
+                            if (zombie.getHealth() > 0) {
+                                player.takeDamage(zombie.attack());
+                                gameBuilder.append("\nThe Zomburai hits you. You have " + player.getHealth() + "HP.");
+                                gameBuilder.append("\nYou can fight the zombie or go to other locations");
+                            }
+                        }
+
                 } else {
                     gameBuilder.append(getLookResult(command[1]));
                 }
@@ -89,8 +102,7 @@ public class GameEngine {
                 }
                 break;
             case "fight":
-                if (checkForZombies() && (command.length == 1 || "zombie".equalsIgnoreCase(command[1]))) {
-                    Zombie zombie = new Zombie(6, currentLocation);
+                if (checkForZombies() && (command[1] == null || "zombie".equalsIgnoreCase(command[1]))) {
                     player.setFightingZombie(true);
                     while (player.getFightingZombie()) {
                         gameBuilder.append(fightLoop(zombie));
@@ -143,17 +155,18 @@ public class GameEngine {
                     + instructs.get("fight").get("instructions").get(1).split(":")[2]);
 
             if (player.getHealth() > 0 && player.checkInventory(zombieKatana)) {
-                zombie.takeDamage(zombie.attack() * 2);
+                zombie.takeDamage(player.attack() * 2);
                 gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(2).split(":")[0] + zombie.getHealth() +instructs.get("fight").get("instructions").get(2).split(":")[1]);
             } else {
-                zombie.takeDamage(zombie.attack());
+                zombie.takeDamage(player.attack());
                 gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(3).split(":")[0] + zombie.getHealth() + instructs.get("fight").get("instructions").get(3).split(":")[1]);
             }
 
 //                        Thread.sleep(500); // Only works with sout. gameBuilder does a delay and then prints
             if (zombie.getHealth() > 0) {
-                player.takeDamage(player.attack());
+                player.takeDamage(zombie.attack());
                 gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(4).split(":")[0] + player.getHealth() +instructs.get("fight").get("instructions").get(4).split(":")[1]);
+
             }
 
 
