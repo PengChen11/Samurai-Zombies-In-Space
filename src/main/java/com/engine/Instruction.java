@@ -13,25 +13,34 @@ import java.util.List;
 import java.util.Map;
 
 public class Instruction {
-    Map<String, Map<String, List<String>>> instruct;
+    private Map<String, Map<String, List<String>>> instruct;
 
     /**
      * method to generate the map
      */
     Instruction() {
+        isParseable();
+         }
+
+    public Map<String, Map<String, List<String>>> getInstruction() {
+        return instruct;
+    }
+
+     boolean isParseable()
+    {
+        boolean isSuccess = false;
         JSONParser parser = new JSONParser();
         instruct = new LinkedTreeMap<>();
         try {
-            JSONObject characterSet = (JSONObject) parser.parse(new FileReader("cfg/extendedFile.json"));
-            instruct = new Gson().fromJson(characterSet.toString(), LinkedTreeMap.class);
+            JSONObject instructionSet = (JSONObject) parser.parse(new FileReader("cfg/extendedFile.json"));
+            //JSONObject instructionSet = (JSONObject) parser.parse(new FileReader("cfg/extendedParse.json"));
+            instruct = new Gson().fromJson(instructionSet.toString(), LinkedTreeMap.class);
+            isSuccess = true;
         } catch (FileNotFoundException | ParseException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    Map<String, Map<String, List<String>>> getInstruction() {
-        return instruct;
+     return isSuccess;
     }
 }
