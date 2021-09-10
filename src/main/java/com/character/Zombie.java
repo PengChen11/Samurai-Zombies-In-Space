@@ -35,6 +35,10 @@ public class Zombie {
 
     public void takeDamage(int damageTaken){
         int currentHp = getHealth() - damageTaken;
-        setHealth(currentHp);
+        if (currentHp < 0) {
+            setHealth(0);
+        } else {
+            setHealth(currentHp);
+        }
     }
 }
