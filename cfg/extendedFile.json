@@ -48,5 +48,5 @@
   "pick": {
     "instructions" : ["Placed "," in your inventory\n" ,"You already have the "," doesn't exist\n"
     ]
-  }
+   }
 }
