@@ -58,8 +58,8 @@ public class GameEngine {
                         if (checkForZombies()) {
                             if (zombie.getHealth() > 0) {
                                 player.takeDamage(zombie.attack());
-                                gameBuilder.append("\nThe Zomburai hits you. You have " + player.getHealth() + "HP.");
-                                gameBuilder.append("\nYou can fight the zombie or go to other locations");
+                                gameBuilder.append(instructs.get("look").get("instructions").get(2) + player.getHealth() + instructs.get("look").get("instructions").get(4));
+                                gameBuilder.append(instructs.get("look").get("instructions").get(3));
                             }
                         }
 
