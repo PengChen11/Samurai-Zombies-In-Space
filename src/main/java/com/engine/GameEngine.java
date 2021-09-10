@@ -30,15 +30,16 @@ public class GameEngine {
 
     //Create a bar room
     HashMap<String, String> bar = new HashMap<>();
-
+    private Zombie zombieNPC;
     public StringBuilder runGameLoop(String input) {
         StringBuilder gameBuilder = new StringBuilder();
         inventory = player.getInventory();
 
         // initialize a zombie if there is a zombie in current location
-        Zombie zombie = null;
-        if (checkForZombies()) {
-            zombie = new Zombie(6, currentLocation);
+
+        if (checkForZombies() && zombieNPC.getLocation().equals(currentLocation)) {
+            zombieNPC = new Zombie(6, currentLocation);
+
         }
 
         String[] command;
@@ -56,8 +57,8 @@ public class GameEngine {
                     gameBuilder.append(examineRoom());
                     // the zombie should attack you if there is a zombie in the room
                         if (checkForZombies()) {
-                            if (zombie.getHealth() > 0) {
-                                player.takeDamage(zombie.attack());
+                            if (zombieNPC.getHealth() > 0) {
+                                player.takeDamage(zombieNPC.attack());
                                 gameBuilder.append("\nThe Zomburai hits you. You have " + player.getHealth() + "HP.");
                                 gameBuilder.append("\nYou can fight the zombie or go to other locations");
                             }
@@ -105,8 +106,10 @@ public class GameEngine {
                 if (checkForZombies() && (command[1] == null || "zombie".equalsIgnoreCase(command[1]))) {
                     player.setFightingZombie(true);
                     while (player.getFightingZombie()) {
-                        gameBuilder.append(fightLoop(zombie));
+                        gameBuilder.append(fightLoop(zombieNPC));
                     }
+
+
                 } else {
                     gameBuilder.append("\nDave, stay focused. You can pick a fight later.");
                 }
@@ -133,10 +136,11 @@ public class GameEngine {
     }
 
     private Boolean checkForZombies() {
+
         try {
             JSONObject current = getJsonObject();
             String zombie = (String) current.get("enemy");
-            if (zombie.equals("Zombie")) {
+            if ("Zombie".equals(zombie) ) {
                 return true;
             }
         } catch (NullPointerException e) {
@@ -145,6 +149,9 @@ public class GameEngine {
         return false;
     }
 
+
+
+    //TODO:probably needs separation of responsibilities on this one.... we shouldnt make swords in a fight loop.. it should only be responsible for fighitng
     private StringBuilder fightLoop(Zombie zombie) {
         StringBuilder gameBuilder = new StringBuilder();
 
@@ -161,8 +168,6 @@ public class GameEngine {
                 zombie.takeDamage(player.attack());
                 gameBuilder.append("\nYou used your fists. Zomburai has " + zombie.getHealth() + "HP.");
             }
-
-//                        Thread.sleep(500); // Only works with sout. gameBuilder does a delay and then prints
             if (zombie.getHealth() > 0) {
                 player.takeDamage(zombie.attack());
                 gameBuilder.append("\nThe Zomburai hits you. You have " + player.getHealth() + "HP.");
@@ -173,6 +178,7 @@ public class GameEngine {
                 if (player.getHealth() > 0) {
                     gameBuilder.append("\nYou managed to kill the Zomburai!\n");
                     player.setFightingZombie(false);
+                    //zombie.setLocation(); <<<<<<< this should be a random location... gotta find out how to get that form the json
                 } else {
                     gameBuilder.append("\nLooks like you've been killed. Womp womp.\n");
                     player.setFightingZombie(false);
