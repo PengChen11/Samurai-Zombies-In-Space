@@ -160,6 +160,7 @@ public class GameEngine {
             } else {
                 zombie.takeDamage(player.attack());
                 gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(3).split(":")[0] + zombie.getHealth() + instructs.get("fight").get("instructions").get(3).split(":")[1]);
+
             }
 
 //                        Thread.sleep(500); // Only works with sout. gameBuilder does a delay and then prints
