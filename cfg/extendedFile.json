@@ -25,7 +25,8 @@
     ]
   },
   "look": {
-    "instructions" : ["Don't look too hard now.","You don't see a "
+    "instructions" : ["Don't look too hard now.","You don't see a ",
+      "\nThe Zombie hits you. You have ","\nYou can fight the zombie or go to other locations","HP. "
     ]
   },
   "status": {
