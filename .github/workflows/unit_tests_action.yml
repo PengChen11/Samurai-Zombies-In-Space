@@ -14,12 +14,5 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Cache the Maven packages to speed up build
-          uses: actions/cache@v1
-          with:
-            path: ~/.m2
-            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-            restore-keys: ${{ runner.os }}-m2
-
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify
