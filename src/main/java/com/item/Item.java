@@ -19,6 +19,10 @@ public class Item {
     private String location; // until location is a class?
     private String description;
 
+    public Item(String name) {
+        this.name = name;
+    }
+
     /**
      *
      * @return catalog hashmap

@@ -1,0 +1,59 @@
+[
+  {
+    "name": "Landing Dock",
+    "north": "Central Hub",
+    "west": "Escape Shuttle",
+    "east": "Repair Workshop",
+    "south": "Ship",
+    "NPC": "guard",
+    "enemy": "Zombie",
+    "description": "You're located in the Landing Dock. To the west you notice an escape dock littered with debris. To the East you find a beat up repair shop, advertising \"Their low prices are to die for\". South of you, you'll find your ship. There's some smoke coming out of the FTL engine. You curse the stupid space debris for damaging your craft while you search for a repair, but you're surprised when you see a guard hiding behind some debris.",
+    "isCurrent": true
+  },
+  {
+    "name": "Repair Workshop",
+    "west": "Landing Dock",
+    "NPC": "engineer",
+    "items": ["wizzlewhat", "space wrench"],
+    "description": "Inside the shop you see repair parts, including a wizzlewhat, knocked over on the ground. There's blood smeared behind a counter (someone must have had a bad accident). The only exit is the way you came in, back to the west. You take a step forward and hear the sound of a tool hit the ground. You quickly glance over and see a pair of eyes behind a stack of RAD boosters -- it looks like an engineer.",
+    "isCurrent": false
+  },
+  {
+    "name": "Central Hub",
+    "east": "Bar",
+    "west": "Medical Bay",
+    "south": "Landing Dock",
+    "items": ["zombie armor", "zombie katana"],
+    "description": "As soon as you step inside you start to slowly drift upwards. You look around and see floating tables and crates. The generator must be broken so this room isn't getting any gravity. To the east you find a bright flickering neon light that reads \"Jill's Cantina\". There are also exits to the west and south. What appears to be a beheaded Samurai Zombie is floating nearby.",
+    "isCurrent": false
+  },
+  {
+    "name": "Bar",
+    "west": "Central Hub",
+    "NPC": "bartender",
+    "items": ["swiss army knife"],
+    "description": "There's space music playing on the jukebox. The tables near the western exit are stacked on each other, some broken cleanly in half. Grabbing a drink from the bar doesn't sound like a bad idea. You nod to the bartender.",
+    "isCurrent": false
+  },
+  {
+    "name": "Medical Bay",
+    "east": "Central Hub",
+    "NPC": "visitor",
+    "items": ["health kit", "lever"],
+    "description": "The smell of iron fills the room. The walls are painted red and there's a few bodies lying on the ground. One is holding a lever. There are medical supply boxes on the ground and some on the shelves, all empty. There may be more to find towards the back of the room. As you head that way to investigate, you're startled by a visitor to the station who looks near death.",
+    "isCurrent": false
+  },
+  {
+    "name": "Escape Shuttle",
+    "east": "Landing Dock",
+    "items": ["oxygen tank"],
+    "description": "The area is littered with cargo boxes, rats, and wires hanging loosely from the walls. Only the life support systems seem to be untouched. The exit to the east is the only way out.",
+    "isCurrent": false
+  },
+  {
+    "name": "Ship",
+    "north": "Landing Dock",
+    "description": "I'm on a boat. You can go back north to the landing dock.",
+    "isCurrent": false
+  }
+]

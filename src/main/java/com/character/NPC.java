@@ -9,16 +9,19 @@ public class NPC {
     private ArrayList<String> dialogue;
     private String description = "Can't really tell what you're seeing. Are you losing it?";
     private static int dialogueNum = 0;
+    private String name;
 
     public NPC(String character) {
         if (characters.containsKey(character)) {
             dialogue = characters.get(character).get("dialogue");
             description = characters.get(character).get("description").get(0);
+            this.name = character;
         } else {
             dialogue = new ArrayList<>();
             dialogue.add("Are you talking to yourself? Could you be infected??");
             dialogue.add("Seriously, who are you talking to?");
             dialogue.add("There is no response. Is anyone even here?");
+            this.name = character;
         }
 
     }
@@ -44,5 +47,9 @@ public class NPC {
 
     private int getDialogueNum() {
         return dialogueNum;
+    }
+
+    public String getName() {
+        return name;
     }
 }
