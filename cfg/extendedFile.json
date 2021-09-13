@@ -1,0 +1,52 @@
+{
+  "help" : {
+    "instructions" : ["     Command      ","=============================================","Movement: go (north, south, east, west)",
+      "Observation: look [around]","Get Information: talk [NPC]","Actions: get [item], drop [item], fight [zombie], heal, use [item]",
+      "q to quit"
+    ]
+    },
+  "fight": {
+    "instructions" : ["You're attacking the zombie.","Player:HP. Zombie:HP.","You swing your katana. Zombie has:HP",
+      "You used your fists. Zombie has :HP","The Zombie hits you. You have :HP","You managed to kill the Zombie!",
+      "Looks like you've been killed. Womp womp.","Just because you can, doesn't mean you should.",
+      "\nDave, stay focused. You can pick a fight later."
+      ]
+  },
+  "examine": {
+    "instructions": ["\nItems in room: [","\nRuh roh. No items here!"
+          ]
+      },
+  "get": {
+    "instructions" : ["\n \"Sorry, Dave. I can't get that.\n"
+          ]
+  },
+  "use": {
+    "instructions" : ["What should I use this on?","You can't do that Dave."
+    ]
+  },
+  "look": {
+    "instructions" : ["Don't look too hard now.","You don't see a ",
+      "\nThe Zombie hits you. You have ","\nYou can fight the zombie or go to other locations","HP. "
+    ]
+  },
+  "status": {
+    "instructions" : ["Zombies currently following you: ","\nYou are currently in the "
+    ]
+  },
+  "head": {
+    "instructions" : ["You moved ","Can't go that way\n","Can't go that way\n"
+    ]
+  },
+  "drop": {
+    "instructions" : ["You can't drop what you don't have, Dave.","You dropped the "," in the "
+    ]
+  },
+  "heal": {
+    "instructions" : ["\nYou're at max health.","\nYour current health is: " ,"HP. "
+    ]
+  },
+  "pick": {
+    "instructions" : ["Placed "," in your inventory\n" ,"You already have the "," doesn't exist\n"
+    ]
+   }
+}

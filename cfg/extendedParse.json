@@ -1,0 +1,16 @@
+{
+"help" :3,
+
+"fight": "zombie",
+"examine": {
+"instructions": ["\nItems in room: [","\nRuh roh. No items here!"
+]
+},
+"get": {
+"instructions" : 3
+
+},
+"use": {
+"instructions" : ["What should I use this on?","You can't do that Dave."
+]
+}}
