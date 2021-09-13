@@ -15,10 +15,11 @@ public class LocationsTest {
     public void setup() {
         current = Locations.CentralHub;
     }
+
     @After
     public void resetItemList(){
         if (current.getItemList().size() != 0){
-            current.removeItem(testItem);
+            current.getItemList().clear();
         }
     }
 
