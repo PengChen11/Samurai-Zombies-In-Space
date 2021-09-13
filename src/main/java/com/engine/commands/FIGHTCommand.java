@@ -5,6 +5,8 @@ import com.character.Zombie;
 import com.engine.Parser;
 import com.item.Item;
 
+import com.sound.Punch;
+import com.sound.SoundFX;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -69,7 +71,7 @@ public class FIGHTCommand implements CommandInterface {
         if (currentLocation.contains("Landing Dock")) {
             gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(1).split(":")[0]+": " + player.getHealth()+instructs.get("fight").get("instructions").get(1).split(":")[1] + ": " + zombie.getHealth()
                     + instructs.get("fight").get("instructions").get(1).split(":")[2]);
-
+            new Punch().startMusic();
             processArmedPlayer(zombie, gameBuilder, zombieKatana, player, instructs);
             processZombieAndPlayerHealth(zombie, gameBuilder, player, instructs);
         } else {
