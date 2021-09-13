@@ -48,4 +48,14 @@ public class LocationInitFromJsonTest {
     public void zombieShouldWork(){
         assertNotNull(Locations.LandingDock.getZombie());
     }
+
+    @Test
+    public void shouldBeAbleToTurnNPCToZombie(){
+        assertNotNull(Locations.Bar.getNpc());
+        assertNull(Locations.Bar.getZombie());
+        Locations.turnNpcToZombie(Locations.Bar);
+        assertNull(Locations.Bar.getNpc());
+        assertNotNull(Locations.Bar.getZombie());
+
+    }
 }
