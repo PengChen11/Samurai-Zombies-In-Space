@@ -1,0 +1,14 @@
+[
+  {
+    "name": "zombie katana",
+    "attack power": 8,
+    "description": "Funny, you like samurai swords... I like baseball.",
+    "location": "Central Hub"
+  },
+  {
+    "name": "zombie gun",
+    "attack power": 10,
+    "description": "LOL, you like samurai gun...",
+    "location": "Central Hub"
+  }
+]

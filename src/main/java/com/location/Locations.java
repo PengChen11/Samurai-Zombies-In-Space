@@ -191,4 +191,11 @@ public enum Locations {
         locationsMap.put("Ship", Locations.Ship);
         return locationsMap;
     }
+
+    public static void turnNpcToZombie(Locations location){
+        if (location.getNpc() != null && location.getZombie() == null){
+            location.setNpc(null);
+            location.setZombie(Zombie.getInstance());
+        }
+    }
 }
