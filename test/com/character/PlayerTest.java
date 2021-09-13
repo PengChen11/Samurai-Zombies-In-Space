@@ -43,6 +43,9 @@ public class PlayerTest {
 
         player.setLocation("Loading Dock");
         assertTrue(player.addToInventory(item1));
+        // github action tests
+//        assertFalse(player.addToInventory(item1));
+
         player.setLocation("med bay");
         assertTrue(player.addToInventory(item2));
 

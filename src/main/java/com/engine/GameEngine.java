@@ -23,7 +23,7 @@ public class GameEngine {
     public String currentLocation = "Landing Dock";
     private final Player player = Player.PLAYER;
     //private Instruction instructs;
-    private Map<String,Map<String,List<String>>> instructs=new Instruction().instruct;
+    private Map<String,Map<String,List<String>>> instructs=new Instruction().getInstruction();
 
     //public StringBuilder status = showStatus(currentLocation);
     public List<Item> inventory;

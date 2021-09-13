@@ -8,7 +8,7 @@ public class Parser {
 
     public static String[] parseInput(String command) {
         String returnValue[] = new String[2];
-        String[] explodedCommand = command.split("\\s+");
+        String[] explodedCommand = command.trim().toLowerCase().split("\\s+");
         if (explodedCommand.length == 2) {
             returnValue = explodedCommand;
         }
