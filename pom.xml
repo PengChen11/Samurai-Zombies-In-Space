@@ -19,6 +19,8 @@
                 </configuration>
             </plugin>
         </plugins>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>test</testSourceDirectory>
     </build>
     <properties>
         <javafx.version>16</javafx.version>
