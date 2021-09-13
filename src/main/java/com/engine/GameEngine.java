@@ -1,10 +1,11 @@
 package com.engine;
 
-import com.character.NPC;
 import com.character.Player;
 import com.character.Zombie;
+
 import com.engine.commands.*;
 import com.item.Item;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class GameEngine {
    private GameEngine(){
@@ -23,7 +25,7 @@ public class GameEngine {
     public String currentLocation = "Landing Dock";
     private final Player player = Player.PLAYER;
     //private Instruction instructs;
-    private Map<String,Map<String,List<String>>> instructs=new Instruction().instruct;
+    private Map<String,Map<String,List<String>>> instructs=new Instruction().getInstruction();
 
     //public StringBuilder status = showStatus(currentLocation);
     public List<Item> inventory;
@@ -47,6 +49,7 @@ public class GameEngine {
         generateZombie();
         String[] command;
         command = Parser.parseInput(input.toLowerCase());
+
 
         ArrayList<CommandInterface> commandList = getCommandInterfaces();
 
@@ -121,7 +124,7 @@ public class GameEngine {
         CommandInterface qCommand = new QCommand();
         CommandInterface talkCommand = new TALKCommand();
         CommandInterface lookCommand = new LOOKCommand();
-        CommandInterface fightCommand = new FIGHTCommand();
+        CommandInterface fightCommand =  new FIGHTCommand();
         CommandInterface useCommand = new USECommand();
         CommandInterface getCommand = new GETCommand();
         CommandInterface dropCommand = new DROPCommand();
