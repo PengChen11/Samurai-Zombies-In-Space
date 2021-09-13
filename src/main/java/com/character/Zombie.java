@@ -12,6 +12,10 @@ public class Zombie {
         this.location = location;
     }
 
+    private Zombie(Integer health){
+        this.health = health;
+    }
+
     //METHODS
     public Integer getHealth() {
         return health;
@@ -40,5 +44,9 @@ public class Zombie {
         } else {
             setHealth(currentHp);
         }
+    }
+
+    public static Zombie getInstance(){
+        return new Zombie(6);
     }
 }
