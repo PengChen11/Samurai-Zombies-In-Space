@@ -44,7 +44,7 @@ public class GameSceneController implements Initializable {
     private Slider fontSlider;
 
 
-    private final GameEngine gameEngine = new GameEngine();
+    private final GameEngine gameEngine = GameEngine.getInstance();
 
     private final HashMap<String, double[]> mapCoordinates = new HashMap<>();
     public GameSceneController() {
@@ -55,8 +55,6 @@ public class GameSceneController implements Initializable {
         mapCoordinates.put("Central Hub", new double[] {198,278});
         mapCoordinates.put("Bar", new double[] {262,111});
         mapCoordinates.put("Medical Bay", new double[] {80,118});
-
-
     }
 
     private TextField getInputTextField() {
