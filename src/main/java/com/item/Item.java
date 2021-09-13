@@ -15,9 +15,9 @@ import java.io.IOException;
 
 public class Item {
 
-    private String name;
-    private String location; // until location is a class?
-    private String description;
+    String name;
+    String location; // until location is a class?
+    String description;
 
     /**
      *
