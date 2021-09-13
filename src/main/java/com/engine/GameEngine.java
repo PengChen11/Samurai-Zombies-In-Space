@@ -2,10 +2,8 @@ package com.engine;
 
 import com.character.Player;
 import com.character.Zombie;
-
 import com.engine.commands.*;
 import com.item.Item;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,13 +15,16 @@ import java.util.List;
 
 
 public class GameEngine {
-   private GameEngine(){
+   GameEngine(){
 
     }
 
     private static GameEngine instance = new GameEngine();
     public String currentLocation = "Landing Dock";
     private final Player player = Player.PLAYER;
+
+
+
     //private Instruction instructs;
     private Map<String,Map<String,List<String>>> instructs=new Instruction().getInstruction();
 
@@ -34,8 +35,6 @@ public class GameEngine {
     HashMap<String, Item> catalog = Item.readAll();
     static JSONParser parser = new JSONParser();
 
-    //Create a bar room
-    HashMap<String, String> bar = new HashMap<>();
     private Zombie zombieNPC;
 
 
@@ -56,7 +55,6 @@ public class GameEngine {
         for(CommandInterface commandFromList : commandList){
             if(commandFromList.getClass().getSimpleName().contains(command[0].toUpperCase())){
                 commandFromList.processCommand(gameBuilder,command,currentLocation,inventory,zombieNPC,instructs,player,catalog,parser);
-                System.out.println(player.getHealth());
             }
         }
         //update win/lose status
@@ -145,5 +143,31 @@ public class GameEngine {
         commandList.add(inventoryCommand);
         commandList.add(helpCommand);
         return commandList;
+
+
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Map<String, Map<String, List<String>>> getInstructs() {
+        return instructs;
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
+    public HashMap<String, Item> getCatalog() {
+        return catalog;
+    }
+
+    public static JSONParser getParser() {
+        return parser;
+    }
+
+    public Zombie getZombieNPC() {
+        return zombieNPC;
     }
 }
