@@ -1,51 +1,51 @@
-package com.engine;
+package com.gameEngine;
 
 import com.character.Player;
-import com.character.Zombie;
-import com.engine.commands.*;
+import com.engine.Instruction;
+import com.engine.Parser;
+import com.gameEngine.commands.*;
 import com.item.Item;
+import com.location.Locations;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+public enum GameEngine {
 
-public class GameEngine {
-   GameEngine(){
+    GAME_ENGINE; // how to refer to instance of game engine
+    private Locations currentLocation;
+    private final Player player = Player.PLAYER;
+    private StringBuilder gameBuilder = new StringBuilder();
 
+    public StringBuilder getGameBuilder() {
+        return gameBuilder;
     }
 
-    private static GameEngine instance = new GameEngine();
-    public String currentLocation = "Landing Dock";
-    private final Player player = Player.PLAYER;
-
-
+    public void setGameBuilder(StringBuilder gameBuilder) {
+        this.gameBuilder = gameBuilder;
+    }
 
     //private Instruction instructs;
-    private Map<String,Map<String,List<String>>> instructs=new Instruction().getInstruction();
+    private Map<String, Map<String, List<String>>> instructs =new Instruction().getInstruction();
 
     //public StringBuilder status = showStatus(currentLocation);
     public List<Item> inventory;
 
     //NPC zombies; ?? later for tracking how many are alive and where?
     HashMap<String, Item> catalog = Item.readAll();
-    static JSONParser parser = new JSONParser();
-
-    private Zombie zombieNPC;
-
-
-    public static GameEngine getInstance(){
-        return instance;
-    }
     public StringBuilder runGameLoop(String input) {
 
         StringBuilder gameBuilder = new StringBuilder();
         inventory = player.getInventory();
-        generateZombie();
+
         String[] command;
         command = Parser.parseInput(input.toLowerCase());
 
@@ -54,26 +54,18 @@ public class GameEngine {
 
         for(CommandInterface commandFromList : commandList){
             if(commandFromList.getClass().getSimpleName().contains(command[0].toUpperCase())){
-                commandFromList.processCommand(gameBuilder,command,currentLocation,inventory,zombieNPC,instructs,player,catalog,parser);
+                commandFromList.processCommand();
             }
         }
         //update win/lose status
         checkPlayerHealth();
         checkPuzzleComplete();
-        return gameBuilder.append(showStatus(currentLocation));
+        return gameBuilder.append(showStatus(currentLocation.getName()));
     }
 
 
 
-    //This method should generate zombies if appropriate
-    private void generateZombie() {
-        if (checkForZombies()) {
-            zombieNPC = new Zombie(6, currentLocation);
-
-        }
-    }
-
-//    //This method finds out if there are zombies in that current location using the JSON file
+    //    //This method finds out if there are zombies in that current location using the JSON file
     private Boolean checkForZombies() {
         try {
             JSONObject current = getJsonObject();
@@ -108,6 +100,7 @@ public class GameEngine {
     private JSONObject getJsonObject() {
         JSONObject locations = new JSONObject();
         try {
+            JSONParser parser = new JSONParser();
             locations = (JSONObject) parser.parse(new FileReader("cfg/Locations.json"));
 
         } catch (IOException | ParseException e) {
@@ -115,7 +108,7 @@ public class GameEngine {
         }
         return (JSONObject) locations.get(currentLocation);
     }
-    public void setCurrentLocation(String currentLocation) {
+    public void setCurrentLocation(Locations currentLocation) {
         this.currentLocation = currentLocation;
     }
     private ArrayList<CommandInterface> getCommandInterfaces() {
@@ -163,11 +156,6 @@ public class GameEngine {
         return catalog;
     }
 
-    public static JSONParser getParser() {
-        return parser;
-    }
 
-    public Zombie getZombieNPC() {
-        return zombieNPC;
-    }
+
 }
