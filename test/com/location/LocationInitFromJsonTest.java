@@ -41,6 +41,7 @@ public class LocationInitFromJsonTest {
     public void itemsArrayShouldWork(){
         assertEquals(2, Locations.RepairWorkshop.getItemList().size());
         assertEquals(2, Locations.CentralHub.getItemList().size());
+        System.out.println(Locations.CentralHub.getItemList().size());
     }
 
     @Test

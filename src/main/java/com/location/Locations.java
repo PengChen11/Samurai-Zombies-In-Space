@@ -95,8 +95,22 @@ public enum Locations {
         return itemList;
     }
 
-    public void addItem(Item item) {
-        this.itemList.add(item);
+    public boolean addItem(Item newItem) {
+        boolean alreadyExist = false;
+
+        for (Item thing : itemList){
+            if (thing.getName().equalsIgnoreCase(newItem.getName())){
+                alreadyExist = true;
+                break;
+            }
+        }
+
+        if (alreadyExist){
+            return false;
+        }else {
+            this.itemList.add(newItem);
+            return true;
+        }
     }
 
     public void removeItem(Item item) {
