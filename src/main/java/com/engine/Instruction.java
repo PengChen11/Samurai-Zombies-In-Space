@@ -18,7 +18,7 @@ public class Instruction {
     /**
      * method to generate the map
      */
-    Instruction() {
+    public Instruction() {
         isParseable();
          }
 

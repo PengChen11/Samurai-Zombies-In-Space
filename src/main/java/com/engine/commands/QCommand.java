@@ -2,7 +2,7 @@ package com.engine.commands;
 
 import com.character.Player;
 import com.character.Zombie;
-import com.engine.commands.CommandInterface;
+
 import com.item.Item;
 import org.json.simple.parser.JSONParser;
 

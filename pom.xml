@@ -19,7 +19,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <sourceDirectory>src</sourceDirectory>
+<!--       <sourceDirectory>src</sourceDirectory>-->
         <testSourceDirectory>test</testSourceDirectory>
     </build>
     <properties>
