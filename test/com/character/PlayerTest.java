@@ -42,9 +42,9 @@ public class PlayerTest {
         item2 = new Item("shovel", "med bay");
 
         player.setLocation("Loading Dock");
-//        assertTrue(player.addToInventory(item1));
+        assertTrue(player.addToInventory(item1));
         // github action tests
-        assertFalse(player.addToInventory(item1));
+//        assertFalse(player.addToInventory(item1));
 
         player.setLocation("med bay");
         assertTrue(player.addToInventory(item2));
