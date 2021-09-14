@@ -130,6 +130,18 @@ public enum Player {
         return false;
     }
 
+    public void dropToCurrentLocation(String itemName){
+        Item item = null;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).getName().equals(itemName)) {
+                item = inventory.get(i);
+                inventory.remove(i);
+                break;
+            }
+        }
+        currentLocation.addItem(item);
+    }
+
     /**
      * Get size of inventory
      * @return size of inventory

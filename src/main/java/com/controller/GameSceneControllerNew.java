@@ -24,6 +24,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class GameSceneControllerNew implements Initializable {
@@ -109,6 +110,11 @@ public class GameSceneControllerNew implements Initializable {
 
     private void getPlayerInventory() {
         StringBuilder playerInventory = new StringBuilder();
+        List<Item> itemList = Player.PLAYER.getInventory();
+        if (itemList.size() == 0){
+            inventory.setText("");
+            return;
+        }
         for (Item item : Player.PLAYER.getInventory()) {
             playerInventory.append(item.getName()).append("\n");
             inventory.setText(String.valueOf(playerInventory));
