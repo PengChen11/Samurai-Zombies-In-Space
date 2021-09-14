@@ -73,6 +73,7 @@ public class FIGHTCommand implements CommandInterface {
         if (currentLocation.contains("Landing Dock")) {
             gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(1).split(":")[0]+": " + player.getHealth()+instructs.get("fight").get("instructions").get(1).split(":")[1] + ": " + zombie.getHealth()
                     + instructs.get("fight").get("instructions").get(1).split(":")[2]);
+
             //call the punch sound effect
             SoundFactory.createSound(SoundType.PUNCH).startMusic();
             processArmedPlayer(zombie, gameBuilder, zombieKatana, player, instructs);

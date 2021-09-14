@@ -28,5 +28,7 @@
             </image>
         </ImageView>
         <Button layoutX="306.0" layoutY="627.0" mnemonicParsing="false" onAction="#switchFromIntroToGame" prefHeight="80.0" prefWidth="216.0" text="Begin" />
+        <Button layoutX="306.0" layoutY="710.0" mnemonicParsing="false" onAction="#switchFromIntroToGameNew"
+                prefHeight="80.0" prefWidth="216.0" text="Begin with new engine" />
     </children>
 </AnchorPane>

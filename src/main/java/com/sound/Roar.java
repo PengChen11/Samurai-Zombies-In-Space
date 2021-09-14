@@ -4,7 +4,9 @@ import javafx.scene.media.AudioClip;
 
 import java.io.File;
 
+
 public class Roar extends SoundFX{
+
     private AudioClip roar;
     public Roar()
     {
