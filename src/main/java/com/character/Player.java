@@ -2,6 +2,8 @@ package com.character;
 
 
 import com.item.Item;
+import com.location.Locations;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public enum Player {
     boolean fightingZombie;
     Integer zombiesFollowing;
     List<String> areasVisited;
+    Locations currentLocation;
 
     /**
      * Constructor
@@ -31,6 +34,7 @@ public enum Player {
         this.fightingZombie = false;
         this.zombiesFollowing = 0;
         this.areasVisited = new ArrayList<>();
+        this.currentLocation = Locations.LandingDock;
     }
 
     /**
@@ -189,5 +193,12 @@ public enum Player {
     public void takeDamage(int damageTaken){
         int currentHp = getHealth() - damageTaken;
         setHealth(currentHp);
+    }
+
+    public Locations getCurrentLocation(){
+        return this.currentLocation;
+    }
+    public void setCurrentLocation(Locations currentLocation){
+        this.currentLocation = currentLocation;
     }
 }
