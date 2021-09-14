@@ -11,7 +11,7 @@ public class WeaponTest {
     public void whenOfferValidFileToGetWeapons_shouldReturnHashMapWithEntries() throws IOException {
         String validFilePath = "cfg/Weapons.json";
         HashMap<String, Weapon> weaponsMap = Weapon.getWeapons(validFilePath);
-        assertEquals(2, weaponsMap.size());
+        assertEquals(3, weaponsMap.size());
     }
 
     @Test(expected = IOException.class)

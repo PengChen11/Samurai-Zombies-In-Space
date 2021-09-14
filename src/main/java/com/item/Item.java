@@ -27,8 +27,14 @@ public class Item {
         }
     }
 
-    public Item(String name) throws IOException {
+    public Item(String name) {
         this.name = name;
+    }
+
+    public Item(String name, String location) {
+        this.name = name;
+        this.location = location;
+
     }
     public Item(String name, String location, String description) throws IOException {
         this.name = name;
@@ -55,6 +61,40 @@ public class Item {
         return items;
     }
 
+    /**
+     *
+     * @return catalog hashmap
+     */
+    public static HashMap<String, Item> readAll() {
+        JSONParser parser = new JSONParser();
+        JSONParser parser2 = new JSONParser();
+        HashMap<String, Item> catalog = new HashMap<>();
+        try {
+            JSONObject characterSet = (JSONObject) parser.parse(new FileReader("cfg/Locations.json"));
+            JSONObject itemSet = (JSONObject) parser.parse(new FileReader("cfg/Items.json"));
+            for (Object room : characterSet.keySet()) {
+                JSONObject roomObj = (JSONObject) characterSet.get(room);
+                JSONArray itemArr = (JSONArray) roomObj.get("Item");
+                if (itemArr != null) {
+                    for (Object item : itemArr) {
+                        String description =  itemSet.get(item.toString()).toString();
+                        catalog.put(item.toString(), new Item(item.toString(), room.toString()));
+                        catalog.get(item.toString()).setDescription(description);
+                    }
+                }
+            }
+
+        } catch (FileNotFoundException | ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(catalog.keySet());
+        return catalog;
+    }
+
+
+
     public static void main(String[] args) throws IOException {
         HashMap<String, Item> items = Item.getItems("cfg/Items.json");
         for (Map.Entry entry : items.entrySet()) {
@@ -65,6 +105,10 @@ public class Item {
 
     public String getDescription() {
         return description;
+    }
+
+    private void setDescription(String description) {
+        this.description = description;
     }
 
     public String getLocation() {
