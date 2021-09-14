@@ -4,7 +4,9 @@ import javafx.scene.media.AudioClip;
 
 import java.io.File;
 
+
 public class Punch extends SoundFX{
+
     private AudioClip punchClip;
 
     public Punch(){

@@ -1,6 +1,5 @@
 package com.sound;
 
-import javafx.scene.media.MediaPlayer;
 
 public abstract class SoundFX {
 
@@ -10,4 +9,5 @@ public abstract class SoundFX {
     public void controlVolume(double volume) {
         System.out.println();
     }
+
 }
