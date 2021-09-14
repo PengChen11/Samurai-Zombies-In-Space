@@ -1,7 +1,13 @@
 package com.sound;
 
-public interface SoundFX {
-    void startMusic();
-    void controlVolume(double volume);
+
+public abstract class SoundFX {
+
+
+    public abstract void startMusic();
+
+    public void controlVolume(double volume) {
+        System.out.println();
+    }
 
 }
