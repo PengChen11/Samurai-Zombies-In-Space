@@ -21,7 +21,7 @@ public class FIGHTCommand implements CommandInterface{
             while(Player.PLAYER.getHealth() > 0 && Locations.getEnumMap().get(currentLocKey).getZombie().getHealth() > 0 ){
                 Locations.getEnumMap().get(currentLocKey).getZombie().takeDamage(Player.PLAYER.attack());
                 Player.PLAYER.takeDamage(Locations.getEnumMap().get(currentLocKey).getZombie().attack());
-
+                SoundFactory.createSound(SoundType.PUNCH).startMusic();
 
                 gameBuilder.append(instructs.get("fight").get("instructions").get(4) + Player.PLAYER.getHealth()+ "\n");
                 gameBuilder.append(instructs.get("fight").get("instructions").get(5) + Locations.getEnumMap().get(currentLocKey).getZombie().getHealth()+ "\n");
@@ -32,11 +32,8 @@ public class FIGHTCommand implements CommandInterface{
             }else{
                 gameBuilder.append(instructs.get("fight").get("instructions").get(6) );
             }
-
-
         }else{
            gameBuilder.append(instructs.get("fight").get("instructions").get(9));
-            //give the i cant do that instructs
         }
 
 

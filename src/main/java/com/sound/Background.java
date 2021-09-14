@@ -20,6 +20,9 @@ public class Background extends SoundFX {
         mediaPlayer.setVolume(0.2);
         mediaPlayer.play();
     }
+    public MediaPlayer getMediaPlayer(){
+        return this.mediaPlayer;
+    }
 
 
     public void controlVolume(double volume) {

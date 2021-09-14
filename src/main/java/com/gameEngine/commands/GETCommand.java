@@ -2,8 +2,11 @@ package com.gameEngine.commands;
 
 import com.character.Player;
 import com.item.Item;
+import com.sound.Background;
+import com.sound.SoundFX;
+import com.sound.SoundFactory;
+import com.sound.SoundType;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +20,8 @@ public class GETCommand implements CommandInterface{
     private void processGet(StringBuilder gameBuilder, String[] command, Map<String, Map<String, List<String>>> instructs) {
         if (command.length > 1) {
             gameBuilder.append(pickUpItem(command[1], instructs));
+
+
         } else {
             gameBuilder.append(instructs.get("get").get("instructions").get(0));
         }
@@ -27,6 +32,9 @@ public class GETCommand implements CommandInterface{
         if (item != null) {
             Player.PLAYER.addToInventory(item);
             Player.PLAYER.getCurrentLocation().removeItem(item);
+
+            SoundFactory.createSound(SoundType.NICE).startMusic();
+
             return instructs.get("pick").get("instructions").get(0) + thing + instructs.get("pick").get("instructions").get(1);
         }
 
