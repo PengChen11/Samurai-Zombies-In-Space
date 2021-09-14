@@ -15,15 +15,24 @@ public class Weapon extends Item {
     // name, location, and description fields inherited from Item class
     private int attackPower;
 
+    public static HashMap<String, Weapon> weaponsMap;
+
+    static {
+        try {
+            weaponsMap = Weapon.getWeapons("cfg/Weapons.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // constructor
-    public Weapon(String name, String location, String description, int attackPower) {
-        super(name, location);
-        this.description = description;
+    public Weapon(String name, String location, String description, int attackPower) throws IOException {
+        super(name, location, description);
         this.attackPower = attackPower;
     }
 
-    //Getter and setter inherited from Item class
-    public static HashMap<String, Weapon> getWeapons(String filePath) throws IOException { // "cfg/Weapons.json"
+    // read Weapons.json file and create Hashmap for weapons. key is name, value is weapon object.
+    static HashMap<String, Weapon> getWeapons(String filePath) throws IOException {
         HashMap<String, Weapon> weapons = new HashMap<>();
         JSONParser parser = new JSONParser();
         try {
@@ -42,13 +51,7 @@ public class Weapon extends Item {
         return weapons;
     }
 
-    public static void main(String[] args) throws IOException {
-        HashMap<String, Weapon> weapons = Weapon.getWeapons("cfg/Weapons.json");
-        for (Map.Entry entry : weapons.entrySet()) {
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
-        }
-    }
+    //Getter and setter inherited from Item class
 
     @Override
     public String toString() {
