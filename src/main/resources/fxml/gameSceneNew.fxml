@@ -9,9 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="778.0" prefWidth="1125.0"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.controller.GameSceneControllerNew">
+<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="778.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.GameSceneControllerNew">
     <children>
         <SplitPane dividerPositions="0.8357050452781372" layoutY="-2.0" orientation="VERTICAL" prefHeight="777.0" prefWidth="800.0">
             <items>
@@ -58,8 +56,8 @@
                             </font></TextField>
                         <Pane layoutX="640.0" prefHeight="124.0" prefWidth="158.0" style="-fx-background-color: black;" styleClass="-fix-border">
                             <children>
-                                <Slider layoutX="9.0" layoutY="30.0" />
-                                <Slider fx:id="fontSlider" layoutX="9.0" layoutY="80.0" max=" 24" min="12" value="12"  />
+                                <Slider fx:id="volumeSlider" layoutX="9.0" layoutY="30.0" value="20.0" />
+                                <Slider fx:id="fontSlider" layoutX="9.0" layoutY="80.0" max=" 24" min="12" value="12" />
                                 <Text fill="#eee4e4" layoutX="26.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Volume" />
                                 <Text fill="#eee4e4" layoutX="26.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Font Size" />
                             </children>
