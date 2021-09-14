@@ -6,6 +6,10 @@ import java.io.File;
 import java.io.FileReader;
 
 public class Nice extends SoundFX{
+    public AudioClip getNiceClip() {
+        return niceClip;
+    }
+
     private AudioClip niceClip;
 
     public Nice(){
