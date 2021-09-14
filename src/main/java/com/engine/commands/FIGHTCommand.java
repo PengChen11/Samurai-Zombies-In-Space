@@ -7,6 +7,8 @@ import com.item.Item;
 
 import com.sound.Punch;
 import com.sound.SoundFX;
+import com.sound.SoundFactory;
+import com.sound.SoundType;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -71,7 +73,9 @@ public class FIGHTCommand implements CommandInterface {
         if (currentLocation.contains("Landing Dock")) {
             gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(1).split(":")[0]+": " + player.getHealth()+instructs.get("fight").get("instructions").get(1).split(":")[1] + ": " + zombie.getHealth()
                     + instructs.get("fight").get("instructions").get(1).split(":")[2]);
-            new Punch().startMusic();
+
+            //call the punch sound effect
+            SoundFactory.createSound(SoundType.PUNCH).startMusic();
             processArmedPlayer(zombie, gameBuilder, zombieKatana, player, instructs);
             processZombieAndPlayerHealth(zombie, gameBuilder, player, instructs);
         } else {
@@ -92,6 +96,7 @@ public class FIGHTCommand implements CommandInterface {
     //Checks for armed players and if they are it processes the attacks differently.
     private void processArmedPlayer(Zombie zombie, StringBuilder gameBuilder, Item zombieKatana, Player player,  Map<String, Map<String, List<String>>> instructs) {
         if (player.getHealth() > 0 && player.checkInventory(zombieKatana)) {
+            SoundFactory.createSound(SoundType.WEAPON).startMusic();
             zombie.takeDamage(player.attack() * 2);
             gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(2).split(":")[0] + zombie.getHealth() +instructs.get("fight").get("instructions").get(2).split(":")[1]);
         } else {

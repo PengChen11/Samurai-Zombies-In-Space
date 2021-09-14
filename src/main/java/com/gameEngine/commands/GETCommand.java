@@ -1,8 +1,35 @@
 package com.gameEngine.commands;
 
-public class GETCommand implements CommandInterface{
-    @Override
-    public void processCommand() {
+import com.character.Player;
+import com.item.Item;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class GETCommand implements CommandInterface{
+
+    @Override
+    public void processCommand(StringBuilder gameBuilder, String[] command, Map<String, Map<String, List<String>>> instructs) {
+        processGet(gameBuilder, command, instructs);
+    }
+
+    private void processGet(StringBuilder gameBuilder, String[] command, Map<String, Map<String, List<String>>> instructs) {
+        if (command.length > 1) {
+            gameBuilder.append(pickUpItem(command[1], instructs));
+        } else {
+            gameBuilder.append(instructs.get("get").get("instructions").get(0));
+        }
+    }
+
+    private String pickUpItem(String thing,Map<String, Map<String, List<String>>> instructs ) {
+        Item item = Player.PLAYER.getCurrentLocation().containsItem(thing);
+        if (item != null) {
+            Player.PLAYER.addToInventory(item);
+            Player.PLAYER.getCurrentLocation().removeItem(item);
+            return instructs.get("pick").get("instructions").get(0) + thing + instructs.get("pick").get("instructions").get(1);
+        }
+
+        return thing + instructs.get("pick").get("instructions").get(3);
     }
 }

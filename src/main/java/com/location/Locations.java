@@ -1,6 +1,7 @@
 package com.location;
 
 import com.character.NPC;
+import com.character.Player;
 import com.character.Zombie;
 import com.item.Item;
 import org.json.simple.JSONArray;
@@ -197,5 +198,19 @@ public enum Locations {
             location.setNpc(null);
             location.setZombie(Zombie.getInstance());
         }
+    }
+
+    public Item containsItem(String itemName){
+        if (this.getItemList().size() == 0){
+            return null;
+        }
+
+        for (Item item : this.getItemList()){
+            if (itemName.equalsIgnoreCase(item.getName())){
+                return item;
+            }
+        }
+
+        return null;
     }
 }
