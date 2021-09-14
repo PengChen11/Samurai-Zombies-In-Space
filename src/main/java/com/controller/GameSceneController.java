@@ -3,6 +3,8 @@ package com.controller;
 
 import com.engine.GameEngine;
 import com.item.Item;
+import com.sound.Background;
+import com.sound.SoundFX;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -22,6 +24,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -45,6 +48,10 @@ public class GameSceneController implements Initializable {
     @FXML
     private Slider fontSlider;
 
+    @FXML
+    private Slider volumeSlider;
+
+    private SoundFX sounds;
 
     private final GameEngine gameEngine = GameEngine.getInstance();
 
@@ -57,6 +64,9 @@ public class GameSceneController implements Initializable {
         mapCoordinates.put("Central Hub", new double[] {198,278});
         mapCoordinates.put("Bar", new double[] {262,111});
         mapCoordinates.put("Medical Bay", new double[] {80,118});
+        sounds=new Background();
+        //set default volume
+       // volumeSlider.setValue(20);
     }
 
     private TextField getInputTextField() {
@@ -134,12 +144,26 @@ public class GameSceneController implements Initializable {
         }
     }
 
+    private void setVolumeSlider(){
+        if(volumeSlider !=null){
+            volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                   // System.out.println(Double.parseDouble(new DecimalFormat("#.#").format(t1.doubleValue()/100)));
+                   sounds.controlVolume(Double.parseDouble(new DecimalFormat("#.#").format(t1.doubleValue()/100)));
+                }
+            });
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            sounds.startMusic();
             setFontSlider();
             introStoryToTextarea();
+            setVolumeSlider();
 
         } catch (IOException e) {
             e.printStackTrace();
