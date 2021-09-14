@@ -29,4 +29,8 @@ public class Background extends SoundFX {
       mediaPlayer.setVolume(volume);
     }
 
+    public  void pauseMusic(){
+        mediaPlayer.stop();
+    }
+
 }

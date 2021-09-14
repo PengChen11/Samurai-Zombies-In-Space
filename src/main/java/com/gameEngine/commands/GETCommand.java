@@ -1,11 +1,10 @@
 package com.gameEngine.commands;
 
 import com.character.Player;
+import com.controller.GameSceneControllerNew;
 import com.item.Item;
-import com.sound.Background;
-import com.sound.SoundFX;
-import com.sound.SoundFactory;
-import com.sound.SoundType;
+import com.sound.*;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.List;
 import java.util.Map;
@@ -32,8 +31,11 @@ public class GETCommand implements CommandInterface{
         if (item != null) {
             Player.PLAYER.addToInventory(item);
             Player.PLAYER.getCurrentLocation().removeItem(item);
-
+            ((Background)(GameSceneControllerNew.getBackground())).pauseMusic();
             SoundFactory.createSound(SoundType.NICE).startMusic();
+            if(!((Nice)(SoundFactory.createSound(SoundType.NICE))).getNiceClip().isPlaying()){
+                ((Background)(GameSceneControllerNew.getBackground())).startMusic();
+            }
 
             return instructs.get("pick").get("instructions").get(0) + thing + instructs.get("pick").get("instructions").get(1);
         }

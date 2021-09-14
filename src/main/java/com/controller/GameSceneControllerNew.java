@@ -54,7 +54,11 @@ public class GameSceneControllerNew implements Initializable {
     @FXML
     private Slider volumeSlider;
 
-    private SoundFX background;
+    public static SoundFX getBackground() {
+        return background;
+    }
+
+    private static SoundFX background;
 
 
     //    private final GameEngine gameEngine = GameEngine.getInstance();
