@@ -4,6 +4,9 @@ import com.character.Player;
 import com.character.Zombie;
 import com.item.Item;
 import com.sound.Roar;
+import com.sound.SoundFactory;
+import com.sound.SoundType;
+
 import java.util.List;
 import java.util.Map;
 
@@ -18,11 +21,12 @@ public class LOOKCommand implements CommandInterface {
         if (command[1] == null || command[1].isBlank() || "around".equalsIgnoreCase(command[1])) {
             gameBuilder.append(Player.PLAYER.getCurrentLocation().getDescription()).append("\n");
             appendItemsToDescription(gameBuilder, instructs);
+            SoundFactory.createSound(SoundType.ROAR).startMusic();
         } else {
             gameBuilder.append(getLookResult(command[1],instructs));
         }
         // the zombie should attack you if there is a zombie in the room
-        processZombieAttack(gameBuilder);
+        processZombieAttack(gameBuilder,instructs);
     }
 
 
@@ -42,13 +46,13 @@ public class LOOKCommand implements CommandInterface {
         }
     }
 
-    private void processZombieAttack(StringBuilder gameBuilder) {
+    private void processZombieAttack(StringBuilder gameBuilder, Map<String, Map<String, List<String>>> instructs) {
         Zombie zombie = Player.PLAYER.getCurrentLocation().getZombie();
         if ( zombie != null && zombie.getHealth() > 0) {
-            new Roar().startMusic();
+           // new Roar().startMusic();
             Player.PLAYER.takeDamage(zombie.attack());
-            gameBuilder.append("\nThe Zomburai hits you. You have ").append(Player.PLAYER.getHealth()).append("HP.");
-            gameBuilder.append("\nYou can fight the zombie or go to other locations");
+            gameBuilder.append(instructs.get("look").get("instructions").get(2)).append(Player.PLAYER.getHealth()).append(instructs.get("look").get("instructions").get(4));
+            gameBuilder.append(instructs.get("look").get("instructions").get(3));
         }
     }
 
