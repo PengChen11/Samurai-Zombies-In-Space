@@ -31,8 +31,10 @@ public class LOOKCommand implements CommandInterface {
 
         if (items.size() > 0) {
             description.append(instructs.get("examine").get("instructions").get(0));
-            for (Item item : items) {
-                description.append(" ").append(item.getName()).append(", ");
+            for (int i = 0; i<items.size(); i++) {
+                description.append(" ").append(items.get(i).getName()).append(
+                        items.size()>1 && i != items.size()-1  ?
+                        ", " : "" );
             }
             description.append("]\n");
         } else {
