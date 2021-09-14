@@ -4,7 +4,7 @@ import javafx.scene.media.AudioClip;
 
 import java.io.File;
 
-public class Roar implements SoundFX{
+public class Roar extends SoundFX{
     private AudioClip roar;
     public Roar()
     {
@@ -15,8 +15,5 @@ public class Roar implements SoundFX{
         roar.play();
     }
 
-    @Override
-    public void controlVolume(double volume) {
 
-    }
 }

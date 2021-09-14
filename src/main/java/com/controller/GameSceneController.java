@@ -5,6 +5,8 @@ import com.engine.GameEngine;
 import com.item.Item;
 import com.sound.Background;
 import com.sound.SoundFX;
+import com.sound.SoundFactory;
+import com.sound.SoundType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -64,7 +66,7 @@ public class GameSceneController implements Initializable {
         mapCoordinates.put("Central Hub", new double[] {198,278});
         mapCoordinates.put("Bar", new double[] {262,111});
         mapCoordinates.put("Medical Bay", new double[] {80,118});
-        sounds=new Background();
+        sounds= SoundFactory.createSound(SoundType.BACKGROUND);
         //set default volume
        // volumeSlider.setValue(20);
     }
