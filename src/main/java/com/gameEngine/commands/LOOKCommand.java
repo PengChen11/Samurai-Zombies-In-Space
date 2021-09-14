@@ -1,6 +1,5 @@
 package com.gameEngine.commands;
 
-import com.character.NPC;
 import com.character.Player;
 import com.character.Zombie;
 import com.item.Item;
@@ -53,22 +52,12 @@ public class LOOKCommand implements CommandInterface {
 
     private String getLookResult(String objectToFind, Map<String, Map<String, List<String>>> instructs) {
         String response;
-        Item item = containsItem(objectToFind);
+        Item item = Player.PLAYER.getCurrentLocation().containsItem(objectToFind);
         if (item != null) {
             response = item.getDescription();
         } else {
             response = instructs.get("look").get("instructions").get(1) + objectToFind + ".";
         }
         return response + "\n";
-    }
-
-    private Item containsItem(String key){
-        List<Item> items = Player.PLAYER.getCurrentLocation().getItemList();
-        for (Item item : items){
-            if (key.equalsIgnoreCase(item.getName())){
-                return item;
-            }
-        }
-        return null;
     }
 }
