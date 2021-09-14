@@ -1,19 +1,32 @@
-{
-
-  "wizzlewhat": "A wizzlewhat of course."
-,
-"space wrench": "A wrench best used in space.",
-"zombie armor": "Looks to be in good shape, don't mind the blood.",
-
-"zombie katana": "Funny, you like samurai swords... I like baseball."
-,
-
-"swiss army knife": "This has many uses but it can't fix my ship."
-,
-
-"health kit": "Quick patch. Restores a bit of HP."
-,
-"lever": "The missing lever from the refueling station.",
-"oxygen tank": "Oxygen, dioxygen, diatomic oxygen."
-
-}
+[
+  {
+    "name": "wizzlewhat",
+    "location": "Repair Workshop",
+    "description": "A wizzlewhat of course."
+  },
+  {
+    "name": "space wrench",
+    "location": "Repair Workshop",
+    "description": "A wrench best used in space."
+  },
+  {
+    "name": "zombie armor",
+    "location": "Central Hub",
+    "description": "Looks to be in good shape, don't mind the blood."
+  },
+  {
+    "name": "health kit",
+    "location": "Medical Bay",
+    "description": "Quick patch. Restores a bit of HP."
+  },
+  {
+    "name": "lever",
+    "location": "Medical Bay",
+    "description": "The missing lever from the refueling station."
+  },
+  {
+    "name": "oxygen tank",
+    "location": "Escape Shuttle",
+    "description": "Oxygen, dioxygen, diatomic oxygen."
+  }
+]
