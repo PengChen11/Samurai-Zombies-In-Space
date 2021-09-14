@@ -31,7 +31,21 @@ public class GOCommand implements CommandInterface{
         } else {
             gameBuilder.append(instructs.get("head").get("instructions").get(0)).append(command[1]).append("\n");
         }
+
+        //todo: what the heck am I doing here???
+        if (Player.PLAYER.getCurrentLocation().getZombie() != null){
+            Player.PLAYER.addZombiesFollowing();
+        }
+
+        //todo: I don't know what does this do either ???
+        if (Player.PLAYER.checkAreasVisited(Player.PLAYER.getCurrentLocation().getName())){
+            Player.PLAYER.addAreasVisited(Player.PLAYER.getCurrentLocation().getName());
+        }
+
+
         Player.PLAYER.setCurrentLocation(nextLocation);
+
+
 
     }
 
