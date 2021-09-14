@@ -93,16 +93,6 @@ public class Item {
         return catalog;
     }
 
-
-
-    public static void main(String[] args) throws IOException {
-        HashMap<String, Item> items = Item.getItems("cfg/Items.json");
-        for (Map.Entry entry : items.entrySet()) {
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
-        }
-    }
-
     public String getDescription() {
         return description;
     }

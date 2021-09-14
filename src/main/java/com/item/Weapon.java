@@ -53,14 +53,6 @@ public class Weapon extends Item {
 
     //Getter and setter inherited from Item class
 
-    public static void main(String[] args) throws IOException {
-        HashMap<String, Weapon> weapons = Weapon.getWeapons("cfg/Weapons.json");
-        for (Map.Entry entry : weapons.entrySet()) {
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
-        }
-    }
-
     @Override
     public String toString() {
         return "Weapon{" +
