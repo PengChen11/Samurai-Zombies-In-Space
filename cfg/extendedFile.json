@@ -12,6 +12,10 @@
       "\nDave, stay focused. You can pick a fight later."
       ]
   },
+  "talk": {
+  "instructions": ["\nA ZOMBIE APPEARS BITING THE : "
+  ]
+},
   "examine": {
     "instructions": ["\nItems in room: [","\nRuh roh. No items here!"
           ]
