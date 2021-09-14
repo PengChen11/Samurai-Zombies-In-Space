@@ -4,5 +4,8 @@ public enum SoundType {
     BACKGROUND,
     ROAR,
     PUNCH,
-    WEAPON
+    WEAPON,
+    TURN,
+    NICE,
+    BITE
 }

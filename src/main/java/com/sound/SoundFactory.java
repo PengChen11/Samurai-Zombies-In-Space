@@ -19,6 +19,15 @@ public class SoundFactory {
                 break;
             case WEAPON:
                 soundFX = new Weapon();
+                break;
+            case TURN:
+                soundFX = new Turn();
+                break;
+            case NICE:
+                soundFX = new Nice();
+                break;
+            case BITE:
+                soundFX = new Bite();
         }
         return soundFX;
     }

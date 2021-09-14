@@ -52,4 +52,7 @@ public class NPC {
     public String getName() {
         return name;
     }
+    public void turnIntoZombie(){
+
+    }
 }
