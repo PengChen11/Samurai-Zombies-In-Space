@@ -21,10 +21,15 @@ public class USECommand implements CommandInterface{
     private void processUseLogic(StringBuilder gameBuilder, String[] command, Map<String, Map<String, List<String>>> instructs) {
         if ("health kit".equalsIgnoreCase(command[1]) && Player.PLAYER.checkInventoryName("health kit")) {
             gameBuilder.append(healPlayer(instructs));
+            Player.PLAYER.removeInventory("health kit");
         }
+        // todo: this whole logic need to re-write.
         else if ("lever".equalsIgnoreCase(command[1]) && Player.PLAYER.checkInventoryName(
                 "lever")){
             gameBuilder.append(instructs.get("use").get("instructions").get(0));
+
+            // todo: should I remove lever on ship?? once used, lever goes away but ship still there.
+            Player.PLAYER.removeInventory("lever");
         } else {
             gameBuilder.append(instructs.get("use").get("instructions").get(1));
         }
