@@ -64,11 +64,11 @@ public class Item {
      */
     public static HashMap<String, Item> readAll() {
         JSONParser parser = new JSONParser();
-        JSONParser parser2 = new JSONParser();
+
         HashMap<String, Item> catalog = new HashMap<>();
         try {
             JSONObject characterSet = (JSONObject) parser.parse(new FileReader("cfg/Locations.json"));
-            JSONObject itemSet = (JSONObject) parser.parse(new FileReader("cfg/Items.json"));
+            JSONObject itemSet = (JSONObject) parser.parse(new FileReader("cfg/OldItems.json"));
             for (Object room : characterSet.keySet()) {
                 JSONObject roomObj = (JSONObject) characterSet.get(room);
                 JSONArray itemArr = (JSONArray) roomObj.get("Item");
