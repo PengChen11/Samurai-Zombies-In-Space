@@ -6,6 +6,9 @@ import com.character.Zombie;
 
 import com.item.Item;
 import com.sound.Roar;
+import com.sound.SoundFX;
+import com.sound.SoundFactory;
+import com.sound.SoundType;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -18,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 public class LOOKCommand implements CommandInterface {
+    private SoundFX lookSound;
     @Override
     public void processCommand(StringBuilder gameBuilder, String[] command, String currentLocation, List<Item> inventory, Zombie zombieNPC, Map<String, Map<String, List<String>>> instructs, Player player, HashMap<String, Item> catalog, JSONParser parser) {
         processLook(gameBuilder, command,zombieNPC,player,currentLocation,parser, instructs, catalog);
@@ -26,7 +30,8 @@ public class LOOKCommand implements CommandInterface {
         if (command[1] == null || command[1].isBlank() || "around".equalsIgnoreCase(command[1])) {
             gameBuilder.append(examineRoom(parser,currentLocation,instructs,catalog));
             // the zombie should attack you if there is a zombie in the room
-            new Roar().startMusic();
+            //call the look sound
+            SoundFactory.createSound(SoundType.ROAR).startMusic();
             processZombieAttack(gameBuilder,zombieNPC, player,currentLocation,parser);
 
         } else {

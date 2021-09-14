@@ -4,7 +4,9 @@ import javafx.scene.media.AudioClip;
 
 import java.io.File;
 
-public class Punch implements SoundFX{
+
+public class Punch extends SoundFX{
+
     private AudioClip punchClip;
 
     public Punch(){
@@ -15,8 +17,5 @@ public class Punch implements SoundFX{
        punchClip.play();
     }
 
-    @Override
-    public void controlVolume(double volume) {
-       punchClip.setVolume(volume);
-    }
+
 }

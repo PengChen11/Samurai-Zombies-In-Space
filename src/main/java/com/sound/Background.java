@@ -5,7 +5,8 @@ import javafx.scene.media.Media;
 
 import java.io.File;
 
-public class Background implements SoundFX {
+
+public class Background extends SoundFX {
     private MediaPlayer mediaPlayer;
     private Media media;
 
@@ -20,7 +21,7 @@ public class Background implements SoundFX {
         mediaPlayer.play();
     }
 
-    @Override
+
     public void controlVolume(double volume) {
       mediaPlayer.setVolume(volume);
     }
