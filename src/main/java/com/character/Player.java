@@ -23,6 +23,9 @@ public enum Player {
     Integer zombiesFollowing;
     List<String> areasVisited;
     Locations currentLocation;
+    Integer strength;
+
+
 
     /**
      * Constructor
@@ -35,6 +38,7 @@ public enum Player {
         this.zombiesFollowing = 0;
         this.areasVisited = new ArrayList<>();
         this.currentLocation = Locations.LandingDock;
+        this.strength = 5;
     }
 
     /**
@@ -212,5 +216,12 @@ public enum Player {
     }
     public void setCurrentLocation(Locations currentLocation){
         this.currentLocation = currentLocation;
+    }
+    public Integer getStrength() {
+        return strength;
+    }
+
+    public void setStrength(Integer strength) {
+        this.strength = strength;
     }
 }
