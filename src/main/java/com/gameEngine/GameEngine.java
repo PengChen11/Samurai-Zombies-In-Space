@@ -22,7 +22,7 @@ public enum GameEngine {
 
     GAME_ENGINE; // how to refer to instance of game engine
 
-    private Map<String, Map<String, List<String>>> instructs =new Instruction().getInstruction();
+    private Map<String, Map<String, List<String>>> instructs = new Instruction().getInstruction();
 
     HashMap<String, Item> catalog = Item.readAll();
 
