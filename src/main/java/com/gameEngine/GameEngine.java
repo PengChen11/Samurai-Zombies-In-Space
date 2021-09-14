@@ -21,63 +21,33 @@ import java.util.Map;
 public enum GameEngine {
 
     GAME_ENGINE; // how to refer to instance of game engine
-    private Locations currentLocation;
-    private final Player player = Player.PLAYER;
-    private StringBuilder gameBuilder = new StringBuilder();
 
-    public StringBuilder getGameBuilder() {
-        return gameBuilder;
-    }
-
-    public void setGameBuilder(StringBuilder gameBuilder) {
-        this.gameBuilder = gameBuilder;
-    }
-
-    //private Instruction instructs;
     private Map<String, Map<String, List<String>>> instructs =new Instruction().getInstruction();
 
-    //public StringBuilder status = showStatus(currentLocation);
-    public List<Item> inventory;
-
-    //NPC zombies; ?? later for tracking how many are alive and where?
     HashMap<String, Item> catalog = Item.readAll();
+
+
+
     public StringBuilder runGameLoop(String input) {
 
         StringBuilder gameBuilder = new StringBuilder();
-        inventory = player.getInventory();
 
         String[] command;
         command = Parser.parseInput(input.toLowerCase());
-
 
         ArrayList<CommandInterface> commandList = getCommandInterfaces();
 
         for(CommandInterface commandFromList : commandList){
             if(commandFromList.getClass().getSimpleName().contains(command[0].toUpperCase())){
-                commandFromList.processCommand();
+                commandFromList.processCommand(gameBuilder,command, instructs);
             }
         }
         //update win/lose status
         checkPlayerHealth();
         checkPuzzleComplete();
-        return gameBuilder.append(showStatus(currentLocation.getName()));
+        return gameBuilder.append(showStatus(Player.PLAYER.getCurrentLocation().getName()));
     }
 
-
-
-    //    //This method finds out if there are zombies in that current location using the JSON file
-    private Boolean checkForZombies() {
-        try {
-            JSONObject current = getJsonObject();
-            String zombie = (String) current.get("enemy");
-            if ("Zombie".equals(zombie) ) {
-                return true;
-            }
-        } catch (NullPointerException e) {
-            System.out.println("No zombies in " + currentLocation);
-        }
-        return false;
-    }
 
     public StringBuilder showStatus(String location) {
         StringBuilder builder = new StringBuilder();
@@ -97,20 +67,6 @@ public enum GameEngine {
 
 
 
-    private JSONObject getJsonObject() {
-        JSONObject locations = new JSONObject();
-        try {
-            JSONParser parser = new JSONParser();
-            locations = (JSONObject) parser.parse(new FileReader("cfg/Locations.json"));
-
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-        return (JSONObject) locations.get(currentLocation);
-    }
-    public void setCurrentLocation(Locations currentLocation) {
-        this.currentLocation = currentLocation;
-    }
     private ArrayList<CommandInterface> getCommandInterfaces() {
         CommandInterface qCommand = new QCommand();
         CommandInterface talkCommand = new TALKCommand();
@@ -140,22 +96,13 @@ public enum GameEngine {
 
     }
 
-    public Player getPlayer() {
-        return player;
-    }
 
     public Map<String, Map<String, List<String>>> getInstructs() {
         return instructs;
     }
 
-    public List<Item> getInventory() {
-        return inventory;
-    }
-
     public HashMap<String, Item> getCatalog() {
         return catalog;
     }
-
-
 
 }
