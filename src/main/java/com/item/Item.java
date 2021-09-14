@@ -19,14 +19,6 @@ public class Item {
     String description;
     public static HashMap<String, Item> itemsMap;
 
-    static {
-        try {
-            itemsMap = Item.getItems("cfg/Items.json");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public Item(String name) {
         this.name = name;
     }
@@ -43,9 +35,12 @@ public class Item {
     }
 
     // read Items.json file and create Hashmap for items. key is name, value is item object.
-    static HashMap<String, Item> getItems(String filePath) throws IOException {
+    public static void getItems(String filePath) throws IOException {
         HashMap<String, Item> items = new HashMap<>();
         JSONParser parser = new JSONParser();
+        if (itemsMap != null) {
+            return;
+        }
         try {
             JSONArray itemSet = (JSONArray) parser.parse(new FileReader(filePath));
             for (int i = 0; i < itemSet.size(); i++) {
@@ -58,7 +53,9 @@ public class Item {
         } catch (FileNotFoundException | ParseException e) {
             throw new IOException();
         }
-        return items;
+        if (!items.isEmpty()) {
+            itemsMap = items;
+        }
     }
 
     /**

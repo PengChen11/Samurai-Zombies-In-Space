@@ -12,13 +12,15 @@ public class ItemTest {
     @Test
     public void whenOfferRightFileToGetItems_shouldReturnHashMapWithEntries() throws IOException {
         String validFilePath = "cfg/Items.json";
-        HashMap<String, Item> itemsMap = Item.getItems(validFilePath);
+        Item.getItems(validFilePath);
+        HashMap<String, Item> itemsMap = Item.itemsMap;
         assertEquals(6, itemsMap.size());
     }
 
     @Test(expected = IOException.class)
     public void testGetItemsIOException() throws IOException {
         String invalidFilePath = "abc/Items.json";
-        HashMap<String, Item> itemsMap = Item.getItems(invalidFilePath);
+        Item.getItems(invalidFilePath);
+        HashMap<String, Item> itemsMap = Item.itemsMap;
     }
 }

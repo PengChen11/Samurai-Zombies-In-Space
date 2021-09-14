@@ -10,13 +10,15 @@ public class WeaponTest {
     @Test
     public void whenOfferValidFileToGetWeapons_shouldReturnHashMapWithEntries() throws IOException {
         String validFilePath = "cfg/Weapons.json";
-        HashMap<String, Weapon> weaponsMap = Weapon.getWeapons(validFilePath);
+        Weapon.getWeapons(validFilePath);
+        HashMap<String, Weapon> weaponsMap = Weapon.weaponsMap;
         assertEquals(3, weaponsMap.size());
     }
 
     @Test(expected = IOException.class)
     public void testGetWeaponsIOException() throws IOException {
         String invalidFilePath = "abc/Weapons.json";
-        HashMap<String, Weapon> weaponsMap = Weapon.getWeapons(invalidFilePath);
+        Weapon.getWeapons(invalidFilePath);
+        HashMap<String, Weapon> weaponsMap = Weapon.weaponsMap;
     }
 }
