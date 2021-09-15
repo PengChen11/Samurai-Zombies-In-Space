@@ -22,9 +22,9 @@ public class TALKCommand implements CommandInterface{
         if (npc != null && npc.getName().equalsIgnoreCase(targetNpc)){
             String voices=npc.getDialogue();
             gameBuilder.append(voices);
-
+            int randomInt = rand.nextInt();
             //TranslateToSpeech.textToVoice(voices);
-            if(true){
+            if(randomInt%4 == 1 || randomInt%4 == 2|| randomInt%4 == 3 ){
                 //turn the npc into a zombie
                 Player.PLAYER.getCurrentLocation().setZombie(new Zombie(5, Player.PLAYER.getCurrentLocation().getName()));
                 gameBuilder.append(instructs.get("talk").get("instructions").get(0) + npc.getName());
