@@ -35,6 +35,7 @@ public class FIGHTCommandTest {
         player = Player.PLAYER;
         Locations.LandingDock.setZombie(Zombie.getInstance());
         player.setCurrentLocation(Locations.LandingDock);
+        player.setHealth(10000);
     }
 
     @Test
