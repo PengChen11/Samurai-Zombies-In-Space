@@ -6,6 +6,7 @@ import com.gameEngine.GameEngine;
 import com.item.Item;
 import com.item.Weapon;
 import com.location.Locations;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -56,6 +57,11 @@ public class TALKCommandTest {
         talkCommand.randomlyConvertToZombie(gameBuilder, instructs, npc, 3);
         assertTrue(player.getCurrentLocation().getZombie() != null);
         assertTrue(player.getCurrentLocation().getNpc() == null);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        Locations.Bar.setZombie(null);
     }
 
     // Background music will not be tested here.

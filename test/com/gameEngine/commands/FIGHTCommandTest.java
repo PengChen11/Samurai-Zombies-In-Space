@@ -57,7 +57,7 @@ public class FIGHTCommandTest {
     public void processFight_shouldNotChangeHealthOfZombieAndPlayer_whenCalledAndZombieNotPresent() {
         int oldPlayerHealth = Player.PLAYER.getHealth();
         int oldZombieHealth = Player.PLAYER.getCurrentLocation().getZombie().getHealth();
-        Player.PLAYER.setCurrentLocation(Locations.CentralHub);
+        Player.PLAYER.setCurrentLocation(Locations.Bar);
         fightCommand.processCommand(gameBuilder,command,instructs);
         assertEquals((int) Player.PLAYER.getHealth(), oldPlayerHealth);
 
