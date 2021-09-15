@@ -27,6 +27,6 @@
             </image>
         </ImageView>
         <Button layoutX="325.0" layoutY="680.0" mnemonicParsing="false" onAction="#switchFromIntroToGameNew" prefHeight="80.0" prefWidth="216.0" text="New Game " />
-      <Button layoutX="654.0" layoutY="680.0" mnemonicParsing="false" onAction="#switchFromIntroToGameNew" prefHeight="80.0" prefWidth="216.0" text="Load Game" />
+      <Button layoutX="654.0" layoutY="680.0" mnemonicParsing="false" onAction="#switchFromIntroToGameLoad" prefHeight="80.0" prefWidth="216.0" text="Load Game" />
     </children>
 </AnchorPane>

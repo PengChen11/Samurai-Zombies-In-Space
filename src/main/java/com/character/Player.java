@@ -18,7 +18,7 @@ public enum Player {
 
     List<Item> inventory;
     Integer health;
-    String location;  // until the locations are implemented
+//    String location;  // until the locations are implemented
     boolean fightingZombie;
     Integer zombiesFollowing;
     List<String> areasVisited;
@@ -33,7 +33,7 @@ public enum Player {
     Player() {
         this.inventory = new ArrayList<>();
         this.health = 20;
-        this.location = "Landing Dock";
+//        this.location = "Landing Dock";
         this.fightingZombie = false;
         this.zombiesFollowing = 0;
         this.areasVisited = new ArrayList<>();
@@ -170,21 +170,7 @@ public enum Player {
         this.health = health;
     }
 
-    /**
-     * Returns player's current location
-     * @return
-     */
-    public String getLocation() {
-        return location;
-    }
 
-    /**
-     * Sets player's location
-     * @param location
-     */
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public void setFightingZombie(boolean fighting){
         this.fightingZombie = fighting;
