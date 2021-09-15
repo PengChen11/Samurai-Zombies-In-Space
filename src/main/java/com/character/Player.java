@@ -2,10 +2,15 @@ package com.character;
 
 
 import com.item.Item;
+import com.item.Weapon;
 import com.location.Locations;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A singleton class to represent the single player in the game.
@@ -18,7 +23,7 @@ public enum Player {
 
     List<Item> inventory;
     Integer health;
-    String location;  // until the locations are implemented
+//    String location;  // until the locations are implemented
     boolean fightingZombie;
     Integer zombiesFollowing;
     List<String> areasVisited;
@@ -33,7 +38,7 @@ public enum Player {
     Player() {
         this.inventory = new ArrayList<>();
         this.health = 20;
-        this.location = "Landing Dock";
+//        this.location = "Landing Dock";
         this.fightingZombie = false;
         this.zombiesFollowing = 0;
         this.areasVisited = new ArrayList<>();
@@ -109,6 +114,10 @@ public enum Player {
         return true;
     }
 
+    public void loadInventoryFromSavedGameData(List<Item> itemList){
+        this.inventory = itemList;
+    }
+
     // for testing, mostly
     public void clearInventory() {
         this.inventory = new ArrayList<>();
@@ -170,21 +179,7 @@ public enum Player {
         this.health = health;
     }
 
-    /**
-     * Returns player's current location
-     * @return
-     */
-    public String getLocation() {
-        return location;
-    }
 
-    /**
-     * Sets player's location
-     * @param location
-     */
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public void setFightingZombie(boolean fighting){
         this.fightingZombie = fighting;
@@ -223,5 +218,32 @@ public enum Player {
 
     public void setStrength(Integer strength) {
         this.strength = strength;
+    }
+
+    public void updatePlayerFromSavedGameData(JSONObject playerData){
+        Map<String, Locations> locationsMap = Locations.getEnumMap();
+        HashMap<String, Weapon> weaponsMap = Weapon.weaponsMap;
+        HashMap<String, Item> itemsMap = Item.itemsMap;
+
+        this.setHealth((int)(long) playerData.get("health"));
+        this.setCurrentLocation(locationsMap.get((String) playerData.get("currentLocation")));
+
+        List<Item> newItemList = new ArrayList<>();
+        JSONArray savedInventory = (JSONArray) playerData.get("inventory");
+
+        for (Object itemObj : savedInventory ){
+            String itemName = (String) itemObj;
+            Weapon weaponInPlayerInventory = weaponsMap.get(itemName);
+            if (weaponInPlayerInventory != null) {
+                newItemList.add(weaponInPlayerInventory);
+                continue;
+            }
+            Item itemInPlayerInventory = itemsMap.get(itemName);
+            if (itemInPlayerInventory != null){
+                newItemList.add(itemInPlayerInventory);
+            }
+        }
+
+        this.loadInventoryFromSavedGameData(newItemList);
     }
 }
