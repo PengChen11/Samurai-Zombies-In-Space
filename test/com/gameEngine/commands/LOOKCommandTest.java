@@ -5,6 +5,7 @@ import com.gameEngine.GameEngine;
 import com.item.Item;
 import com.item.Weapon;
 import com.location.Locations;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -82,6 +83,11 @@ public class LOOKCommandTest {
         player.setCurrentLocation(Locations.CentralHub);
         lookCommand.processCommand(gameBuilder, command, instructs);
         assertTrue(gameBuilder.toString().contains("Looks to be in good shape, don't mind the blood."));
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        player.setHealth(20);
     }
 
     // Background music will not be tested here.
