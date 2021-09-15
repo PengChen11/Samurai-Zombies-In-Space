@@ -167,7 +167,6 @@ public class GameSceneControllerNew implements Initializable {
             setVolumeSlider();
             setFontSlider();
             introStoryToTextarea();
-            Locations.initWithJsonFile("cfg/sampleLocations.json");
             //start background sound
             background.startMusic();
         } catch (Exception e) {

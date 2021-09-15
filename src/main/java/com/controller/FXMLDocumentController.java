@@ -1,5 +1,8 @@
 package com.controller;
 
+import com.item.Item;
+import com.item.Weapon;
+import com.location.Locations;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -20,11 +23,24 @@ public class FXMLDocumentController {
         stage.show();
     }
 
-    public void switchFromIntroToGameNew(javafx.event.ActionEvent event) throws IOException {
+    public void switchFromIntroToGameNew(javafx.event.ActionEvent event) throws Exception {
+
+        initGameData();
+
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameSceneNew.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void initGameData() throws Exception {
+        Item.getItems("cfg/Items.json");
+        Weapon.getWeapons("cfg/Weapons.json");
+        Locations.initWithJsonFile("cfg/sampleLocations.json");
+    }
+
+    private void loadGame(){
+
     }
 }

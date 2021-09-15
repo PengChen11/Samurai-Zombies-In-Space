@@ -4,6 +4,7 @@ import com.character.NPC;
 import com.character.Player;
 import com.character.Zombie;
 import com.item.Item;
+import com.item.Weapon;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -165,10 +166,20 @@ public enum Locations {
 
             // setting up items
             if (locationJO.get("items") != null){
+                HashMap<String, Weapon> weaponsMap = Weapon.weaponsMap;
+                HashMap<String, Item> itemsMap = Item.itemsMap;
                 JSONArray itemsObjArray = (JSONArray) locationJO.get("items");
                 for (Object itemObj : itemsObjArray){
                     String itemName = (String) itemObj;
-                    target.addItem(new Item(itemName));
+                    Weapon weaponInLocation = weaponsMap.get(itemName);
+                    if (weaponInLocation != null) {
+                        target.addItem(weaponInLocation);
+                        continue;
+                    }
+                    Item itemInLocation = itemsMap.get(itemName);
+                    if (itemInLocation != null){
+                        target.addItem(itemInLocation);
+                    }
                 }
             }
 
