@@ -26,7 +26,7 @@ public class LOOKCommand implements CommandInterface {
                 processZombieAttack(gameBuilder, instructs);
             }
         } else {
-            gameBuilder.append(getLookResult(command[1], instructs));
+            gameBuilder.append(getLookResult(command[1],instructs));
         }
         // the zombie should attack you if there is a zombie in the room
 
