@@ -13,7 +13,7 @@ public class Nice extends SoundFX{
     private AudioClip niceClip;
 
     public Nice(){
-        niceClip = new AudioClip(new File("src/main/resources/sounds/nice.wav").toURI().toString());
+        niceClip = new AudioClip(new File("src/main/resources/sounds/Nice Sound Effect (download).mp3").toURI().toString());
     }
     @Override
     public void startMusic() {
