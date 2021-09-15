@@ -122,4 +122,8 @@ public class Item {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    static void resetItemMap(){
+        itemsMap = null;
+    }
 }

@@ -60,4 +60,8 @@ public class Weapon extends Item {
                 ", attackPower=" + attackPower +
                 '}';
     }
+
+    static void resetWeaponMap(){
+        weaponsMap = null;
+    }
 }
