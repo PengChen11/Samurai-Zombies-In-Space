@@ -21,11 +21,13 @@ public class LOOKCommand implements CommandInterface {
             gameBuilder.append(Player.PLAYER.getCurrentLocation().getDescription()).append("\n");
             appendItemsToDescription(gameBuilder, instructs);
             if (Player.PLAYER.getCurrentLocation().getZombie() != null) {
-                ((Background)(GameSceneControllerNew.getBackground())).pauseMusic();
-                SoundFactory.createSound(SoundType.ROAR).startMusic(GameSceneControllerNew.currentVolume);
-                if(!((Roar)(SoundFactory.createSound(SoundType.ROAR))).getRoar().isPlaying())
-                {
-                    ((Background)(GameSceneControllerNew.getBackground())).startMusic(GameSceneControllerNew.currentVolume);
+                if (((Background)(GameSceneControllerNew.getBackground())) != null) {
+                    ((Background)(GameSceneControllerNew.getBackground())).pauseMusic();
+                    SoundFactory.createSound(SoundType.ROAR).startMusic(GameSceneControllerNew.currentVolume);
+                    if(!((Roar)(SoundFactory.createSound(SoundType.ROAR))).getRoar().isPlaying())
+                    {
+                        ((Background)(GameSceneControllerNew.getBackground())).startMusic(GameSceneControllerNew.currentVolume);
+                    }
                 }
                 processZombieAttack(gameBuilder, instructs);
             }

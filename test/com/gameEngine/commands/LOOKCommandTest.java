@@ -3,6 +3,7 @@ package com.gameEngine.commands;
 import com.character.Player;
 import com.gameEngine.GameEngine;
 import com.item.Item;
+import com.item.Weapon;
 import com.location.Locations;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +22,8 @@ public class LOOKCommandTest {
 
     @Before
     public void setUp() throws Exception {
+        Item.getItems("cfg/Items.json");
+        Weapon.getWeapons("cfg/Weapons.json");
         Locations.initWithJsonFile("cfg/sampleLocations.json");
         player = Player.PLAYER;
         gameBuilder = new StringBuilder();
@@ -59,6 +62,7 @@ public class LOOKCommandTest {
     @Test
     public void processCommand_shouldUpdateGameBuilder_whenInputInvalidCommand() {
         command[1] = "abc";
+        player.setCurrentLocation(Locations.LandingDock);
         lookCommand.processCommand(gameBuilder, command, instructs);
         assertTrue(gameBuilder.toString().contains("You don't see a " + command[1]));
     }
@@ -72,13 +76,13 @@ public class LOOKCommandTest {
         assertTrue(gameBuilder.toString().contains("zombie katana"));
     }
 
-    //TODO: figure out how the item initialized in the location. and update the test method.
     @Test
     public void processCommand_shouldUpdateGameBuilder_whenLookExistItem() {
         command[1] = "zombie armor";
-        Locations.CentralHub.addItem(new Item("zombie armor", ""));
         player.setCurrentLocation(Locations.CentralHub);
         lookCommand.processCommand(gameBuilder, command, instructs);
         assertTrue(gameBuilder.toString().contains("Looks to be in good shape, don't mind the blood."));
     }
+
+    // Background music will not be tested here.
 }

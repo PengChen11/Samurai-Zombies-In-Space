@@ -15,6 +15,7 @@ public class LocationInitFromJsonTest {
         Item.getItems("cfg/Items.json");
         Weapon.getWeapons("cfg/Weapons.json");
         Locations.initWithJsonFile("cfg/sampleLocationTests(do_not_modify).json");
+
     }
 
     @Test

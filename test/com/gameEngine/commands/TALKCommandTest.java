@@ -3,6 +3,8 @@ package com.gameEngine.commands;
 import com.character.NPC;
 import com.character.Player;
 import com.gameEngine.GameEngine;
+import com.item.Item;
+import com.item.Weapon;
 import com.location.Locations;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +23,8 @@ public class TALKCommandTest {
 
     @Before
     public void setUp() throws Exception {
+        Item.getItems("cfg/Items.json");
+        Weapon.getWeapons("cfg/Weapons.json");
         Locations.initWithJsonFile("cfg/sampleLocations.json");
         player = Player.PLAYER;
         gameBuilder = new StringBuilder();
@@ -54,4 +58,5 @@ public class TALKCommandTest {
         assertTrue(player.getCurrentLocation().getNpc() == null);
     }
 
+    // Background music will not be tested here.
 }
