@@ -32,11 +32,14 @@ public class GETCommand implements CommandInterface{
         if (item != null) {
             Player.PLAYER.addToInventory(item);
             Player.PLAYER.getCurrentLocation().removeItem(item);
-            ((Background)(GameSceneControllerNew.getBackground())).pauseMusic();
-            SoundFactory.createSound(SoundType.NICE).startMusic(GameSceneControllerNew.currentVolume);
-            if(!((Nice)(SoundFactory.createSound(SoundType.NICE))).getNiceClip().isPlaying()){
-                ((Background)(GameSceneControllerNew.getBackground())).startMusic(GameSceneControllerNew.currentVolume);
+            if((Background) (GameSceneControllerNew.getBackground()) != null){
+                ((Background)(GameSceneControllerNew.getBackground())).pauseMusic();
+                SoundFactory.createSound(SoundType.NICE).startMusic(GameSceneControllerNew.currentVolume);
+                if(!((Nice)(SoundFactory.createSound(SoundType.NICE))).getNiceClip().isPlaying()){
+                    ((Background)(GameSceneControllerNew.getBackground())).startMusic(GameSceneControllerNew.currentVolume);
+                }
             }
+
 
             return instructs.get("pick").get("instructions").get(0) + thing + instructs.get("pick").get("instructions").get(1);
         }

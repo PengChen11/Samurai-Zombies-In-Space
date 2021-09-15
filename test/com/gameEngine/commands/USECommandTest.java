@@ -31,6 +31,7 @@ public class USECommandTest {
         command[0] = "use";
         instructs= GameEngine.GAME_ENGINE.getInstructs();
         useCommand = new USECommand();
+        player.getInventory().clear();
     }
 
     @Test

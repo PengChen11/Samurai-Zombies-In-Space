@@ -23,22 +23,20 @@ public class TALKCommand implements CommandInterface{
         if (npc != null && npc.getName().equalsIgnoreCase(targetNpc)){
             String voices=npc.getDialogue();
             gameBuilder.append(voices);
-
-            //TranslateToSpeech.textToVoice(voices);
             randomlyConvertToZombie(gameBuilder, instructs, npc, randomNumber);
         } else{
             gameBuilder.append("Sorry Dave, you can't talk to some one not in the room.");
         }
     }
 
-    public void randomlyConvertToZombie(StringBuilder gameBuilder, Map<String, Map<String, List<String>>> instructs, NPC npc, int randomNumber) {
-        if(randomNumber%2 == 1){
-            //turn the npc into a zombie
-            Player.PLAYER.getCurrentLocation().setZombie(new Zombie(5, Player.PLAYER.getCurrentLocation().getName()));
-            gameBuilder.append(instructs.get("talk").get("instructions").get(0) + npc.getName());
-            Player.PLAYER.getCurrentLocation().setNpc(null);
-            //stop the background music
-            if(((Background)(GameSceneControllerNew.getBackground())) != null) {
+    public void randomlyConvertToZombie(StringBuilder gameBuilder, Map<String, Map<String, List<String>>> instructs, NPC npc, int randomInt) {
+            if(randomInt%4 == 1 || randomInt%4 == 2|| randomInt%4 == 3 ){
+                //turn the npc into a zombie
+                Player.PLAYER.getCurrentLocation().setZombie(new Zombie(5, Player.PLAYER.getCurrentLocation().getName()));
+                gameBuilder.append(instructs.get("talk").get("instructions").get(0) + npc.getName());
+                Player.PLAYER.getCurrentLocation().setNpc(null);
+                //stop the background music
+                if(((Background)(GameSceneControllerNew.getBackground())) != null) {
                 ((Background)(GameSceneControllerNew.getBackground())).pauseMusic();
                 SoundFactory.createSound(SoundType.BITE).startMusic(GameSceneControllerNew.currentVolume);
                 SoundFactory.createSound(SoundType.TURN).startMusic(GameSceneControllerNew.currentVolume);

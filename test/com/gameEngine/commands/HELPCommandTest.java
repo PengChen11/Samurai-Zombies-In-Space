@@ -1,6 +1,11 @@
 package com.gameEngine.commands;
 
 import com.gameEngine.GameEngine;
+import com.character.Player;
+import com.gameEngine.GameEngine;
+import com.item.Item;
+import com.item.Weapon;
+import com.location.Locations;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,19 +19,26 @@ public class HELPCommandTest {
     private String[] command ;
     private Map<String, Map<String, List<String>>> instructs;
     private CommandInterface helpCommand;
-
+    private Item item;
+    private Player player;
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
+        Item.getItems("cfg/Items.json");
+        Weapon.getWeapons("cfg/Weapons.json");
+        Locations.initWithJsonFile("cfg/sampleLocations.json");
         gameBuilder = new StringBuilder();
         command = new String[2];
         command[0] = "help";
+        command[1] = "";
         instructs= GameEngine.GAME_ENGINE.getInstructs();
         helpCommand = new HELPCommand();
+        player = Player.PLAYER;
+        player.setCurrentLocation(Locations.LandingDock);
     }
 
     @Test
-    public void processCommand_shouldUpdateStringBuilder_whenProcessCommandExecuted() {
-        helpCommand.processCommand(gameBuilder, command, instructs);
-        assertTrue(gameBuilder.toString().contains("Movement: go (north, south, east, west)"));
+    public void processCommand_shouldGiveTheHelp_whenHelpIsCalled() {
+        helpCommand.processCommand(gameBuilder,command,instructs);
+        assertTrue(gameBuilder.toString().contains(instructs.get("help").get("instructions").get(0)));
     }
 }
