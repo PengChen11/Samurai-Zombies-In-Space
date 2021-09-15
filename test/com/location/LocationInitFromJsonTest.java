@@ -15,6 +15,7 @@ public class LocationInitFromJsonTest {
         Item.getItems("cfg/Items.json");
         Weapon.getWeapons("cfg/Weapons.json");
         Locations.initWithJsonFile("cfg/sampleLocationTests(do_not_modify).json");
+        Locations.Bar.setZombie(null);
 
     }
 
@@ -61,6 +62,5 @@ public class LocationInitFromJsonTest {
         Locations.turnNpcToZombie(Locations.Bar);
         assertNull(Locations.Bar.getNpc());
         assertNotNull(Locations.Bar.getZombie());
-
     }
 }
