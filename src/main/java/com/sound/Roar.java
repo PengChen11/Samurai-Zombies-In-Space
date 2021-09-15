@@ -10,7 +10,7 @@ public class Roar extends SoundFX{
     private AudioClip roar;
     public Roar()
     {
-        roar=new AudioClip(new File("src/main/resources/sounds/Male Zombie Roar Sound Effect No Copyright Free Sound Effects.wav").toURI().toString());
+        roar=new AudioClip(new File("src/main/resources/sounds/Male Zombie Roar Sound Effect No Copyright Free Sound Effects.mp3").toURI().toString());
     }
     @Override
     public void startMusic() {

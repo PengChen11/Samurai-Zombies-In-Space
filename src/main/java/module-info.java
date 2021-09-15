@@ -7,6 +7,7 @@ module Samurai.Zombies.In.Space {
     requires java.sql;
     requires javafx.media;
 
+
     opens com.controller to javafx.fxml;
 
     exports com.client;
