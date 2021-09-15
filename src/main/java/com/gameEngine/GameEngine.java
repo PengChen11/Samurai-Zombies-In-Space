@@ -76,8 +76,7 @@ public enum GameEngine {
         CommandInterface getCommand = new GETCommand();
         CommandInterface dropCommand = new DROPCommand();
         CommandInterface goCommand = new GOCommand();
-        CommandInterface catalogCommand = new CATALOGCommand();
-        CommandInterface inventoryCommand = new INVENTORYCommand();
+
         CommandInterface helpCommand = new HELPCommand();
         CommandInterface saveCommand = new SAVECommand();
         ArrayList<CommandInterface> commandList = new ArrayList();
@@ -89,8 +88,6 @@ public enum GameEngine {
         commandList.add(getCommand);
         commandList.add(dropCommand);
         commandList.add(goCommand);
-        commandList.add(catalogCommand);
-        commandList.add(inventoryCommand);
         commandList.add(helpCommand);
         commandList.add(saveCommand);
         return commandList;

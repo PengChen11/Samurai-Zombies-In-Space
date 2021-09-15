@@ -8,17 +8,16 @@ import com.location.Locations;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class DROPCommandTest {
+public class HELPCommandTest {
     private StringBuilder gameBuilder ;
     private String[] command ;
     private Map<String, Map<String, List<String>>> instructs;
-    private CommandInterface dropCommand;
+    private CommandInterface helpCommand;
     private Item item;
     private Player player;
     @Before
@@ -28,27 +27,17 @@ public class DROPCommandTest {
         Locations.initWithJsonFile("cfg/sampleLocations.json");
         gameBuilder = new StringBuilder();
         command = new String[2];
-        command[0] = "drop";
-        command[1] = "zombie armor";
-
+        command[0] = "help";
+        command[1] = "";
         instructs= GameEngine.GAME_ENGINE.getInstructs();
-        dropCommand = new DROPCommand();
+        helpCommand = new HELPCommand();
         player = Player.PLAYER;
-        player.setCurrentLocation(Locations.CentralHub);
-
+        player.setCurrentLocation(Locations.LandingDock);
     }
 
     @Test
-    public void processCommand_shouldNotRemoveFromInventory_whenItemNotPresent() {
-
-        dropCommand.processCommand(gameBuilder,command,instructs);
-        assertTrue(gameBuilder.toString().contains(instructs.get("drop").get("instructions").get(0)));
-    }
-
-    @Test
-    public void processCommand_shouldRemoveFromInventory_whenItemPresent() {
-        player.addToInventory(Locations.CentralHub.getItemList().get(0));
-        dropCommand.processCommand(gameBuilder,command,instructs);
-        assertTrue(gameBuilder.toString().contains(instructs.get("drop").get("instructions").get(1)));
+    public void processCommand_shouldGiveTheHelp_whenHelpIsCalled() {
+        helpCommand.processCommand(gameBuilder,command,instructs);
+        assertTrue(gameBuilder.toString().contains(instructs.get("help").get("instructions").get(0)));
     }
 }
