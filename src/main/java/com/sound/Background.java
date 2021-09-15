@@ -17,8 +17,8 @@ public class Background extends SoundFX {
     }
 
     @Override
-    public void startMusic() {
-        mediaPlayer.setVolume(0.2);
+    public void startMusic(double volume) {
+        mediaPlayer.setVolume(volume);
         //set the loop for the media player
         mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
         mediaPlayer.play();

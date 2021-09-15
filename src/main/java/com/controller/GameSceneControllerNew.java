@@ -50,6 +50,10 @@ public class GameSceneControllerNew implements Initializable {
     @FXML
     private Slider fontSlider;
 
+    public Slider getVolumeSlider() {
+        return volumeSlider;
+    }
+
     @FXML
     private Slider volumeSlider;
 
@@ -59,6 +63,7 @@ public class GameSceneControllerNew implements Initializable {
 
     private static SoundFX background;
 
+    public static double currentVolume;
 
     //    private final GameEngine gameEngine = GameEngine.getInstance();
     private final GameEngine gameEngine = GameEngine.GAME_ENGINE;
@@ -74,6 +79,7 @@ public class GameSceneControllerNew implements Initializable {
         mapCoordinates.put("Central Hub", new double[]{198, 278});
         mapCoordinates.put("Bar", new double[]{262, 111});
         mapCoordinates.put("Medical Bay", new double[]{80, 118});
+
         //instance the background sound
         background = SoundFactory.createSound(SoundType.BACKGROUND);
     }
@@ -164,12 +170,13 @@ public class GameSceneControllerNew implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            currentVolume = Double.parseDouble(new DecimalFormat("#.#").format((double)this.volumeSlider.getValue()/100));
             setVolumeSlider();
             setFontSlider();
             introStoryToTextarea();
             Locations.initWithJsonFile("cfg/sampleLocations.json");
             //start background sound
-            background.startMusic();
+            background.startMusic(0.2);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -188,8 +195,10 @@ public class GameSceneControllerNew implements Initializable {
             volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
                 @Override
                 public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                    // System.out.println(Double.parseDouble(new DecimalFormat("#.#").format(t1.doubleValue()/100)));
-                    background.controlVolume(Double.parseDouble(new DecimalFormat("#.#").format(t1.doubleValue() / 100)));
+                    double volume = Double.parseDouble(new DecimalFormat("#.#").format(t1.doubleValue()/100));
+                    currentVolume = volume;
+                    //System.out.println(currentVolume);
+                    background.controlVolume(volume);
                 }
             });
         }
