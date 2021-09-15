@@ -6,8 +6,7 @@ module Samurai.Zombies.In.Space {
     requires gson;
     requires java.sql;
     requires javafx.media;
-    requires cmu.time.awb;
-    requires freetts;
+
 
     opens com.controller to javafx.fxml;
 
