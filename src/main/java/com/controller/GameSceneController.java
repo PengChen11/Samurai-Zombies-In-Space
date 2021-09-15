@@ -160,7 +160,7 @@ public class GameSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            sounds.startMusic();
+            sounds.startMusic(Double.parseDouble(new DecimalFormat("#.#").format((new GameSceneControllerNew().getVolumeSlider().getValue()/100))));
             setFontSlider();
             introStoryToTextarea();
             setVolumeSlider();

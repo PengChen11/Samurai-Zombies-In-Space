@@ -2,11 +2,13 @@ package com.gameEngine.commands;
 
 import com.character.Player;
 import com.character.Zombie;
+import com.controller.GameSceneControllerNew;
 import com.item.Item;
 import com.sound.Roar;
 import com.sound.SoundFactory;
 import com.sound.SoundType;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +24,7 @@ public class LOOKCommand implements CommandInterface {
             gameBuilder.append(Player.PLAYER.getCurrentLocation().getDescription()).append("\n");
             appendItemsToDescription(gameBuilder, instructs);
             if (Player.PLAYER.getCurrentLocation().getZombie() != null) {
-                SoundFactory.createSound(SoundType.ROAR).startMusic();
+                SoundFactory.createSound(SoundType.ROAR).startMusic(GameSceneControllerNew.currentVolume);
                 processZombieAttack(gameBuilder, instructs);
             }
         } else {

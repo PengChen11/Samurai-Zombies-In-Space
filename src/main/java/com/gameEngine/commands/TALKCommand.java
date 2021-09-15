@@ -7,6 +7,7 @@ import com.controller.GameSceneControllerNew;
 import com.sound.*;
 
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -30,10 +31,10 @@ public class TALKCommand implements CommandInterface{
                 Player.PLAYER.getCurrentLocation().setNpc(null);
                 //stop the background music
                 ((Background)(GameSceneControllerNew.getBackground())).pauseMusic();
-                SoundFactory.createSound(SoundType.BITE).startMusic();
-                SoundFactory.createSound(SoundType.TURN).startMusic();
+                SoundFactory.createSound(SoundType.BITE).startMusic(GameSceneControllerNew.currentVolume);
+                SoundFactory.createSound(SoundType.TURN).startMusic(GameSceneControllerNew.currentVolume);
                 if(!((Bite)(SoundFactory.createSound(SoundType.BITE))).getBiteClip().isPlaying() && !((Turn)(SoundFactory.createSound(SoundType.TURN))).getTurnClip().isPlaying()){
-                    GameSceneControllerNew.getBackground().startMusic();
+                    GameSceneControllerNew.getBackground().startMusic(GameSceneControllerNew.currentVolume);
                 }
 
             }
