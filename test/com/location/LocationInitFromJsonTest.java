@@ -1,5 +1,7 @@
 package com.location;
 
+import com.item.Item;
+import com.item.Weapon;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,6 +12,8 @@ public class LocationInitFromJsonTest {
     @Before
     public void setup() throws Exception {
         // DO NOT parse from actual game location json file, use this tester instead
+        Item.getItems("cfg/Items.json");
+        Weapon.getWeapons("cfg/Weapons.json");
         Locations.initWithJsonFile("cfg/sampleLocationTests(do_not_modify).json");
     }
 

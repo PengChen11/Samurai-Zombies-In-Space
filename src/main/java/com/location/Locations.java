@@ -4,15 +4,13 @@ import com.character.NPC;
 import com.character.Player;
 import com.character.Zombie;
 import com.item.Item;
+import com.item.Weapon;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public enum Locations {
     CentralHub,
@@ -165,10 +163,20 @@ public enum Locations {
 
             // setting up items
             if (locationJO.get("items") != null){
+                HashMap<String, Weapon> weaponsMap = Weapon.weaponsMap;
+                HashMap<String, Item> itemsMap = Item.itemsMap;
                 JSONArray itemsObjArray = (JSONArray) locationJO.get("items");
                 for (Object itemObj : itemsObjArray){
                     String itemName = (String) itemObj;
-                    target.addItem(new Item(itemName));
+                    Weapon weaponInLocation = weaponsMap.get(itemName);
+                    if (weaponInLocation != null) {
+                        target.addItem(weaponInLocation);
+                        continue;
+                    }
+                    Item itemInLocation = itemsMap.get(itemName);
+                    if (itemInLocation != null){
+                        target.addItem(itemInLocation);
+                    }
                 }
             }
 
@@ -212,5 +220,51 @@ public enum Locations {
         }
 
         return null;
+    }
+
+    public static void updateLocationsFromSavedGameData(JSONObject locationsData){
+        Map<String, Locations> locationsMap = Locations.getEnumMap();
+        HashMap<String, Weapon> weaponsMap = Weapon.weaponsMap;
+        HashMap<String, Item> itemsMap = Item.itemsMap;
+
+        for (Locations location : Locations.values()){
+
+            JSONObject locationObj = (JSONObject) locationsData.get(location.getName());
+
+            // update zombie
+            Zombie zombie = "yes".equalsIgnoreCase((String) locationObj.get("zombie"))?
+                            Zombie.getInstance() : null;
+            location.setZombie(zombie);
+
+            // update NPC
+            if (locationObj.get("npc") != null){
+                String npcName = (String) locationObj.get("npc");
+                location.setNpc(new NPC(npcName));
+            } else {
+                location.setNpc(null);
+            }
+
+            // update itemList
+            List<Item> newItemList = new ArrayList<>();
+            JSONArray savedItemList = (JSONArray) locationObj.get("itemList");
+
+            for (Object itemObj : savedItemList ){
+                String itemName = (String) itemObj;
+                Weapon weaponInLocation = weaponsMap.get(itemName);
+                if (weaponInLocation != null) {
+                    newItemList.add(weaponInLocation);
+                    continue;
+                }
+                Item itemInLocation = itemsMap.get(itemName);
+                if (itemInLocation != null){
+                    newItemList.add(itemInLocation);
+                }
+            }
+            location.loadItemListFromSavedGameData(newItemList);
+        }
+    }
+
+    private void loadItemListFromSavedGameData(List<Item> items){
+        this.itemList = items;
     }
 }
