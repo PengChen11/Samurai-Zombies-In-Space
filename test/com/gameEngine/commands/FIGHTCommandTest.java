@@ -3,14 +3,17 @@ package com.gameEngine.commands;
 import com.character.Player;
 import com.character.Zombie;
 import com.gameEngine.GameEngine;
+import com.item.Item;
+import com.item.Weapon;
 import com.location.Locations;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class FIGHTCommandTest {
 
@@ -18,57 +21,44 @@ public class FIGHTCommandTest {
     private String[] command ;
     private Map<String, Map<String, List<String>>> instructs;
     private CommandInterface fightCommand;
-
-    private Zombie zombie;
-
-
+    private Player player;
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
+        Item.getItems("cfg/Items.json");
+        Weapon.getWeapons("cfg/Weapons.json");
+        Locations.initWithJsonFile("cfg/sampleLocations.json");
         gameBuilder = new StringBuilder();
         command = new String[2];
         command[0] = "fight";
         instructs= GameEngine.GAME_ENGINE.getInstructs();
         fightCommand = new FIGHTCommand();
-
-        zombie = Zombie.getInstance();
-
-
+        player = Player.PLAYER;
+        Locations.LandingDock.setZombie(Zombie.getInstance());
+        player.setCurrentLocation(Locations.LandingDock);
     }
 
     @Test
     public void processFight_shouldChangeHealthOfZombieAndPlayer_whenCalledAndZombiePresent() {
-        int oldPlayerHealth = Player.PLAYER.getHealth();
-        int oldZombieHealth = zombie.getHealth();
-        Locations.LandingDock.setName("Landing Dock");
-        Locations.LandingDock.setZombie(zombie);
-        zombie.setLocation("Landing Dock");
+        int oldPlayerHealth = player.getHealth();
         fightCommand.processCommand(gameBuilder,command,instructs);
-        assertTrue(Player.PLAYER.getHealth() < oldPlayerHealth);
-        assertTrue(zombie.getHealth() < oldZombieHealth);
-
+        assertTrue(player.getHealth() < oldPlayerHealth);
     }
     @Test
     public void processFight_shouldChangeHealthOfZombieAndPlayer_whenCalledAndZombiePresentPlusCommandOneIsZombie() {
         command[1] = "zombie";
         int oldPlayerHealth = Player.PLAYER.getHealth();
-        int oldZombieHealth = zombie.getHealth();
-        Locations.LandingDock.setName("Landing Dock");
-        Locations.LandingDock.setZombie(zombie);
-        zombie.setLocation("Landing Dock");
         fightCommand.processCommand(gameBuilder,command,instructs);
         assertTrue(Player.PLAYER.getHealth() < oldPlayerHealth);
-        assertTrue(zombie.getHealth() < oldZombieHealth);
+
 
     }
     @Test
     public void processFight_shouldNotChangeHealthOfZombieAndPlayer_whenCalledAndZombieNotPresent() {
         int oldPlayerHealth = Player.PLAYER.getHealth();
-        int oldZombieHealth = zombie.getHealth();
-        Locations.LandingDock.setName("Landing Dock");
-
+        int oldZombieHealth = Player.PLAYER.getCurrentLocation().getZombie().getHealth();
+        Player.PLAYER.setCurrentLocation(Locations.Bar);
         fightCommand.processCommand(gameBuilder,command,instructs);
-        assertTrue(Player.PLAYER.getHealth() == oldPlayerHealth);
-        assertTrue(zombie.getHealth() == oldZombieHealth);
+        assertEquals((int) Player.PLAYER.getHealth(), oldPlayerHealth);
 
     }
 
@@ -84,7 +74,7 @@ public class FIGHTCommandTest {
     public void processFight_shouldNullifyZombieAtLocation_whenZombieKilled() {
         Locations.LandingDock.setName("Landing Dock");
         fightCommand.processCommand(gameBuilder,command,instructs);
-        assertTrue(Player.PLAYER.getCurrentLocation().getZombie() == null);
+        assertNull(Player.PLAYER.getCurrentLocation().getZombie());
     }
 
 }

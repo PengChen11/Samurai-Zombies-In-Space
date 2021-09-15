@@ -3,6 +3,7 @@ package com.gameEngine.commands;
 import com.character.Player;
 import com.gameEngine.GameEngine;
 import com.item.Item;
+import com.item.Weapon;
 import com.location.Locations;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,10 @@ public class GETCommandTest {
     private Item item;
     private Player player;
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
+        Item.getItems("cfg/Items.json");
+        Weapon.getWeapons("cfg/Weapons.json");
+        Locations.initWithJsonFile("cfg/sampleLocations.json");
         gameBuilder = new StringBuilder();
         command = new String[2];
         command[0] = "get";
