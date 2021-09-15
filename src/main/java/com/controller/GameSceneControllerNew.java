@@ -4,6 +4,7 @@ import com.character.Player;
 import com.gameEngine.GameEngine;
 import com.item.Item;
 import com.location.Locations;
+import com.sound.Background;
 import com.sound.SoundFX;
 import com.sound.SoundFactory;
 import com.sound.SoundType;
@@ -19,8 +20,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -51,6 +50,10 @@ public class GameSceneControllerNew implements Initializable {
     @FXML
     private Slider fontSlider;
 
+    public Slider getVolumeSlider() {
+        return volumeSlider;
+    }
+
     @FXML
     private Slider volumeSlider;
 
@@ -60,6 +63,7 @@ public class GameSceneControllerNew implements Initializable {
 
     private static SoundFX background;
 
+    public static double currentVolume;
 
     //    private final GameEngine gameEngine = GameEngine.getInstance();
     private final GameEngine gameEngine = GameEngine.GAME_ENGINE;
@@ -68,15 +72,16 @@ public class GameSceneControllerNew implements Initializable {
     private final HashMap<String, double[]> mapCoordinates = new HashMap<>();
 
     public GameSceneControllerNew() {
-        mapCoordinates.put("Ship", new double[] {151,689});
-        mapCoordinates.put("Repair Workshop", new double[] {290,538});
-        mapCoordinates.put("Landing Dock", new double[] {182,482});
-        mapCoordinates.put("Escape Shuttle", new double[] {62,395});
-        mapCoordinates.put("Central Hub", new double[] {198,278});
-        mapCoordinates.put("Bar", new double[] {262,111});
-        mapCoordinates.put("Medical Bay", new double[] {80,118});
+        mapCoordinates.put("Ship", new double[]{151, 689});
+        mapCoordinates.put("Repair Workshop", new double[]{290, 538});
+        mapCoordinates.put("Landing Dock", new double[]{182, 482});
+        mapCoordinates.put("Escape Shuttle", new double[]{62, 395});
+        mapCoordinates.put("Central Hub", new double[]{198, 278});
+        mapCoordinates.put("Bar", new double[]{262, 111});
+        mapCoordinates.put("Medical Bay", new double[]{80, 118});
+
         //instance the background sound
-        background= SoundFactory.createSound(SoundType.BACKGROUND);
+        background = SoundFactory.createSound(SoundType.BACKGROUND);
     }
 
     private TextField getInputTextField() {
@@ -104,13 +109,13 @@ public class GameSceneControllerNew implements Initializable {
     }
 
     private void setTextColor() {
-        if(storyTextArea.getText().contains("fight")){
+        if (storyTextArea.getText().contains("fight")) {
             storyTextArea.setStyle("-fx-text-fill : red; -fx-control-inner-background: black;");
-        }else if(storyTextArea.getText().contains("talk")){
+        } else if (storyTextArea.getText().contains("talk")) {
             storyTextArea.setStyle("-fx-text-fill : yellow; -fx-control-inner-background: black;");
-        }else if(storyTextArea.getText().contains("go")){
+        } else if (storyTextArea.getText().contains("go")) {
             storyTextArea.setStyle("-fx-text-fill : blue; -fx-control-inner-background: black;");
-        }else{
+        } else {
             storyTextArea.setStyle("-fx-text-fill : green; -fx-control-inner-background: black;");
         }
     }
@@ -126,7 +131,7 @@ public class GameSceneControllerNew implements Initializable {
     private void getPlayerInventory() {
         StringBuilder playerInventory = new StringBuilder();
         List<Item> itemList = Player.PLAYER.getInventory();
-        if (itemList.size() == 0){
+        if (itemList.size() == 0) {
             inventory.setText("");
             return;
         }
@@ -135,6 +140,7 @@ public class GameSceneControllerNew implements Initializable {
             inventory.setText(String.valueOf(playerInventory));
         }
     }
+
     /*
      * initialized at start of game.
      * reads main story txt file and sends add it to the textarea
@@ -150,7 +156,7 @@ public class GameSceneControllerNew implements Initializable {
     }
 
     private void setFontSlider() {
-        if(fontSlider != null){
+        if (fontSlider != null) {
             fontSlider.valueProperty().addListener(new ChangeListener<Number>() {
                 @Override
                 public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
@@ -164,12 +170,15 @@ public class GameSceneControllerNew implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            currentVolume = Double.parseDouble(new DecimalFormat("#.#").format((double)this.volumeSlider.getValue()/100));
             setVolumeSlider();
             setFontSlider();
             introStoryToTextarea();
-            Locations.initWithJsonFile("cfg/sampleLocations.json");
             //start background sound
-            background.startMusic();
+            getPlayerInventory();
+            getPlayerCurrentLocation();
+            background.startMusic(0.2);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -183,13 +192,15 @@ public class GameSceneControllerNew implements Initializable {
         storyTextArea.appendText(strToDisplay + '\n');
     }
 
-    private void setVolumeSlider(){
-        if(volumeSlider !=null){
+    private void setVolumeSlider() {
+        if (volumeSlider != null) {
             volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
                 @Override
                 public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                    // System.out.println(Double.parseDouble(new DecimalFormat("#.#").format(t1.doubleValue()/100)));
-                    background.controlVolume(Double.parseDouble(new DecimalFormat("#.#").format(t1.doubleValue()/100)));
+                    double volume = Double.parseDouble(new DecimalFormat("#.#").format(t1.doubleValue()/100));
+                    currentVolume = volume;
+                    //System.out.println(currentVolume);
+                    background.controlVolume(volume);
                 }
             });
         }

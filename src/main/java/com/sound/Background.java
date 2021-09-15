@@ -2,6 +2,7 @@ package com.sound;
 
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.Media;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -16,9 +17,12 @@ public class Background extends SoundFX {
     }
 
     @Override
-    public void startMusic() {
-        mediaPlayer.setVolume(0.2);
+    public void startMusic(double volume) {
+        mediaPlayer.setVolume(volume);
+        //set the loop for the media player
+        mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
         mediaPlayer.play();
+       // mediaPlayer.setAutoPlay(true);
     }
     public MediaPlayer getMediaPlayer(){
         return this.mediaPlayer;
@@ -32,5 +36,6 @@ public class Background extends SoundFX {
     public  void pauseMusic(){
         mediaPlayer.stop();
     }
+
 
 }

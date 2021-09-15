@@ -16,7 +16,8 @@ public class Bite extends SoundFX {
     }
 
     @Override
-    public void startMusic() {
+    public void startMusic(double volume) {
+        getBiteClip().setVolume(volume);
         biteClip.play();
     }
 }

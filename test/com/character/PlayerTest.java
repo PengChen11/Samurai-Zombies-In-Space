@@ -1,6 +1,7 @@
 package com.character;
 
 import com.item.Item;
+import com.location.Locations;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class PlayerTest {
     @After
     public void teardown() {
         // Reset defaults on enum
-        player.setLocation("Loading Dock");
+        player.setCurrentLocation(Locations.LandingDock);
         player.clearInventory();
         player.setHealth(20);
     }
@@ -33,7 +34,7 @@ public class PlayerTest {
 
     @Test
     public void getLocationDefault() {
-        assertEquals("Loading Dock", player.getLocation());
+        assertEquals(Locations.LandingDock, player.getCurrentLocation());
     }
 
     @Test
@@ -41,12 +42,12 @@ public class PlayerTest {
         item1 = new Item("spork", "Loading Dock");
         item2 = new Item("shovel", "med bay");
 
-        player.setLocation("Loading Dock");
+        player.setCurrentLocation(Locations.LandingDock);
         assertTrue(player.addToInventory(item1));
         // github action tests
 //        assertFalse(player.addToInventory(item1));
 
-        player.setLocation("med bay");
+        player.setCurrentLocation(Locations.MedicalBay);
         assertTrue(player.addToInventory(item2));
 
         assertTrue(player.checkInventory(item1));
@@ -86,9 +87,9 @@ public class PlayerTest {
     public void getInventoryPositiveTwoItems() {
         item1 = new Item("finger", "Loading Dock");
         item2 = new Item("spork", "med bay");
-        player.setLocation("Loading Dock");
+        player.setCurrentLocation(Locations.LandingDock);
         player.addToInventory(item1);
-        player.setLocation("med bay");
+        player.setCurrentLocation(Locations.MedicalBay);
         player.addToInventory(item2);
         ArrayList<Item> inventory = new ArrayList<>();
         inventory.add(item1);
@@ -123,9 +124,9 @@ public class PlayerTest {
     public void getInventorySizeCorrectForExistingItems() {
         item1 = new Item("finger", "Loading Dock");
         item2 = new Item("spork", "med bay");
-        player.setLocation("Loading Dock");
+        player.setCurrentLocation(Locations.LandingDock);
         player.addToInventory(item1);
-        player.setLocation("med bay");
+        player.setCurrentLocation(Locations.MedicalBay);
         player.addToInventory(item2);
         assertEquals((Integer) 2, player.getInventorySize());
     }
@@ -161,14 +162,9 @@ public class PlayerTest {
 
     @Test
     public void getLocationChanged() {
-        player.setLocation("med bay");
-        assertEquals("med bay", player.getLocation());
+        player.setCurrentLocation(Locations.MedicalBay);
+        assertEquals(Locations.MedicalBay, player.getCurrentLocation());
     }
 
-    @Test
-    public void getLocationNull() {
-        player.setLocation(null);
-        assertEquals(null, player.getLocation());
-    }
 
 }
