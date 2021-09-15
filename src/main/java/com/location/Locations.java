@@ -36,7 +36,7 @@ public enum Locations {
 
     // I don't need any constructors. the default constructors set everything to null which is needed.
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

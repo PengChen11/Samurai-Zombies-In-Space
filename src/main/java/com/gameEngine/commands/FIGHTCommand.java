@@ -15,8 +15,13 @@ public class FIGHTCommand implements CommandInterface{
 
     @Override
     public void processCommand(StringBuilder gameBuilder, String[] command, Map<String, Map<String, List<String>>> instructs)  {
+
         String currentLocKey = Player.PLAYER.getCurrentLocation().getName();
-        if(Locations.getEnumMap().get(currentLocKey).getZombie() != null && (command[1] == null|| command[1].equalsIgnoreCase("zombie"))&& Locations.getEnumMap().get(currentLocKey).getZombie().getHealth() > 0){
+        if(currentLocKey != null &&
+                Locations.getEnumMap().get(currentLocKey).getZombie() != null &&
+                (command[1] == null|| command[1].equalsIgnoreCase("zombie"))&&
+                Locations.getEnumMap().get(currentLocKey).getZombie().getHealth() > 0){
+
             gameBuilder.append(instructs.get("fight").get("instructions").get(0) + "\n");
             while(Player.PLAYER.getHealth() > 0 && Locations.getEnumMap().get(currentLocKey).getZombie().getHealth() > 0 ){
                 Locations.getEnumMap().get(currentLocKey).getZombie().takeDamage(Player.PLAYER.attack());
@@ -28,7 +33,7 @@ public class FIGHTCommand implements CommandInterface{
             }
             if(Player.PLAYER.getHealth() <= 0){
                 gameBuilder.append(instructs.get("fight").get("instructions").get(7) );
-                System.exit(0);
+                System.exit(0);// CANT GET COVERAGE ON THESE LINES DUE TO ENDING PROGRAM AT THIS POINT
             }else{
                 Player.PLAYER.getCurrentLocation().setZombie(null);
                 gameBuilder.append(instructs.get("fight").get("instructions").get(6) );
@@ -36,9 +41,5 @@ public class FIGHTCommand implements CommandInterface{
         }else{
            gameBuilder.append(instructs.get("fight").get("instructions").get(9));
         }
-
-
-
-
     }
 }

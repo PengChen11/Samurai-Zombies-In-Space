@@ -11,38 +11,31 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-public class DROPCommandTest {
+public class GETCommandTest {
     private StringBuilder gameBuilder ;
     private String[] command ;
     private Map<String, Map<String, List<String>>> instructs;
-    private CommandInterface dropCommand;
+    private CommandInterface getCommand;
     private Item item;
     private Player player;
     @Before
     public void setUp() throws IOException {
         gameBuilder = new StringBuilder();
         command = new String[2];
-        command[0] = "drop";
+        command[0] = "get";
         command[1] = "test item";
         item = new Item("test item", "Landing Dock", "a test item");
         instructs= GameEngine.GAME_ENGINE.getInstructs();
-        dropCommand = new DROPCommand();
+        getCommand = new GETCommand();
         player = Player.PLAYER;
     }
 
     @Test
-    public void processCommand_shouldNotRemoveFromInventory_whenItemNotPresent() {
-
-        dropCommand.processCommand(gameBuilder,command,instructs);
-        assertTrue(gameBuilder.toString().contains(instructs.get("drop").get("instructions").get(0)));
-    }
-
-    @Test
-    public void processCommand_shouldRemoveFromInventory_whenItemPresent() {
-        player.addToInventory(item);
-        dropCommand.processCommand(gameBuilder,command,instructs);
-        assertTrue(gameBuilder.toString().contains(instructs.get("drop").get("instructions").get(1)));
+    public void processCommand_shouldAddItemToInventory_whenItemIsPresentAndPlayersCurrentLocationIsSet() {
+        Locations.LandingDock.addItem(item);
+        getCommand.processCommand(gameBuilder,command,instructs);
+        assertTrue(Player.PLAYER.getInventory().get(0).getName().equals("test item"));
     }
 }
