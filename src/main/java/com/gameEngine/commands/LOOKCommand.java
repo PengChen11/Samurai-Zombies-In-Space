@@ -24,6 +24,7 @@ public class LOOKCommand implements CommandInterface {
             SoundFactory.createSound(SoundType.ROAR).startMusic();
         } else {
             gameBuilder.append(getLookResult(command[1],instructs));
+
         }
         // the zombie should attack you if there is a zombie in the room
         processZombieAttack(gameBuilder,instructs);

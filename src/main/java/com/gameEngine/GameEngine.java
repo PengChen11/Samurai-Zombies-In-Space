@@ -79,6 +79,7 @@ public enum GameEngine {
         CommandInterface catalogCommand = new CATALOGCommand();
         CommandInterface inventoryCommand = new INVENTORYCommand();
         CommandInterface helpCommand = new HELPCommand();
+        CommandInterface saveCommand = new SAVECommand();
         ArrayList<CommandInterface> commandList = new ArrayList();
         commandList.add(qCommand);
         commandList.add(talkCommand);
@@ -91,6 +92,7 @@ public enum GameEngine {
         commandList.add(catalogCommand);
         commandList.add(inventoryCommand);
         commandList.add(helpCommand);
+        commandList.add(saveCommand);
         return commandList;
 
 
