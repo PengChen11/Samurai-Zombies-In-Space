@@ -169,6 +169,8 @@ public class GameSceneControllerNew implements Initializable {
             introStoryToTextarea();
             //start background sound
             background.startMusic();
+            getPlayerInventory();
+            getPlayerCurrentLocation();
         } catch (Exception e) {
             e.printStackTrace();
         }

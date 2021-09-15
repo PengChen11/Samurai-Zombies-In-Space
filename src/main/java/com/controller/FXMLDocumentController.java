@@ -9,7 +9,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import java.io.FileReader;
 import java.io.IOException;
 
 public class FXMLDocumentController {
@@ -37,7 +40,7 @@ public class FXMLDocumentController {
 
 
     public void switchFromIntroToGameLoad(javafx.event.ActionEvent event) throws Exception {
-
+        initGameData();
         loadFromSavedGameData();
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameSceneNew.fxml"));
@@ -54,15 +57,15 @@ public class FXMLDocumentController {
     }
 
     private void loadFromSavedGameData() throws Exception {
-        initGameData();
 
-        //todo: update location items, zombie, npc
+        Object gameData = new JSONParser().parse(new FileReader("cfg/save/gameData.json"));
+        JSONObject gameDataObj = (JSONObject) gameData;
 
-        //todo: update player current location and inventory
-//        Player.PLAYER
+        JSONObject playerDataObj = (JSONObject) gameDataObj.get("player");
+        JSONObject locationsDataObj = (JSONObject) gameDataObj.get("locations");
+
+        Player.PLAYER.updatePlayerFromSavedGameData(playerDataObj);
+        Locations.updateLocationsFromSavedGameData(locationsDataObj);
     }
 
-    private void loadGame(){
-
-    }
 }
