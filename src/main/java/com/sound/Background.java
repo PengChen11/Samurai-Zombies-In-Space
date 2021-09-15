@@ -11,7 +11,7 @@ public class Background extends SoundFX {
     private Media media;
 
     public Background() {
-        media = new Media(new File("src/main/resources/sounds/Sunrust Zombie Survival Last Human Music.wav").toURI().toString());
+        media = new Media(new File("src/main/resources/sounds/Sunrust Zombie Survival Last Human Music.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(media);
     }
 

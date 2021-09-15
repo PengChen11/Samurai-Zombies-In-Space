@@ -30,6 +30,7 @@ public class FIGHTCommand implements CommandInterface{
                 gameBuilder.append(instructs.get("fight").get("instructions").get(7) );
                 System.exit(0);
             }else{
+                Player.PLAYER.getCurrentLocation().setZombie(null);
                 gameBuilder.append(instructs.get("fight").get("instructions").get(6) );
             }
         }else{
