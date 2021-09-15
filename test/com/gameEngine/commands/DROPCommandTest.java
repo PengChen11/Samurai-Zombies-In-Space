@@ -29,11 +29,13 @@ public class DROPCommandTest {
         gameBuilder = new StringBuilder();
         command = new String[2];
         command[0] = "drop";
-        command[1] = "test item";
-        item = new Item("test item", "Landing Dock", "a test item");
+        command[1] = "zombie armor";
+
         instructs= GameEngine.GAME_ENGINE.getInstructs();
         dropCommand = new DROPCommand();
         player = Player.PLAYER;
+        player.setCurrentLocation(Locations.CentralHub);
+
     }
 
     @Test
@@ -45,7 +47,7 @@ public class DROPCommandTest {
 
     @Test
     public void processCommand_shouldRemoveFromInventory_whenItemPresent() {
-        player.addToInventory(item);
+        player.addToInventory(Locations.CentralHub.getItemList().get(0));
         dropCommand.processCommand(gameBuilder,command,instructs);
         assertTrue(gameBuilder.toString().contains(instructs.get("drop").get("instructions").get(1)));
     }
