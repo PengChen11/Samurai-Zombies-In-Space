@@ -34,7 +34,7 @@ public class TALKCommand implements CommandInterface{
                 SoundFactory.createSound(SoundType.BITE).startMusic(GameSceneControllerNew.currentVolume);
                 SoundFactory.createSound(SoundType.TURN).startMusic(GameSceneControllerNew.currentVolume);
                 if(!((Bite)(SoundFactory.createSound(SoundType.BITE))).getBiteClip().isPlaying() && !((Turn)(SoundFactory.createSound(SoundType.TURN))).getTurnClip().isPlaying()){
-                    GameSceneControllerNew.getBackground().startMusic(GameSceneControllerNew.currentVolume);
+                    ((Background)(GameSceneControllerNew.getBackground())).startMusic(GameSceneControllerNew.currentVolume);
                 }
 
             }

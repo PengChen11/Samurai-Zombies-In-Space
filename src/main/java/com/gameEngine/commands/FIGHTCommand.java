@@ -5,9 +5,7 @@ import com.character.Zombie;
 import com.controller.GameSceneControllerNew;
 import com.gameEngine.GameEngine;
 import com.location.Locations;
-import com.sound.SoundFX;
-import com.sound.SoundFactory;
-import com.sound.SoundType;
+import com.sound.*;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -28,8 +26,12 @@ public class FIGHTCommand implements CommandInterface{
             while(Player.PLAYER.getHealth() > 0 && Locations.getEnumMap().get(currentLocKey).getZombie().getHealth() > 0 ){
                 Locations.getEnumMap().get(currentLocKey).getZombie().takeDamage(Player.PLAYER.attack());
                 Player.PLAYER.takeDamage(Locations.getEnumMap().get(currentLocKey).getZombie().attack());
+                ((Background)(GameSceneControllerNew.getBackground())).pauseMusic();
                 SoundFactory.createSound(SoundType.PUNCH).startMusic(GameSceneControllerNew.currentVolume);
-
+                if(!((Punch)(SoundFactory.createSound(SoundType.PUNCH))).getPunchClip().isPlaying())
+                {
+                    ((Background)(GameSceneControllerNew.getBackground())).startMusic(GameSceneControllerNew.currentVolume);
+                }
                 gameBuilder.append(instructs.get("fight").get("instructions").get(4) + Player.PLAYER.getHealth()+ "\n");
                 gameBuilder.append(instructs.get("fight").get("instructions").get(5) + Locations.getEnumMap().get(currentLocKey).getZombie().getHealth()+ "\n");
             }
