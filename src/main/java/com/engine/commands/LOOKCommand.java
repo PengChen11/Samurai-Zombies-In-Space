@@ -4,6 +4,7 @@ import com.character.NPC;
 import com.character.Player;
 import com.character.Zombie;
 
+import com.controller.GameSceneControllerNew;
 import com.item.Item;
 import com.sound.Roar;
 import com.sound.SoundFX;
@@ -15,6 +16,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +33,7 @@ public class LOOKCommand implements CommandInterface {
             gameBuilder.append(examineRoom(parser,currentLocation,instructs,catalog));
             // the zombie should attack you if there is a zombie in the room
             //call the look sound
-            SoundFactory.createSound(SoundType.ROAR).startMusic();
+            SoundFactory.createSound(SoundType.ROAR).startMusic(Double.parseDouble(new DecimalFormat("#.#").format((new GameSceneControllerNew().getVolumeSlider().getValue()/100))));
             processZombieAttack(gameBuilder,zombieNPC, player,currentLocation,parser);
 
         } else {

@@ -2,6 +2,7 @@ package com.engine.commands;
 
 import com.character.Player;
 import com.character.Zombie;
+import com.controller.GameSceneControllerNew;
 import com.engine.Parser;
 import com.item.Item;
 
@@ -15,6 +16,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +77,7 @@ public class FIGHTCommand implements CommandInterface {
                     + instructs.get("fight").get("instructions").get(1).split(":")[2]);
 
             //call the punch sound effect
-            SoundFactory.createSound(SoundType.PUNCH).startMusic();
+            SoundFactory.createSound(SoundType.PUNCH).startMusic(Double.parseDouble(new DecimalFormat("#.#").format((new GameSceneControllerNew().getVolumeSlider().getValue()/100))));
             processArmedPlayer(zombie, gameBuilder, zombieKatana, player, instructs);
             processZombieAndPlayerHealth(zombie, gameBuilder, player, instructs);
         } else {
@@ -96,7 +98,7 @@ public class FIGHTCommand implements CommandInterface {
     //Checks for armed players and if they are it processes the attacks differently.
     private void processArmedPlayer(Zombie zombie, StringBuilder gameBuilder, Item zombieKatana, Player player,  Map<String, Map<String, List<String>>> instructs) {
         if (player.getHealth() > 0 && player.checkInventory(zombieKatana)) {
-            SoundFactory.createSound(SoundType.WEAPON).startMusic();
+            SoundFactory.createSound(SoundType.WEAPON).startMusic(Double.parseDouble(new DecimalFormat("#.#").format((new GameSceneControllerNew().getVolumeSlider().getValue()/100))));
             zombie.takeDamage(player.attack() * 2);
             gameBuilder.append("\n"+instructs.get("fight").get("instructions").get(2).split(":")[0] + zombie.getHealth() +instructs.get("fight").get("instructions").get(2).split(":")[1]);
         } else {
