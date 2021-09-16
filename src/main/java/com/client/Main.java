@@ -8,8 +8,14 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    private static Stage primaryStage;
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Main.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/introScreen.fxml"));
         primaryStage.setTitle("Samurai Zombies in Space");
         primaryStage.setScene(new Scene(root));

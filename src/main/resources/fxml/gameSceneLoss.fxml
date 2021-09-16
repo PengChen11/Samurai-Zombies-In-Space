@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="777.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.FXMLDocumentController">
+   <children>
+      <Canvas height="578.0" width="1125.0">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../images/lossImage.png" />
+               </source></ImageInput>
+         </effect>
+      </Canvas>
+      <Canvas height="200.0" layoutY="577.0" width="1125.0">
+         <effect>
+            <ImageInput>
+               <source>
+                  <Image url="@../images/lossImageBorder.png" />
+               </source>
+            </ImageInput>
+         </effect>
+      </Canvas>
+       <Button layoutX="447.0" layoutY="608.0" mnemonicParsing="false" onAction="#switchFromLossToGameNew" prefHeight="80.0" prefWidth="216.0" style="-fx-border-color: black;" text="New Game " translateZ="1.0" />
+   </children>
+</AnchorPane>

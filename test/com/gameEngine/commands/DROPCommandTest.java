@@ -39,14 +39,14 @@ public class DROPCommandTest {
     }
 
     @Test
-    public void processCommand_shouldNotRemoveFromInventory_whenItemNotPresent() {
+    public void processCommand_shouldNotRemoveFromInventory_whenItemNotPresent() throws Exception {
 
         dropCommand.processCommand(gameBuilder,command,instructs);
         assertTrue(gameBuilder.toString().contains(instructs.get("drop").get("instructions").get(0)));
     }
 
     @Test
-    public void processCommand_shouldRemoveFromInventory_whenItemPresent() {
+    public void processCommand_shouldRemoveFromInventory_whenItemPresent() throws Exception {
         player.addToInventory(Locations.CentralHub.getItemList().get(0));
         dropCommand.processCommand(gameBuilder,command,instructs);
         assertTrue(gameBuilder.toString().contains(instructs.get("drop").get("instructions").get(1)));

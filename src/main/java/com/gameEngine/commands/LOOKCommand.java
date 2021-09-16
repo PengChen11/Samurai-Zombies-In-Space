@@ -2,10 +2,19 @@ package com.gameEngine.commands;
 
 import com.character.Player;
 import com.character.Zombie;
+import com.client.Main;
+import com.controller.FXMLDocumentController;
 import com.controller.GameSceneControllerNew;
 import com.item.Item;
 import com.sound.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +67,20 @@ public class LOOKCommand implements CommandInterface {
     private void processZombieAttack(StringBuilder gameBuilder, Map<String, Map<String, List<String>>> instructs) {
         Zombie zombie = Player.PLAYER.getCurrentLocation().getZombie();
         Player.PLAYER.takeDamage(zombie.attack());
+        if(Player.PLAYER.getHealth() <= 0){
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/fxml/gameSceneLoss.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Scene scene = new Scene(root);
+            Main.getPrimaryStage().setScene(scene);
+            Main.getPrimaryStage().show();
+
+
+        }
         gameBuilder.append(instructs.get("look").get("instructions").get(2)).append(Player.PLAYER.getHealth()).append(instructs.get("look").get("instructions").get(4));
         gameBuilder.append(instructs.get("look").get("instructions").get(3));
     }
