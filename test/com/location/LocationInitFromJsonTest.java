@@ -72,7 +72,8 @@ public class LocationInitFromJsonTest {
 
     @Test
     public void shouldBeAbleToLoadFromSavedGameData() throws Exception {
-        Object gameData = new JSONParser().parse(new FileReader("cfg/tests/sampleSavedLocationsData.json"));
+        Object gameData = new JSONParser().parse(new FileReader("cfg/tests/sampleSavedGameDataForTest(Do_NOT_Modify)" +
+                ".json"));
         JSONObject gameDataObj = (JSONObject) gameData;
         JSONObject locationsDataObj = (JSONObject) gameDataObj.get("locations");
         Locations.updateLocationsFromSavedGameData(locationsDataObj);
