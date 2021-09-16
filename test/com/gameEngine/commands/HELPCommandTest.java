@@ -1,5 +1,6 @@
 package com.gameEngine.commands;
 
+import com.gameEngine.GameEngine;
 import com.character.Player;
 import com.gameEngine.GameEngine;
 import com.item.Item;
