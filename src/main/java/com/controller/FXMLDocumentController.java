@@ -37,6 +37,16 @@ public class FXMLDocumentController {
         stage.setScene(scene);
         stage.show();
     }
+    public void switchFromLossToGameNew(javafx.event.ActionEvent event) throws Exception {
+
+        initGameData();
+
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameSceneNew.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
     public void switchFromIntroToGameLoad(javafx.event.ActionEvent event) throws Exception {
@@ -44,6 +54,13 @@ public class FXMLDocumentController {
         loadFromSavedGameData();
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameSceneNew.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void switchFromGameToLoss(javafx.event.ActionEvent event) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameSceneLoss.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

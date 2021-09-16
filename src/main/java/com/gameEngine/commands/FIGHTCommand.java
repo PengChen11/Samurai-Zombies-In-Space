@@ -2,18 +2,25 @@ package com.gameEngine.commands;
 
 import com.character.Player;
 
+import com.client.Main;
+import com.controller.FXMLDocumentController;
 import com.controller.GameSceneControllerNew;
 
 import com.location.Locations;
 import com.sound.*;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 public class FIGHTCommand implements CommandInterface{
 
     @Override
-    public void processCommand(StringBuilder gameBuilder, String[] command, Map<String, Map<String, List<String>>> instructs)  {
+    public void processCommand(StringBuilder gameBuilder, String[] command, Map<String, Map<String, List<String>>> instructs){
 
         String currentLocKey = Player.PLAYER.getCurrentLocation().getName();
         if(currentLocKey != null &&
@@ -39,7 +46,19 @@ public class FIGHTCommand implements CommandInterface{
             }
             if(Player.PLAYER.getHealth() <= 0){
                 gameBuilder.append(instructs.get("fight").get("instructions").get(7) );
-                System.exit(0);// CANT GET COVERAGE ON THESE LINES DUE TO ENDING PROGRAM AT THIS POINT
+               // System.exit(0);// CANT GET COVERAGE ON THESE LINES DUE TO ENDING PROGRAM AT THIS POINT
+
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource("/fxml/gameSceneLoss.fxml"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Scene scene = new Scene(root);
+                Main.getPrimaryStage().setScene(scene);
+                Main.getPrimaryStage().show();
+
             }else{
                 Player.PLAYER.getCurrentLocation().setZombie(null);
                 gameBuilder.append(instructs.get("fight").get("instructions").get(6) );
