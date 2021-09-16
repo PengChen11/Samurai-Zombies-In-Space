@@ -1,14 +1,17 @@
 package com.gameEngine.commands;
 
 import com.character.Player;
+import com.character.Zombie;
 import com.gameEngine.GameEngine;
 import com.item.Item;
 import com.item.Weapon;
 import com.location.Locations;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -20,17 +23,24 @@ public class LOOKCommandTest {
     private Map<String, Map<String, List<String>>> instructs;
     private CommandInterface lookCommand;
     private Player player;
-
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void setupClass() throws Exception {
         Item.getItems("cfg/Items.json");
         Weapon.getWeapons("cfg/Weapons.json");
         Locations.initWithJsonFile("cfg/sampleLocations.json");
+
+    }
+
+    @Before
+    public void setUp() throws Exception {
         player = Player.PLAYER;
+        instructs= GameEngine.GAME_ENGINE.getInstructs();
+        player.setCurrentLocation(Locations.LandingDock);
+        Locations.LandingDock.getItemList().clear();
+        Locations.LandingDock.setZombie(Zombie.getInstance());
         gameBuilder = new StringBuilder();
         command = new String[2];
         command[0] = "look";
-        instructs= GameEngine.GAME_ENGINE.getInstructs();
         lookCommand = new LOOKCommand();
     }
     @Test
