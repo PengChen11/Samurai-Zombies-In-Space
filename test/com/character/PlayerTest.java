@@ -18,21 +18,6 @@ public class PlayerTest {
 
     @Before
     public void setup() {
-        try {
-            Item.getItems("cfg/Items.json");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            Weapon.getWeapons("cfg/Weapons.json");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            Locations.initWithJsonFile("cfg/sampleLocations.json");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         player = Player.PLAYER;
     }
 
