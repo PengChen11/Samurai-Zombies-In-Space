@@ -5,6 +5,7 @@ import com.gameEngine.GameEngine;
 import com.item.Item;
 import com.item.Weapon;
 import com.location.Locations;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,26 +31,29 @@ public class GETCommandTest {
         gameBuilder = new StringBuilder();
         command = new String[2];
         command[0] = "get";
-        command[1] = "test item";
-        item = new Item("test item", "Landing Dock", "a test item");
+        command[1] = "zombie armor";
         instructs= GameEngine.GAME_ENGINE.getInstructs();
         getCommand = new GETCommand();
         player = Player.PLAYER;
 
     }
 
+    @After
+    public void tearDown()  {
+        player.getInventory().clear();
+        player.setCurrentLocation(Locations.LandingDock);
+    }
+
     @Test
     public void processCommand_shouldAddItemToInventory_whenItemIsPresentAndPlayersCurrentLocationIsSet() {
-        Locations.LandingDock.addItem(item);
-        System.out.println(Locations.LandingDock.getItemList().get(0));
-        player.setCurrentLocation(Locations.LandingDock);
+        player.setCurrentLocation(Locations.CentralHub);
         getCommand.processCommand(gameBuilder,command,instructs);
-        assertEquals("test item", player.getInventory().get(0).getName());
+        assertEquals("zombie armor", player.getInventory().get(0).getName());
     }
 
     @Test
     public void processCommand_shouldNotAddItemToInventory_whenItemIsNotPresentAtCurrentLocation() {
-        player.getInventory().clear();
+
         player.setCurrentLocation(Locations.Bar);
         getCommand.processCommand(gameBuilder,command,instructs);
         assertEquals(0, player.getInventory().size());
@@ -57,7 +61,7 @@ public class GETCommandTest {
 
     @Test
     public void processCommand_shouldNotBeAbleToPickUpItemsInOtherRooms_whenCurrentLocationDoesNotMatch() {
-        player.getInventory().clear();
+
         player.setCurrentLocation(Locations.Bar);
         getCommand.processCommand(gameBuilder,command,instructs);
         assertEquals(0,player.getInventory().size());
@@ -65,7 +69,7 @@ public class GETCommandTest {
 
     @Test
     public void processCommand_shouldUpdateGameBuilder_whenGivenInvalidCommand() {
-        player.getInventory().clear();
+
         command[1] = "not a test item";
         getCommand.processCommand(gameBuilder,command,instructs);
         assertTrue(gameBuilder.toString().contains(instructs.get("pick").get("instructions").get(3)));

@@ -6,6 +6,7 @@ import com.gameEngine.GameEngine;
 import com.item.Item;
 import com.item.Weapon;
 import com.location.Locations;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,14 +39,20 @@ public class FIGHTCommandTest {
         player.setHealth(10000);
     }
 
+    @After
+    public void tearDown() throws Exception {
+        player.setCurrentLocation(Locations.LandingDock);
+
+    }
+
     @Test
-    public void processFight_shouldChangeHealthOfZombieAndPlayer_whenCalledAndZombiePresent() {
+    public void processFight_shouldChangeHealthOfZombieAndPlayer_whenCalledAndZombiePresent() throws Exception {
         int oldPlayerHealth = player.getHealth();
         fightCommand.processCommand(gameBuilder,command,instructs);
         assertTrue(player.getHealth() < oldPlayerHealth);
     }
     @Test
-    public void processFight_shouldChangeHealthOfZombieAndPlayer_whenCalledAndZombiePresentPlusCommandOneIsZombie() {
+    public void processFight_shouldChangeHealthOfZombieAndPlayer_whenCalledAndZombiePresentPlusCommandOneIsZombie() throws Exception {
         command[1] = "zombie";
         int oldPlayerHealth = Player.PLAYER.getHealth();
         fightCommand.processCommand(gameBuilder,command,instructs);
@@ -54,17 +61,17 @@ public class FIGHTCommandTest {
 
     }
     @Test
-    public void processFight_shouldNotChangeHealthOfZombieAndPlayer_whenCalledAndZombieNotPresent() {
+    public void processFight_shouldNotChangeHealthOfZombieAndPlayer_whenCalledAndZombieNotPresent() throws Exception {
         int oldPlayerHealth = Player.PLAYER.getHealth();
         int oldZombieHealth = Player.PLAYER.getCurrentLocation().getZombie().getHealth();
-        Player.PLAYER.setCurrentLocation(Locations.Bar);
+        Player.PLAYER.setCurrentLocation(Locations.CentralHub);
         fightCommand.processCommand(gameBuilder,command,instructs);
         assertEquals((int) Player.PLAYER.getHealth(), oldPlayerHealth);
 
     }
 
     @Test
-    public void processFight_shouldGiveFeedBackThroughGameBuilder_whenItDoesNotPerformAttack() {
+    public void processFight_shouldGiveFeedBackThroughGameBuilder_whenItDoesNotPerformAttack() throws Exception {
         Locations.LandingDock.setName("Central Hub");
 
         fightCommand.processCommand(gameBuilder,command,instructs);
@@ -72,7 +79,7 @@ public class FIGHTCommandTest {
     }
 
     @Test
-    public void processFight_shouldNullifyZombieAtLocation_whenZombieKilled() {
+    public void processFight_shouldNullifyZombieAtLocation_whenZombieKilled() throws Exception {
         Locations.LandingDock.setName("Landing Dock");
         fightCommand.processCommand(gameBuilder,command,instructs);
         assertNull(Player.PLAYER.getCurrentLocation().getZombie());

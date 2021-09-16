@@ -1,6 +1,7 @@
 package com.gameEngine;
 
 import com.character.Player;
+import com.controller.FXMLDocumentController;
 import com.engine.Instruction;
 import com.engine.Parser;
 import com.gameEngine.commands.*;
@@ -28,7 +29,7 @@ public enum GameEngine {
 
 
 
-    public StringBuilder runGameLoop(String input) {
+    public StringBuilder runGameLoop(String input)  {
 
         StringBuilder gameBuilder = new StringBuilder();
 
@@ -91,8 +92,6 @@ public enum GameEngine {
         commandList.add(helpCommand);
         commandList.add(saveCommand);
         return commandList;
-
-
     }
 
 

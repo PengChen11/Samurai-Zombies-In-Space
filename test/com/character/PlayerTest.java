@@ -9,9 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
+
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -105,6 +104,7 @@ public class PlayerTest {
         inventory.add(item2);
 
         assertEquals(inventory, player.getInventory());
+
     }
 
     @Test
