@@ -1,11 +1,13 @@
 package com.character;
 
 import com.item.Item;
+import com.item.Weapon;
 import com.location.Locations;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -16,6 +18,21 @@ public class PlayerTest {
 
     @Before
     public void setup() {
+        try {
+            Item.getItems("cfg/Items.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            Weapon.getWeapons("cfg/Weapons.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            Locations.initWithJsonFile("cfg/sampleLocations.json");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         player = Player.PLAYER;
     }
 
@@ -96,6 +113,7 @@ public class PlayerTest {
         inventory.add(item2);
 
         assertEquals(inventory, player.getInventory());
+
     }
 
     @Test
