@@ -3,11 +3,14 @@ package com.character;
 import com.item.Item;
 import com.item.Weapon;
 import com.location.Locations;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
+import java.io.FileReader;
+
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -17,7 +20,10 @@ public class PlayerTest {
     Player player;
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
+        Item.getItems("cfg/Items.json");
+        Weapon.getWeapons("cfg/Weapons.json");
+        Locations.initWithJsonFile("cfg/sampleLocations.json");
         player = Player.PLAYER;
     }
 
@@ -167,6 +173,22 @@ public class PlayerTest {
     public void getLocationChanged() {
         player.setCurrentLocation(Locations.MedicalBay);
         assertEquals(Locations.MedicalBay, player.getCurrentLocation());
+    }
+
+    @Test
+    public void updatePlayerFromSavedGameDataShouldWork() throws Exception {
+        Object gameData = new JSONParser().parse(new FileReader("cfg/tests/sampleSavedGameDataForTest(Do_NOT_Modify)" +
+                ".json"));
+        JSONObject gameDataObj = (JSONObject) gameData;
+        JSONObject playerDataObj = (JSONObject) gameDataObj.get("player");
+        Player.PLAYER.updatePlayerFromSavedGameData(playerDataObj);
+
+        // Player location should change
+        assertEquals(Locations.Bar, Player.PLAYER.getCurrentLocation());
+        // Player HP should be updated
+        assertEquals(Integer.valueOf(10), Player.PLAYER.getHealth());
+        // Player inventory should be updated
+        assertEquals("zombie armor", Player.PLAYER.getInventory().get(0).getName());
     }
 
 
