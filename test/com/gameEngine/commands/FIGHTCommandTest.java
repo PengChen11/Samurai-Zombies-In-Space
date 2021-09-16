@@ -6,6 +6,7 @@ import com.gameEngine.GameEngine;
 import com.item.Item;
 import com.item.Weapon;
 import com.location.Locations;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,6 +37,12 @@ public class FIGHTCommandTest {
         Locations.LandingDock.setZombie(Zombie.getInstance());
         player.setCurrentLocation(Locations.LandingDock);
         player.setHealth(10000);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        player.setCurrentLocation(Locations.LandingDock);
+
     }
 
     @Test
