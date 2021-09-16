@@ -30,7 +30,7 @@ public enum Locations {
     private NPC npc;
     private List<Item> itemList = new ArrayList<>();
     private Zombie zombie;
-    private boolean isCurrentLocation = false;
+//    private boolean isCurrentLocation = false;
 
     // I don't need any constructors. the default constructors set everything to null which is needed.
 
@@ -124,13 +124,13 @@ public enum Locations {
         this.zombie = zombie;
     }
 
-    public boolean isCurrentLocation() {
-        return isCurrentLocation;
-    }
-
-    public void setCurrentLocation(boolean currentLocation) {
-        isCurrentLocation = currentLocation;
-    }
+//    public boolean isCurrentLocation() {
+//        return isCurrentLocation;
+//    }
+//
+//    public void setCurrentLocation(boolean currentLocation) {
+//        isCurrentLocation = currentLocation;
+//    }
 
     public static void initWithJsonFile(String path) throws Exception{
         Map<String, Locations> enumMap = getEnumMap();
@@ -151,8 +151,8 @@ public enum Locations {
             target.setEast(enumMap.get((String) locationJO.get("east")));
             target.setSouth(enumMap.get((String) locationJO.get("south")));
             target.setDescription((String) locationJO.get("description"));
-            // todo: do I really need to track current location here?
-            target.setCurrentLocation((boolean) locationJO.get("isCurrent"));
+//            // todo: do I really need to track current location here?
+//            target.setCurrentLocation((boolean) locationJO.get("isCurrent"));
 
             // setting up NPC
 
@@ -223,7 +223,6 @@ public enum Locations {
     }
 
     public static void updateLocationsFromSavedGameData(JSONObject locationsData){
-        Map<String, Locations> locationsMap = Locations.getEnumMap();
         HashMap<String, Weapon> weaponsMap = Weapon.weaponsMap;
         HashMap<String, Item> itemsMap = Item.itemsMap;
 
@@ -231,36 +230,38 @@ public enum Locations {
 
             JSONObject locationObj = (JSONObject) locationsData.get(location.getName());
 
-            // update zombie
-            Zombie zombie = "yes".equalsIgnoreCase((String) locationObj.get("zombie"))?
-                            Zombie.getInstance() : null;
-            location.setZombie(zombie);
+            if (locationObj != null){
+                // update zombie
+                Zombie zombie = "yes".equalsIgnoreCase((String) locationObj.get("zombie"))?
+                        Zombie.getInstance() : null;
+                location.setZombie(zombie);
 
-            // update NPC
-            if (locationObj.get("npc") != null){
-                String npcName = (String) locationObj.get("npc");
-                location.setNpc(new NPC(npcName));
-            } else {
-                location.setNpc(null);
-            }
-
-            // update itemList
-            List<Item> newItemList = new ArrayList<>();
-            JSONArray savedItemList = (JSONArray) locationObj.get("itemList");
-
-            for (Object itemObj : savedItemList ){
-                String itemName = (String) itemObj;
-                Weapon weaponInLocation = weaponsMap.get(itemName);
-                if (weaponInLocation != null) {
-                    newItemList.add(weaponInLocation);
-                    continue;
+                // update NPC
+                if (locationObj.get("npc") != null){
+                    String npcName = (String) locationObj.get("npc");
+                    location.setNpc(new NPC(npcName));
+                } else {
+                    location.setNpc(null);
                 }
-                Item itemInLocation = itemsMap.get(itemName);
-                if (itemInLocation != null){
-                    newItemList.add(itemInLocation);
+
+                // update itemList
+                List<Item> newItemList = new ArrayList<>();
+                JSONArray savedItemList = (JSONArray) locationObj.get("itemList");
+
+                for (Object itemObj : savedItemList ){
+                    String itemName = (String) itemObj;
+                    Weapon weaponInLocation = weaponsMap.get(itemName);
+                    if (weaponInLocation != null) {
+                        newItemList.add(weaponInLocation);
+                        continue;
+                    }
+                    Item itemInLocation = itemsMap.get(itemName);
+                    if (itemInLocation != null){
+                        newItemList.add(itemInLocation);
+                    }
                 }
+                location.loadItemListFromSavedGameData(newItemList);
             }
-            location.loadItemListFromSavedGameData(newItemList);
         }
     }
 
