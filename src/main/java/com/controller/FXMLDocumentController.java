@@ -32,6 +32,7 @@ public class FXMLDocumentController {
     public void switchFromLossToGameNew(javafx.event.ActionEvent event) throws Exception {
 
         initGameData();
+        Player.PLAYER.initPlayer();
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/gameSceneNew.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
