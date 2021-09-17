@@ -1,19 +1,9 @@
 package com.gameEngine;
 
 import com.character.Player;
-import com.controller.FXMLDocumentController;
-import com.engine.Instruction;
-import com.engine.Parser;
 import com.gameEngine.commands.*;
 import com.item.Item;
-import com.location.Locations;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

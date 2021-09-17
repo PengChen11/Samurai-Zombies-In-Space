@@ -18,8 +18,8 @@ public class Weapon extends Item {
     public static HashMap<String, Weapon> weaponsMap;
 
     // constructor
-    public Weapon(String name, String location, String description, int attackPower) throws IOException {
-        super(name, location, description);
+    public Weapon(String name, String description, int attackPower) throws IOException {
+        super(name, description);
         this.attackPower = attackPower;
     }
 
@@ -35,10 +35,9 @@ public class Weapon extends Item {
             for (int i = 0; i < weaponsSet.size(); i++) {
                 JSONObject weapon = (JSONObject) weaponsSet.get(i);
                 String name = weapon.get("name").toString();
-                String location = weapon.get("location").toString();
                 String description = weapon.get("description").toString();
                 int attackPower = (int) ((long) weapon.get("attack power"));
-                weapons.put(name, new Weapon(name, location, description, attackPower));
+                weapons.put(name, new Weapon(name, description, attackPower));
             }
         } catch (FileNotFoundException | ParseException e) {
             throw new IOException();
@@ -55,7 +54,6 @@ public class Weapon extends Item {
     public String toString() {
         return "Weapon{" +
                 "name='" + name + '\'' +
-                ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
                 ", attackPower=" + attackPower +
                 '}';
