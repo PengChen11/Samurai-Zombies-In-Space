@@ -24,11 +24,7 @@ public enum Player {
     Integer strength;
 
     Player() {
-        this.inventory = new ArrayList<>();
-        this.health = 20;
-        this.fightingZombie = false;
-        this.currentLocation = Locations.LandingDock;
-        this.strength = 5;
+        initPlayer();
     }
 
     public Integer getMaxHealth(){
@@ -192,5 +188,13 @@ public enum Player {
         }
 
         this.loadInventoryFromSavedGameData(newItemList);
+    }
+
+    public void initPlayer(){
+        this.inventory = new ArrayList<>();
+        this.health = 20;
+        this.fightingZombie = false;
+        this.currentLocation = Locations.LandingDock;
+        this.strength = 5;
     }
 }
