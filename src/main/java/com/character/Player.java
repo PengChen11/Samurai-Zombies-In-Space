@@ -123,15 +123,6 @@ public enum Player {
         this.inventory = new ArrayList<>();
     }
 
-    /**
-     * Remove an item from inventory
-     * @param item
-     * @return String location of item
-     */
-    public String removeInventory(Item item) {
-        this.inventory.remove(item);
-        return item.getLocation();
-    }
 
     public boolean removeInventory(String itemName) {
         for (int i = 0; i < inventory.size(); i++) {

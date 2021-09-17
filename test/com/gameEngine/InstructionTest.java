@@ -1,8 +1,6 @@
-package com.engine;
+package com.gameEngine;
 
 import org.junit.Test;
-
-import java.text.ParseException;
 
 import static org.junit.Assert.*;
 
@@ -13,6 +11,5 @@ public class InstructionTest {
         Instruction instruct=new Instruction();
         assertTrue(instruct.isParseable());
     }
-
 
 }
