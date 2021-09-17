@@ -20,7 +20,7 @@ public class ItemTest {
         String validFilePath = "cfg/Items.json";
         Item.getItems(validFilePath);
         HashMap<String, Item> itemsMap = Item.itemsMap;
-        assertEquals(7, itemsMap.size());
+        assertEquals(8, itemsMap.size());
     }
 
     @Test(expected = IOException.class)

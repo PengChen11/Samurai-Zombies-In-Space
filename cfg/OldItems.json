@@ -15,5 +15,6 @@
 ,
 "lever": "The missing lever from the refueling station.",
 "oxygen tank": "Oxygen, dioxygen, diatomic oxygen.",
-  "battery": "This might be useful in my escape."
+  "battery": "This might be useful in my escape.",
+  "key" : "This might unlock something"
 }

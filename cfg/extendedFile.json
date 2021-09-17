@@ -9,7 +9,7 @@
     "instructions" : ["You're attacking the zombie. ","Player:HP. Zombie:HP.","You swing your katana. Zombie has:HP",
       "You used your fists. Zombie has HP:","The Zombie hits you. You have HP: ","You hit the zombie. Zombie has HP: ","You managed to kill the Zombie!",
       "Looks like you've been killed. Womp womp.","Just because you can, doesn't mean you should.",
-      "\nDave, stay focused. You can pick a fight later."
+      "\nDave, stay focused. You can pick a fight later.", " \n You've received a key from that zombie!"
       ]
   },
   "talk": {
@@ -25,7 +25,7 @@
           ]
   },
   "use": {
-    "instructions" : ["What should I use this on?","You can't do that Dave."
+    "instructions" : ["What should I use this on?","You can't do that Dave.", "The robot releases the lever from its hands!", "You unlock the toolbox with the key and get the space wrench!"
     ]
   },
   "look": {

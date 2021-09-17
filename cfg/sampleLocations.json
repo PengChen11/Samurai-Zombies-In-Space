@@ -14,7 +14,7 @@
     "name": "Repair Workshop",
     "west": "Landing Dock",
     "NPC": "engineer",
-    "items": ["wizzlewhat", "space wrench"],
+    "items": ["wizzlewhat"],
     "description": "Inside the shop you see repair parts, including a wizzlewhat, knocked over on the ground. There's blood smeared behind a counter (someone must have had a bad accident). The only exit is the way you came in, back to the west. You take a step forward and hear the sound of a tool hit the ground. You quickly glance over and see a pair of eyes behind a stack of RAD boosters -- it looks like an engineer.",
     "isCurrent": false
   },
@@ -47,7 +47,7 @@
     "name": "Escape Shuttle",
     "east": "Landing Dock",
     "NPC": "robot",
-    "items": ["oxygen tank", "zombie gun", "lever"],
+    "items": ["oxygen tank", "zombie gun"],
     "description": "The area is littered with cargo boxes, rats, and wires hanging loosely from the walls. Only the life support systems seem to be untouched. The exit to the east is the only way out.",
     "isCurrent": false
   },

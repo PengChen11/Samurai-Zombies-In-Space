@@ -6,6 +6,7 @@ import com.client.Main;
 import com.controller.FXMLDocumentController;
 import com.controller.GameSceneControllerNew;
 
+import com.item.Item;
 import com.location.Locations;
 import com.sound.*;
 import javafx.event.ActionEvent;
@@ -46,8 +47,6 @@ public class FIGHTCommand implements CommandInterface{
             }
             if(Player.PLAYER.getHealth() <= 0){
                 gameBuilder.append(instructs.get("fight").get("instructions").get(7) );
-               // System.exit(0);// CANT GET COVERAGE ON THESE LINES DUE TO ENDING PROGRAM AT THIS POINT
-
                 Parent root = null;
                 try {
                     root = FXMLLoader.load(getClass().getResource("/fxml/gameSceneLoss.fxml"));
@@ -61,7 +60,11 @@ public class FIGHTCommand implements CommandInterface{
 
             }else{
                 Player.PLAYER.getCurrentLocation().setZombie(null);
-                gameBuilder.append(instructs.get("fight").get("instructions").get(6) );
+                gameBuilder.append(instructs.get("fight").get("instructions").get(6));
+                if(Player.PLAYER.getCurrentLocation().equals(Locations.LandingDock) && !Player.PLAYER.checkInventory(Item.itemsMap.get("key"))){
+                    Player.PLAYER.addToInventory(Item.itemsMap.get("key"));
+                    gameBuilder.append(instructs.get("fight").get("instructions").get(10));
+                }
             }
         }else{
            gameBuilder.append(instructs.get("fight").get("instructions").get(9));
