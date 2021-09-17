@@ -18,19 +18,15 @@ public class GOCommand implements CommandInterface{
         switch (command[1].toLowerCase()){
             case "north":
                 nextLocation = Player.PLAYER.getCurrentLocation().getNorth();
-                GOCommand.randomlyGenerateZombie(nextLocation);
                 break;
             case "east":
                 nextLocation = Player.PLAYER.getCurrentLocation().getEast();
-                GOCommand.randomlyGenerateZombie(nextLocation);
                 break;
             case "west":
                 nextLocation = Player.PLAYER.getCurrentLocation().getWest();
-                GOCommand.randomlyGenerateZombie(nextLocation);
                 break;
             case "south":
                 nextLocation = Player.PLAYER.getCurrentLocation().getSouth();
-                GOCommand.randomlyGenerateZombie(nextLocation);
                 break;
         }
 
@@ -38,7 +34,7 @@ public class GOCommand implements CommandInterface{
             gameBuilder.append(instructs.get("head").get("instructions").get(2));
         } else {
             gameBuilder.append(instructs.get("head").get("instructions").get(0)).append(command[1]).append("\n");
-
+            GOCommand.randomlyGenerateZombie(nextLocation);
             Player.PLAYER.setCurrentLocation(nextLocation);
         }
     }
