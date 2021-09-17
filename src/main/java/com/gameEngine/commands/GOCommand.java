@@ -1,10 +1,14 @@
 package com.gameEngine.commands;
 
 import com.character.Player;
+import com.character.Zombie;
+import com.controller.GameSceneControllerNew;
 import com.location.Locations;
+import com.sound.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class GOCommand implements CommandInterface{
     @Override
@@ -30,8 +34,16 @@ public class GOCommand implements CommandInterface{
             gameBuilder.append(instructs.get("head").get("instructions").get(2));
         } else {
             gameBuilder.append(instructs.get("head").get("instructions").get(0)).append(command[1]).append("\n");
-
+            GOCommand.randomlyGenerateZombie(nextLocation);
             Player.PLAYER.setCurrentLocation(nextLocation);
+        }
+    }
+
+    private static void randomlyGenerateZombie(Locations location) {
+        Random rand = new Random();
+        int randomNumber = rand.nextInt();
+        if (randomNumber % 3 == 0) {
+            location.setZombie(new Zombie(5, location.getName()));
         }
     }
 }
