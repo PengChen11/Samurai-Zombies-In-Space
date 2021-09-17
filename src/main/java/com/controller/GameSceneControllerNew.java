@@ -115,7 +115,7 @@ public class GameSceneControllerNew implements Initializable {
 
     private void setPlayerHealthBar() {
 
-        healthBar.setWidth(Player.PLAYER.getHealth()*31.6);
+        healthBar.setWidth(Player.PLAYER.getHealth()*26.5);
     }
 
     private void setTextColor() {
