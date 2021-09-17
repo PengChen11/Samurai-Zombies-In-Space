@@ -4,6 +4,10 @@
     "description": "A wizzlewhat of course."
   },
   {
+    "name": "battery",
+    "description": "This might be useful in my escape."
+  },
+  {
     "name": "space wrench",
     "description": "A wrench best used in space."
   },
@@ -17,7 +21,7 @@
   },
   {
     "name": "lever",
-    "description": "The missing lever from the refueling station."
+    "description": "The missing lever from the escape shuttle."
   },
   {
     "name": "oxygen tank",

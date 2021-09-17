@@ -29,7 +29,7 @@ public class GETCommand implements CommandInterface{
 
     private String pickUpItem(String thing,Map<String, Map<String, List<String>>> instructs ) {
         Item item = Player.PLAYER.getCurrentLocation().containsItem(thing);
-        if (item != null) {
+        if (item != null && !item.getName().equalsIgnoreCase("lever")) {
             Player.PLAYER.addToInventory(item);
             Player.PLAYER.getCurrentLocation().removeItem(item);
             if((Background) (GameSceneControllerNew.getBackground()) != null){
@@ -42,6 +42,21 @@ public class GETCommand implements CommandInterface{
 
 
             return instructs.get("pick").get("instructions").get(0) + thing + instructs.get("pick").get("instructions").get(1);
+        }else if(item != null && item.getName().equalsIgnoreCase("lever") && Player.PLAYER.checkInventory(Item.itemsMap.get("battery"))){
+            Player.PLAYER.addToInventory(item);
+            Player.PLAYER.getCurrentLocation().removeItem(item);
+            if((Background) (GameSceneControllerNew.getBackground()) != null){
+                ((Background)(GameSceneControllerNew.getBackground())).pauseMusic();
+                SoundFactory.createSound(SoundType.NICE).startMusic(GameSceneControllerNew.currentVolume);
+                if(!((Nice)(SoundFactory.createSound(SoundType.NICE))).getNiceClip().isPlaying()){
+                    ((Background)(GameSceneControllerNew.getBackground())).startMusic(GameSceneControllerNew.currentVolume);
+                }
+            }
+
+
+            return instructs.get("pick").get("instructions").get(0) + thing + instructs.get("pick").get("instructions").get(1);
+        }else if(item != null && item.getName().equalsIgnoreCase("lever") && !Player.PLAYER.checkInventory(Item.itemsMap.get("battery"))){
+            return instructs.get("pick").get("instructions").get(4);
         }
 
         return thing + instructs.get("pick").get("instructions").get(3);
