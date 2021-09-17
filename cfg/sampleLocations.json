@@ -46,7 +46,7 @@
   {
     "name": "Escape Shuttle",
     "east": "Landing Dock",
-    "items": ["oxygen tank"],
+    "items": ["oxygen tank", "zombie gun"],
     "description": "The area is littered with cargo boxes, rats, and wires hanging loosely from the walls. Only the life support systems seem to be untouched. The exit to the east is the only way out.",
     "isCurrent": false
   },

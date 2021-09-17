@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class Item {
     String name;
-    String location;
     String description;
     public static HashMap<String, Item> itemsMap;
 
@@ -23,14 +22,9 @@ public class Item {
         this.name = name;
     }
 
-    public Item(String name, String location) {
-        this.name = name;
-        this.location = location;
 
-    }
-    public Item(String name, String location, String description) throws IOException {
+    public Item(String name, String description) throws IOException {
         this.name = name;
-        this.location = location;
         this.description = description;
     }
 
@@ -46,9 +40,8 @@ public class Item {
             for (int i = 0; i < itemSet.size(); i++) {
                 JSONObject item = (JSONObject) itemSet.get(i);
                 String name = item.get("name").toString();
-                String location = item.get("location").toString();
                 String description = item.get("description").toString();
-                items.put(name, new Item(name, location, description));
+                items.put(name, new Item(name, description));
             }
         } catch (FileNotFoundException | ParseException e) {
             throw new IOException();
@@ -98,14 +91,6 @@ public class Item {
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getName() {
         return name;
     }
@@ -118,7 +103,6 @@ public class Item {
     public String toString() {
         return "Item{" +
                 "name='" + name + '\'' +
-                ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }

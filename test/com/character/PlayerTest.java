@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.FileReader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -46,7 +47,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void checkInventoryPositive() {
+    public void checkInventoryPositive() throws IOException {
         item1 = new Item("spork", "Loading Dock");
         item2 = new Item("shovel", "med bay");
 
@@ -68,7 +69,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void checkInventoryNegativeNullSetItem() {
+    public void checkInventoryNegativeNullSetItem() throws IOException {
         item1 = null;
         player.addToInventory(item1);
         item2 = new Item("spork", "Loading Dock");
@@ -76,7 +77,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void checkInventoryNegativeDifferentItemNameSameLocation() {
+    public void checkInventoryNegativeDifferentItemNameSameLocation() throws IOException {
         item1 = new Item("finger", "Loading Dock");
         item2 = new Item("spork", "Loading Dock");
         player.addToInventory(item1);
@@ -84,7 +85,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void checkInventoryPositiveDifferentItemDifferentLocation() {
+    public void checkInventoryPositiveDifferentItemDifferentLocation() throws IOException {
         item1 = new Item("finger", "Loading Dock");
         item2 = new Item("spork", "med bay");
         player.addToInventory(item1);
@@ -92,7 +93,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void getInventoryPositiveTwoItems() {
+    public void getInventoryPositiveTwoItems() throws IOException {
         item1 = new Item("finger", "Loading Dock");
         item2 = new Item("spork", "med bay");
         player.setCurrentLocation(Locations.LandingDock);
@@ -108,29 +109,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void removeInventoryPositive() {
-        item1 = new Item("finger", "Loading Dock");
-        item2 = new Item("spork", "med bay");
-        player.addToInventory(item1);
-        player.addToInventory(item2);
-        ArrayList<Item> inventory = new ArrayList<>();
-        inventory.add(item1);
-        player.removeInventory(item2);
-
-        assertEquals(inventory, player.getInventory());
-    }
-
-    @Test
-    public void removeInventoryNegative() {
-        item1 = new Item("finger", "Loading Dock");
-        item2 = new Item("spork", "med bay");
-        player.addToInventory(item1);
-        player.removeInventory(item1);
-        assertEquals(new ArrayList<>(), player.getInventory());
-    }
-
-    @Test
-    public void getInventorySizeCorrectForExistingItems() {
+    public void getInventorySizeCorrectForExistingItems() throws IOException {
         item1 = new Item("finger", "Loading Dock");
         item2 = new Item("spork", "med bay");
         player.setCurrentLocation(Locations.LandingDock);
@@ -138,16 +117,6 @@ public class PlayerTest {
         player.setCurrentLocation(Locations.MedicalBay);
         player.addToInventory(item2);
         assertEquals((Integer) 2, player.getInventorySize());
-    }
-
-    @Test
-    public void getInventorySizeCorrectAfterItemRemoval() {
-        item1 = new Item("finger", "Loading Dock");
-        item2 = new Item("spork", "med bay");
-        player.addToInventory(item1);
-        player.addToInventory(item2);
-        player.removeInventory(item2);
-        assertEquals((Integer) 1, player.getInventorySize());
     }
 
     @Test

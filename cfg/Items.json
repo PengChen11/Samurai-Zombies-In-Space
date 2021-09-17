@@ -1,32 +1,26 @@
 [
   {
     "name": "wizzlewhat",
-    "location": "Repair Workshop",
     "description": "A wizzlewhat of course."
   },
   {
     "name": "space wrench",
-    "location": "Repair Workshop",
     "description": "A wrench best used in space."
   },
   {
     "name": "zombie armor",
-    "location": "Central Hub",
     "description": "Looks to be in good shape, don't mind the blood."
   },
   {
     "name": "health kit",
-    "location": "Medical Bay",
     "description": "Quick patch. Restores a bit of HP."
   },
   {
     "name": "lever",
-    "location": "Medical Bay",
     "description": "The missing lever from the refueling station."
   },
   {
     "name": "oxygen tank",
-    "location": "Escape Shuttle",
     "description": "Oxygen, dioxygen, diatomic oxygen."
   }
 ]
