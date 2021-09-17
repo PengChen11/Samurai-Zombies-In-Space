@@ -29,20 +29,13 @@ public class GETCommand implements CommandInterface{
 
     private String pickUpItem(String thing,Map<String, Map<String, List<String>>> instructs ) {
         Item item = Player.PLAYER.getCurrentLocation().containsItem(thing);
-        if (item != null && !item.getName().equalsIgnoreCase("lever")) {
+        if (item != null ) {
             Player.PLAYER.addToInventory(item);
             Player.PLAYER.getCurrentLocation().removeItem(item);
             checkMusicBackground();
             return instructs.get("pick").get("instructions").get(0) + thing + instructs.get("pick").get("instructions").get(1);
         }
-        else if(item != null && item.getName().equalsIgnoreCase("lever") && Player.PLAYER.checkInventory(Item.itemsMap.get("battery"))){
-            Player.PLAYER.addToInventory(item);
-            Player.PLAYER.getCurrentLocation().removeItem(item);
-            checkMusicBackground();
-            return instructs.get("pick").get("instructions").get(0) + thing + instructs.get("pick").get("instructions").get(1);
-        }else if(item != null && item.getName().equalsIgnoreCase("lever") && !Player.PLAYER.checkInventory(Item.itemsMap.get("battery"))){
-            return instructs.get("pick").get("instructions").get(4);
-        }
+
         return thing + instructs.get("pick").get("instructions").get(3);
     }
 

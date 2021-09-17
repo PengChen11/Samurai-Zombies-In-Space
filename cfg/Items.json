@@ -26,5 +26,9 @@
   {
     "name": "oxygen tank",
     "description": "Oxygen, dioxygen, diatomic oxygen."
+  },
+  {
+    "name": "key",
+    "description": "This might unlock something"
   }
 ]
