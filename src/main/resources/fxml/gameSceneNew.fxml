@@ -24,7 +24,13 @@
                                                 <Font size="16.0" />
                                             </font>
                                         </TextArea>
-                              <Rectangle fx:id="healthBar" arcHeight="5.0" arcWidth="5.0" fill="#2fff1f" height="73.0" stroke="BLACK" strokeType="INSIDE" width="632.0" />
+                              <Rectangle fx:id="antiHealthBar" arcHeight="5.0" arcWidth="5.0" fill="#ff2121" height="73.0" layoutX="102.0" stroke="BLACK" strokeType="INSIDE" width="530.0" />
+                              <Rectangle fx:id="healthBar" arcHeight="5.0" arcWidth="5.0" fill="#2fff1f" height="73.0" layoutX="102.0" stroke="BLACK" strokeType="INSIDE" width="530.0" />
+                              <Text fill="#56ff6a" layoutX="7.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Health" wrappingWidth="100.13671875">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Text>
                                     </children></AnchorPane>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: black;">
                                     <children>
@@ -33,9 +39,9 @@
                                                 <Font size="16.0" />
                                             </font>
                                         </TextArea>
-                                        <Label alignment="CENTER" contentDisplay="TEXT_ONLY" prefHeight="77.0" prefWidth="158.0" text="Inventory" textAlignment="CENTER" textFill="#26b509">
+                                        <Label alignment="CENTER" contentDisplay="TEXT_ONLY" prefHeight="77.0" prefWidth="158.0" text="Inventory" textAlignment="CENTER" textFill="#56ff6a">
                                             <font>
-                                                <Font size="16.0" />
+                                                <Font size="24.0" />
                                             </font>
                                         </Label>
                                     </children>
