@@ -28,5 +28,9 @@
       "\"Have you seen one yet? Good luck, traveler. I’m gonna hole up here and breathe my last. Always said I’d go down with this station, but I always figured I'd never actually have to.\""
     ],
     "description" : ["The station's bartender has obviously spent most of her life in space, her skin old and wrinkling but not sagging, and her wiry, lean frame taller than most. She looks like she'd normally be half-interested in what's happening on the station, but today, she's at least three-quarters interested."]
+  },
+  "robot": {
+    "description" : ["The robot is cold and dark, holding a long rod. Maybe I can find a battery to turn it back on."]
   }
+
 }

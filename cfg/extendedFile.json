@@ -50,7 +50,7 @@
     ]
   },
   "pick": {
-    "instructions" : ["Placed "," in your inventory\n" ,"You already have the "," doesn't exist\n"
+    "instructions" : ["Placed "," in your inventory\n" ,"You already have the "," doesn't exist\n", "You can't pry that from the robots cold uncharged hands."
     ]
    }
 }
