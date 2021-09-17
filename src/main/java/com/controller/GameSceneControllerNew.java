@@ -19,6 +19,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,6 +51,8 @@ public class GameSceneControllerNew implements Initializable {
     @FXML
     private Slider fontSlider;
 
+    @FXML
+    private Rectangle healthBar;
     public Slider getVolumeSlider() {
         return volumeSlider;
     }
@@ -101,11 +104,18 @@ public class GameSceneControllerNew implements Initializable {
                 storyTextArea.appendText(append);
                 setTextColor();
 
+
                 getPlayerInventory();
                 getPlayerCurrentLocation();
+                setPlayerHealthBar();
                 getInputTextField().clear();
             }
         });
+    }
+
+    private void setPlayerHealthBar() {
+
+        healthBar.setWidth(Player.PLAYER.getHealth()*31.6);
     }
 
     private void setTextColor() {
@@ -122,8 +132,6 @@ public class GameSceneControllerNew implements Initializable {
 
     private void getPlayerCurrentLocation() {
         String currentLocationName = Player.PLAYER.getCurrentLocation().getName();
-        currentLocation.setText(String.valueOf("Current Room: " + currentLocationName));
-//        System.out.println(mapCoordinates.get(gameEngine.currentLocation)[0]);
         currentLocationCircle.setLayoutX(mapCoordinates.get(currentLocationName)[0]);
         currentLocationCircle.setLayoutY(mapCoordinates.get(currentLocationName)[1]);
     }

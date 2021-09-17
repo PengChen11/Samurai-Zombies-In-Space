@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="778.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.GameSceneControllerNew">
+<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="778.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controller.GameSceneControllerNew">
     <children>
         <SplitPane dividerPositions="0.8357050452781372" layoutY="-2.0" orientation="VERTICAL" prefHeight="777.0" prefWidth="800.0">
             <items>
@@ -24,11 +24,7 @@
                                                 <Font size="16.0" />
                                             </font>
                                         </TextArea>
-                                        <Label fx:id="currentLocation" layoutY="2.0" prefHeight="64.0" prefWidth="632.0" text="Current Room: Landing Dock" textFill="#26b509">
-                                            <font>
-                                                <Font size="16.0" />
-                                            </font>
-                                        </Label>
+                              <Rectangle fx:id="healthBar" arcHeight="5.0" arcWidth="5.0" fill="#2fff1f" height="73.0" stroke="BLACK" strokeType="INSIDE" width="632.0" />
                                     </children></AnchorPane>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: black;">
                                     <children>
