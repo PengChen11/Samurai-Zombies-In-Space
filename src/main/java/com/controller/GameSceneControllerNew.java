@@ -114,7 +114,7 @@ public class GameSceneControllerNew implements Initializable {
         } else if (storyTextArea.getText().contains("talk")) {
             storyTextArea.setStyle("-fx-text-fill : yellow; -fx-control-inner-background: black;");
         } else if (storyTextArea.getText().contains("go")) {
-            storyTextArea.setStyle("-fx-text-fill : blue; -fx-control-inner-background: black;");
+            storyTextArea.setStyle("-fx-text-fill : white; -fx-control-inner-background: black;");
         } else {
             storyTextArea.setStyle("-fx-text-fill : green; -fx-control-inner-background: black;");
         }
