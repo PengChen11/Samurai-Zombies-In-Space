@@ -45,6 +45,7 @@ public class USECommandTest {
     public void processCommand_shouldUpdateGameBuilder_whenPassValidCommandWithItemInInventory() {
         command[1] = "health kit";
         player.addToInventory(new Item("health kit"));
+        player.setHealth(15);
         useCommand.processCommand(gameBuilder, command, instructs);
         assertTrue(gameBuilder.toString().contains("Your current health is:"));
         assertTrue(player.getInventory().isEmpty());
@@ -54,10 +55,10 @@ public class USECommandTest {
     public void healPlayer_shouldNotAddHealth_whenPlayerHealthIsMax() {
         command[1] = "health kit";
         player.addToInventory(new Item("health kit"));
-        player.setHealth(30);
+        player.setHealth(20);
         useCommand.processCommand(gameBuilder, command, instructs);
         assertTrue(gameBuilder.toString().contains("You're at max health."));
-        assertTrue(player.getInventory().isEmpty());
+        assertFalse(player.getInventory().isEmpty());
     }
 
     @After

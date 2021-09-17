@@ -12,43 +12,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * A singleton class to represent the single player in the game.
- * property: ArrayList of inventory items
- * property: Integer representing level of health
- * property: String representing current location of the player
- */
+
 public enum Player {
     PLAYER;
 
     List<Item> inventory;
     Integer health;
-//    String location;  // until the locations are implemented
+    Integer maxHealth = 20;
     boolean fightingZombie;
-    Integer zombiesFollowing;
-    List<String> areasVisited;
     Locations currentLocation;
     Integer strength;
 
-
-
-    /**
-     * Constructor
-     */
     Player() {
         this.inventory = new ArrayList<>();
         this.health = 20;
-//        this.location = "Landing Dock";
         this.fightingZombie = false;
-        this.zombiesFollowing = 0;
-        this.areasVisited = new ArrayList<>();
         this.currentLocation = Locations.LandingDock;
         this.strength = 5;
     }
 
+    public Integer getMaxHealth(){
+        return maxHealth;
+    }
+
     /**
      * Checks for presence of an item in inventory
-     * @param item
+     * @param item-
      * @return item's presence as boolean
      */
     public boolean checkInventory(Item item) {
@@ -57,7 +46,7 @@ public enum Player {
 
     /**
      * Checks for any item with a String name in inventory
-     * @param name
+     * @param name-
      * @return boolean
      */
     public boolean checkInventoryName(String name) {
@@ -69,28 +58,6 @@ public enum Player {
             }
         }
         return returnVal;
-    }
-
-    public boolean checkAreasVisited(String location){
-        boolean returnVal = false;
-        for (String area : getAreasVisited()) {
-            if (area.equals(location)) {
-                returnVal = true;
-                break;
-            }
-        }
-        return returnVal;
-    }
-
-    public List<String> getAreasVisited() {
-        return areasVisited;
-    }
-
-    public boolean addAreasVisited(String location) {
-        if (!checkAreasVisited(location)) {
-            this.areasVisited.add(location);
-        }
-        return false;
     }
 
     /**
@@ -170,26 +137,13 @@ public enum Player {
         this.health = health;
     }
 
-
-
-    public void setFightingZombie(boolean fighting){
-        this.fightingZombie = fighting;
-    }
-
-    public boolean getFightingZombie() {
-        return fightingZombie;
+    public void addToHealth(Integer addition){
+        this.health = health + addition > maxHealth?
+                20:health + addition;
     }
 
     public int attack(){
         return (int) (Math.random() * 5) + 1;
-    }
-
-    public Integer getZombiesFollowing() {
-        return zombiesFollowing;
-    }
-
-    public void addZombiesFollowing() {
-        this.zombiesFollowing = zombiesFollowing += 1;
     }
 
     public void takeDamage(int damageTaken){
@@ -200,9 +154,11 @@ public enum Player {
     public Locations getCurrentLocation(){
         return this.currentLocation;
     }
+
     public void setCurrentLocation(Locations currentLocation){
         this.currentLocation = currentLocation;
     }
+
     public Integer getStrength() {
         return strength;
     }
