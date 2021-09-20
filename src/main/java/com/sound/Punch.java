@@ -14,7 +14,7 @@ public class Punch extends SoundFX{
     private AudioClip punchClip;
 
     public Punch(){
-        punchClip = new AudioClip(new File("src/main/resources/sounds/Punch - Sound Effect.mp3").toURI().toString());
+        punchClip = new AudioClip(new File("sounds/Punch - Sound Effect.mp3").toURI().toString());
     }
     @Override
     public void startMusic(double volume) {

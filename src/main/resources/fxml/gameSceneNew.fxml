@@ -35,7 +35,7 @@
                                  <effect>
                                     <ImageInput>
                                        <source>
-                                          <Image url="file:/C:/StudentWork/Samurai-Zombies-In-Space/src/main/resources/images/fighting.jpg" />
+                                          <Image url="@../images/fighting.jpg" />
                                        </source>
                                     </ImageInput>
                                  </effect></Canvas>
@@ -43,7 +43,7 @@
                                  <effect>
                                     <ImageInput>
                                        <source>
-                                          <Image url="file:/C:/StudentWork/Samurai-Zombies-In-Space/src/main/resources/images/look.jpg" />
+                                          <Image url="@../images/look.jpg" />
                                        </source>
                                     </ImageInput>
                                  </effect>

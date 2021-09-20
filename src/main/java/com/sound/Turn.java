@@ -12,7 +12,7 @@ public class Turn extends SoundFX {
     private AudioClip turnClip;
 
     public Turn() {
-        turnClip = new AudioClip(new File("src/main/resources/sounds/Turn.wav").toURI().toString());
+        turnClip = new AudioClip(new File("sounds/Turn.wav").toURI().toString());
     }
 
     @Override

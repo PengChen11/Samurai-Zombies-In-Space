@@ -12,7 +12,7 @@ public class Bite extends SoundFX {
     private AudioClip biteClip;
 
     public Bite() {
-        biteClip = new AudioClip(new File("src/main/resources/sounds/Zombie Flesh Bite (Dawn of The Dead Inspired) - Sound Effect [HD].mp3").toURI().toString());
+        biteClip = new AudioClip(new File("sounds/Zombie Flesh Bite (Dawn of The Dead Inspired) - Sound Effect [HD].mp3").toURI().toString());
     }
 
     @Override
