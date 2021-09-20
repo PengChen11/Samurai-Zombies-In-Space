@@ -7,6 +7,7 @@ import com.controller.FXMLDocumentController;
 import com.controller.GameSceneControllerNew;
 import com.gameEngine.GameEngine;
 import com.item.Item;
+import com.location.Locations;
 import com.sound.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,9 @@ public class LOOKCommand implements CommandInterface {
         if (command[1] == null || command[1].isBlank() || "around".equalsIgnoreCase(command[1])) {
             GameEngine.GAME_ENGINE.goodCommand = true;
             gameBuilder.append(Player.PLAYER.getCurrentLocation().getDescription()).append("\n");
+            if(Player.PLAYER.getCurrentLocation().equals(Locations.EscapeShuttle)){
+                gameBuilder.append(Player.PLAYER.getCurrentLocation().getNpc().getDescription());
+            }
             appendItemsToDescription(gameBuilder, instructs);
             if (Player.PLAYER.getCurrentLocation().getZombie() != null) {
                 if (((Background)(GameSceneControllerNew.getBackground())) != null) {

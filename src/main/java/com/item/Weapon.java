@@ -42,7 +42,7 @@ public class Weapon extends Item {
         } catch (FileNotFoundException | ParseException e) {
             throw new IOException();
         }
-        System.out.println(weapons);
+        //System.out.println(weapons);
         if (!weapons.isEmpty()) {
             weaponsMap = weapons;
         }

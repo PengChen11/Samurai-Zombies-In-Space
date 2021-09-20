@@ -19,7 +19,7 @@ public enum GameEngine {
 
 
     public  boolean goodCommand;
-    HashMap<String, Item> catalog = Item.readAll();
+   // HashMap<String, Item> catalog = Item.readAll();
 
 
 
@@ -93,8 +93,8 @@ public enum GameEngine {
         return instructs;
     }
 
-    public HashMap<String, Item> getCatalog() {
+   /* public HashMap<String, Item> getCatalog() {
         return catalog;
-    }
+    }*/
 
 }
