@@ -49,6 +49,10 @@ public class USECommand implements CommandInterface{
                 case "key":
                     shouldRemoveItem = isShouldRemoveItemKey(gameBuilder, instructs, shouldRemoveItem);
                     break;
+                case "space wrench":
+                    shouldRemoveItem = false;
+                    gameBuilder.append(instructs.get("use").get("instructions").get(1));
+                    break;
             }
             if (shouldRemoveItem){
                 boolean removedFromInventory = Player.PLAYER.removeInventory(command[1].toLowerCase());

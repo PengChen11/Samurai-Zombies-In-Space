@@ -65,8 +65,7 @@ public class LOOKCommand implements CommandInterface {
     }
 
     private void processZombieAttack(StringBuilder gameBuilder, Map<String, Map<String, List<String>>> instructs) {
-        Zombie zombie = Player.PLAYER.getCurrentLocation().getZombie();
-        Player.PLAYER.takeDamage(zombie.attack());
+        Player.PLAYER.takeDamage(1);
         if(Player.PLAYER.getHealth() <= 0){
             Parent root = null;
             try {
