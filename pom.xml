@@ -33,7 +33,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        com.client.Main
+                                        com.client.GUIStarter
                                     </mainClass>
                                 </manifest>
                             </archive>
@@ -43,6 +43,15 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.7</version>
+                <configuration>
+                    <mainClass>com.client.GUIStarter</mainClass>
+                </configuration>
             </plugin>
 
         </plugins>
