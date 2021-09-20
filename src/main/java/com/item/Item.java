@@ -55,7 +55,7 @@ public class Item {
      *
      * @return catalog hashmap
      */
-    public static HashMap<String, Item> readAll() {
+   /* public static HashMap<String, Item> readAll() {
         JSONParser parser = new JSONParser();
 
         HashMap<String, Item> catalog = new HashMap<>();
@@ -81,7 +81,7 @@ public class Item {
         }
         System.out.println(catalog.keySet());
         return catalog;
-    }
+    }*/
 
     public String getDescription() {
         return description;
