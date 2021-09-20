@@ -53,6 +53,8 @@ public class GameSceneControllerNew implements Initializable {
     @FXML
     private Canvas fightCanvas;
 
+    @FXML
+    private Canvas lookCanvas;
     public Slider getVolumeSlider() {
         return volumeSlider;
     }
@@ -115,12 +117,14 @@ public class GameSceneControllerNew implements Initializable {
     private void checkCanvas(String prev) {
         //reset all canvases to begin with
         fightCanvas.setVisible(false);
+        lookCanvas.setVisible(false);
         if(GameEngine.GAME_ENGINE.goodCommand){
             switch(prev){
                 case "fight":
                     fightCanvas.setVisible(true);
                     break;
                 case "look":
+                    lookCanvas.setVisible(true);
                     break;
             }
         }

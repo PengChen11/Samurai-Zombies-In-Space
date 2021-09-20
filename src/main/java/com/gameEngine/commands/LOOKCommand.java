@@ -5,6 +5,7 @@ import com.character.Zombie;
 import com.client.Main;
 import com.controller.FXMLDocumentController;
 import com.controller.GameSceneControllerNew;
+import com.gameEngine.GameEngine;
 import com.item.Item;
 import com.sound.*;
 import javafx.event.ActionEvent;
@@ -27,6 +28,7 @@ public class LOOKCommand implements CommandInterface {
 
     private void processLook(StringBuilder gameBuilder, String[] command, Map<String, Map<String, List<String>>> instructs) {
         if (command[1] == null || command[1].isBlank() || "around".equalsIgnoreCase(command[1])) {
+            GameEngine.GAME_ENGINE.goodCommand = true;
             gameBuilder.append(Player.PLAYER.getCurrentLocation().getDescription()).append("\n");
             appendItemsToDescription(gameBuilder, instructs);
             if (Player.PLAYER.getCurrentLocation().getZombie() != null) {
