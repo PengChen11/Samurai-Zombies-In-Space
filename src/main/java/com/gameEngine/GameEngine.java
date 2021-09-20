@@ -32,23 +32,22 @@ public enum GameEngine {
 
         ArrayList<CommandInterface> commandList = getCommandInterfaces();
 
+        boolean validCommand = false;
         for(CommandInterface commandFromList : commandList){
             if(commandFromList.getClass().getSimpleName().contains(command[0].toUpperCase()) && !command[0].equals("")){
                 commandFromList.processCommand(gameBuilder,command, instructs);
+                validCommand = true;
+                break;
             }
+        }
+
+        if (!validCommand){
+            gameBuilder.append(instructs.get("error"));
         }
         //update win/lose status
         checkPlayerHealth();
         checkPuzzleComplete();
-        return gameBuilder.append(showStatus(Player.PLAYER.getCurrentLocation().getName()));
-    }
-
-
-    public StringBuilder showStatus(String location) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(instructs.get("status").get("instructions").get(1))
-                .append(location).append("\n\n");
-        return builder;
+        return gameBuilder;
     }
 
     private void checkPlayerHealth() {

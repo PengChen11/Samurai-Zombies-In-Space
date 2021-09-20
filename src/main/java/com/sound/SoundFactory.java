@@ -28,6 +28,9 @@ public class SoundFactory {
                 break;
             case BITE:
                 soundFX = new Bite();
+                break;
+            case WIN:
+                soundFX = new Win();
         }
         return soundFX;
     }
