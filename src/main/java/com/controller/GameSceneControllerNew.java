@@ -3,8 +3,6 @@ package com.controller;
 import com.character.Player;
 import com.gameEngine.GameEngine;
 import com.item.Item;
-import com.location.Locations;
-import com.sound.Background;
 import com.sound.SoundFX;
 import com.sound.SoundFactory;
 import com.sound.SoundType;
@@ -13,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
@@ -43,9 +42,6 @@ public class GameSceneControllerNew implements Initializable {
     private TextField inputTextField;
 
     @FXML
-    private Label currentLocation;
-
-    @FXML
     private Circle currentLocationCircle;
 
     @FXML
@@ -53,6 +49,12 @@ public class GameSceneControllerNew implements Initializable {
 
     @FXML
     private Rectangle healthBar;
+
+    @FXML
+    private Canvas fightCanvas;
+
+    @FXML
+    private Canvas lookCanvas;
     public Slider getVolumeSlider() {
         return volumeSlider;
     }
@@ -82,7 +84,6 @@ public class GameSceneControllerNew implements Initializable {
         mapCoordinates.put("Central Hub", new double[]{198, 278});
         mapCoordinates.put("Bar", new double[]{262, 111});
         mapCoordinates.put("Medical Bay", new double[]{80, 118});
-
         //instance the background sound
         background = SoundFactory.createSound(SoundType.BACKGROUND);
     }
@@ -97,24 +98,40 @@ public class GameSceneControllerNew implements Initializable {
      * displays the read text in the uneditable TextArea field
      */
     public void handleTextFieldInput(ActionEvent event) {
+        String prev = inputTextField.getText();
         getInputTextField().setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
                 storyTextArea.setText(" > " + inputTextFieldString() + "\n");
                 String append = String.valueOf(gameEngine.runGameLoop(inputTextFieldString()));
                 storyTextArea.appendText(append);
                 setTextColor();
-
-
                 getPlayerInventory();
                 getPlayerCurrentLocation();
                 setPlayerHealthBar();
+                checkCanvas(prev);
                 getInputTextField().clear();
             }
         });
     }
 
-    private void setPlayerHealthBar() {
+    private void checkCanvas(String prev) {
+        //reset all canvases to begin with
+        fightCanvas.setVisible(false);
+        lookCanvas.setVisible(false);
+        if(GameEngine.GAME_ENGINE.goodCommand){
+            switch(prev){
+                case "fight":
+                    fightCanvas.setVisible(true);
+                    break;
+                case "look":
+                    lookCanvas.setVisible(true);
+                    break;
+            }
+        }
+    }
 
+
+    private void setPlayerHealthBar() {
         healthBar.setWidth(Player.PLAYER.getHealth()*26.5);
     }
 

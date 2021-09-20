@@ -3,13 +3,12 @@ package com.gameEngine.commands;
 import com.character.Player;
 
 import com.client.Main;
-import com.controller.FXMLDocumentController;
 import com.controller.GameSceneControllerNew;
 
+import com.gameEngine.GameEngine;
 import com.item.Item;
 import com.location.Locations;
 import com.sound.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -57,14 +56,16 @@ public class FIGHTCommand implements CommandInterface{
                 Scene scene = new Scene(root);
                 Main.getPrimaryStage().setScene(scene);
                 Main.getPrimaryStage().show();
-
             }else{
+                GameEngine.GAME_ENGINE.goodCommand = true;
                 Player.PLAYER.getCurrentLocation().setZombie(null);
                 gameBuilder.append(instructs.get("fight").get("instructions").get(6));
                 if(Player.PLAYER.getCurrentLocation().equals(Locations.LandingDock) && !Player.PLAYER.checkInventory(Item.itemsMap.get("key"))){
                     Player.PLAYER.addToInventory(Item.itemsMap.get("key"));
                     gameBuilder.append(instructs.get("fight").get("instructions").get(10));
                 }
+
+
             }
         }else{
            gameBuilder.append(instructs.get("fight").get("instructions").get(9));

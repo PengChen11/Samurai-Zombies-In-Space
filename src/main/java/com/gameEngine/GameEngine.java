@@ -1,6 +1,7 @@
 package com.gameEngine;
 
 import com.character.Player;
+import com.controller.GameSceneControllerNew;
 import com.gameEngine.commands.*;
 import com.item.Item;
 
@@ -15,12 +16,15 @@ public enum GameEngine {
 
     private Map<String, Map<String, List<String>>> instructs = new Instruction().getInstruction();
 
+
+
+    public  boolean goodCommand;
     HashMap<String, Item> catalog = Item.readAll();
 
 
 
     public StringBuilder runGameLoop(String input)  {
-
+        goodCommand = false;
         StringBuilder gameBuilder = new StringBuilder();
 
         String[] command;
@@ -29,7 +33,7 @@ public enum GameEngine {
         ArrayList<CommandInterface> commandList = getCommandInterfaces();
 
         for(CommandInterface commandFromList : commandList){
-            if(commandFromList.getClass().getSimpleName().contains(command[0].toUpperCase())){
+            if(commandFromList.getClass().getSimpleName().contains(command[0].toUpperCase()) && !command[0].equals("")){
                 commandFromList.processCommand(gameBuilder,command, instructs);
             }
         }
