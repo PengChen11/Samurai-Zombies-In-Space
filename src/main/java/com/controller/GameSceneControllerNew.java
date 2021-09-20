@@ -202,6 +202,7 @@ public class GameSceneControllerNew implements Initializable {
             //start background sound
             getPlayerInventory();
             getPlayerCurrentLocation();
+            setPlayerHealthBar();
             background.startMusic(0.2);
 
         } catch (Exception e) {
