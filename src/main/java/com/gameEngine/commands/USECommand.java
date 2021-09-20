@@ -2,8 +2,12 @@ package com.gameEngine.commands;
 
 import com.character.Player;
 import com.client.Main;
+import com.controller.GameSceneControllerNew;
 import com.item.Item;
 import com.location.Locations;
+import com.sound.Background;
+import com.sound.SoundFactory;
+import com.sound.SoundType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -86,8 +90,12 @@ public class USECommand implements CommandInterface{
 
             Scene scene = new Scene(root);
             Main.getPrimaryStage().setScene(scene);
+
             Main.getPrimaryStage().show();
-            //win game
+            if (((Background)(GameSceneControllerNew.getBackground())) != null) {
+                ((Background) (GameSceneControllerNew.getBackground())).getMediaPlayer().stop();
+                SoundFactory.createSound(SoundType.WIN).startMusic(0.7);
+            }//win game
          }else{
             shouldRemoveItem = false;
         }

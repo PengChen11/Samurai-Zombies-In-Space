@@ -7,5 +7,6 @@ public enum SoundType {
     WEAPON,
     TURN,
     NICE,
-    BITE
+    BITE,
+    WIN
 }

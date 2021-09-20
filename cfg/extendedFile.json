@@ -1,4 +1,5 @@
 {
+  "error": "Sorry Dave, this is NOT a valid command! ",
   "help" : {
     "instructions" : ["     Command      ","=============================================","Movement: go (north, south, east, west)",
       "Observation: look [around]","Get Information: talk [NPC]","Actions: get [item], drop [item], fight [zombie], heal, use [item]",
