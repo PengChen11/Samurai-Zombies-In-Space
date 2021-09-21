@@ -44,18 +44,18 @@ public class USECommand implements CommandInterface{
                     gameBuilder.append(healPlayer(instructs));
                     break;
                 case "lever":
-                    shouldRemoveItem = isShouldRemoveItemShip(gameBuilder, instructs, shouldRemoveItem);
+                    shouldRemoveItem = isShouldRemoveItemShip(gameBuilder, instructs, shouldRemoveItem, command[1].toLowerCase());
 
                     break;
                 case "battery":
-                    shouldRemoveItem = isShouldRemoveItem(gameBuilder, instructs, shouldRemoveItem);
+                    shouldRemoveItem = isShouldRemoveItem(gameBuilder, instructs, shouldRemoveItem, command[1].toLowerCase());
                     break;
                 case "key":
-                    shouldRemoveItem = isShouldRemoveItemKey(gameBuilder, instructs, shouldRemoveItem);
+                    shouldRemoveItem = isShouldRemoveItemKey(gameBuilder, instructs, shouldRemoveItem, command[1].toLowerCase());
                     break;
                 case "space wrench":
                     shouldRemoveItem = false;
-                    gameBuilder.append(instructs.get("use").get("instructions").get(1));
+                    gameBuilder.append(instructs.get("use").get("instructions").get(4) + command[1].toLowerCase() + instructs.get("use").get("instructions").get(5) + Player.PLAYER.getCurrentLocation().getName());
                     break;
             }
             if (shouldRemoveItem){
@@ -69,17 +69,18 @@ public class USECommand implements CommandInterface{
         }
     }
 
-    private boolean isShouldRemoveItemKey(StringBuilder gameBuilder, Map<String, Map<String, List<String>>> instructs, boolean shouldRemoveItem) {
+    private boolean isShouldRemoveItemKey(StringBuilder gameBuilder, Map<String, Map<String, List<String>>> instructs, boolean shouldRemoveItem, String item) {
         if(Player.PLAYER.getCurrentLocation().equals(Locations.RepairWorkshop) && Player.PLAYER.checkInventory(Item.itemsMap.get("key"))){
             Player.PLAYER.addToInventory(Item.itemsMap.get("space wrench"));
             gameBuilder.append(instructs.get("use").get("instructions").get(3));
         }else{
             shouldRemoveItem = false;
+            gameBuilder.append(instructs.get("use").get("instructions").get(4) + item + instructs.get("use").get("instructions").get(5) + Player.PLAYER.getCurrentLocation().getName());
         }
         return shouldRemoveItem;
     }
 
-    private boolean isShouldRemoveItemShip(StringBuilder gameBuilder, Map<String, Map<String, List<String>>> instructs, boolean shouldRemoveItem) {
+    private boolean isShouldRemoveItemShip(StringBuilder gameBuilder, Map<String, Map<String, List<String>>> instructs, boolean shouldRemoveItem, String item) {
         if(Player.PLAYER.getCurrentLocation().equals(Locations.Ship) && Player.PLAYER.checkInventory(Item.itemsMap.get("space wrench")) && Player.PLAYER.checkInventory(Item.itemsMap.get("lever"))){
             Parent root = null;
             try {
@@ -98,16 +99,18 @@ public class USECommand implements CommandInterface{
             }//win game
          }else{
             shouldRemoveItem = false;
+            gameBuilder.append(instructs.get("use").get("instructions").get(4) + item + instructs.get("use").get("instructions").get(5) + Player.PLAYER.getCurrentLocation().getName());
         }
         return shouldRemoveItem;
     }
 
-    private boolean isShouldRemoveItem(StringBuilder gameBuilder, Map<String, Map<String, List<String>>> instructs, boolean shouldRemoveItem) {
+    private boolean isShouldRemoveItem(StringBuilder gameBuilder, Map<String, Map<String, List<String>>> instructs, boolean shouldRemoveItem, String item) {
         if(Player.PLAYER.getCurrentLocation().equals(Locations.EscapeShuttle) && Player.PLAYER.checkInventoryName("battery")) {
             Player.PLAYER.addToInventory(Item.itemsMap.get("lever"));
             gameBuilder.append(instructs.get("use").get("instructions").get(2));
         }else{
             shouldRemoveItem = false;
+            gameBuilder.append(instructs.get("use").get("instructions").get(4) + item + instructs.get("use").get("instructions").get(5) + Player.PLAYER.getCurrentLocation().getName());
         }
         return shouldRemoveItem;
     }
