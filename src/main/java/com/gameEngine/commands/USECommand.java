@@ -97,7 +97,12 @@ public class USECommand implements CommandInterface{
                 ((Background) (GameSceneControllerNew.getBackground())).getMediaPlayer().stop();
                 SoundFactory.createSound(SoundType.WIN).startMusic(0.7);
             }//win game
-         }else{
+         }
+        else if(Player.PLAYER.getCurrentLocation().equals(Locations.Ship) && !Player.PLAYER.checkInventory(Item.itemsMap.get("space wrench")) && Player.PLAYER.checkInventory(Item.itemsMap.get("lever"))){
+            gameBuilder.append(instructs.get("use").get("instructions").get(6));
+            shouldRemoveItem = false;
+        }
+        else{
             shouldRemoveItem = false;
             gameBuilder.append(instructs.get("use").get("instructions").get(4) + item + instructs.get("use").get("instructions").get(5) + Player.PLAYER.getCurrentLocation().getName());
         }
