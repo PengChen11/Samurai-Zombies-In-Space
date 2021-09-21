@@ -1,0 +1,17 @@
+[
+  {
+    "name": "zombie katana",
+    "attack power": 8,
+    "description": "Funny, you like samurai swords... I like baseball."
+  },
+  {
+    "name": "zombie gun",
+    "attack power": 10,
+    "description": "LOL, you like samurai gun..."
+  },
+  {
+    "name": "swiss army knife",
+    "attack power": 4,
+    "description": "This has many uses but it can't fix my ship."
+  }
+]

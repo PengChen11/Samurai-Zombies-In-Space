@@ -8,14 +8,14 @@
     "description" :  ["When the engineer emerges from where she hid behind a piece of equipment, she is disheveled, with a torn sleeve and a bruised arm, but she is not bloody. Her eyes are wide and alert, and she jumps at every noise."]},
   "visitor": {
     "dialogue" : [
-      "The injured visitor has clearly lost a lot of blood and can no longer stand. \"Please help me. Take me with you. I swear, they didn’t bite me. They cut me with their swords, but they didn’t bite me. I got away.\"",
+      "The injured visitor has clearly lost a lot of blood and can no longer stand. \"Please help me. Take me with you. I swear, they didn’t bite me. They cut me with their swords, but they didn't bite me. I got away.\"",
       "\"They were already here when my ship docked. I don’t know where the pilot went, but when I ran back to the port where we docked, the ship was gone.\"",
       "\"It’s almost spookier since the alarms stopped. Was it them? Are they smart enough to turn off alarms?\" He shivers. \"Flying Spaghetti Monster help us.\""],
     "description" : ["A station visitor is propped against the far wall, bloody and obviously mortally wounded. He watches you with half-lidded eyes. He won't be conscious much longer."]
   },
   "guard": {
     "dialogue": [
-      "\"I lost my taser. Doesn’t help anyway. The only thing that seems to hurt them is a baton to the head, but you have to get around that helmet first.\" They stare at the bloody, dented metal baton in their hand.",
+      "\"I lost my taser. Doesn't help anyway. The only thing that seems to hurt them is a baton to the head, but you have to get around that helmet first.\" They stare at the bloody, dented metal baton in their hand.",
       "\"Hey, I saw someone remove the fuel lever from one of the docks. Said they were taking it to the shuttle docks to use there – said it looked like giant rats had chewed up everything in there, and the fuel lever wouldn’t even attach anymore. Said it was the last one they could find that was still usable. Weird, right? Why are they chewing up the docks like that?\"",
       "\"I wonder if you can kill them by cutting off their heads.\""
     ],
@@ -29,4 +29,6 @@
     ],
     "description" : ["The station's bartender has obviously spent most of her life in space, her skin old and wrinkling but not sagging, and her wiry, lean frame taller than most. She looks like she'd normally be half-interested in what's happening on the station, but today, she's at least three-quarters interested."]
   }
+
+
 }

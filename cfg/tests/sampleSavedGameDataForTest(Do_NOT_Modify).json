@@ -1,0 +1,24 @@
+{
+  "locations":{
+    "Medical Bay":{
+      "npc":"visitor",
+      "zombie":null,
+      "itemList":["health kit"]
+    },
+    "Landing Dock":{
+      "npc":"guard",
+      "zombie":null,
+      "itemList":["lever"]
+    },
+    "Bar":{
+      "npc":null,
+      "zombie":"yes",
+      "itemList":["swiss army knife"]
+    }
+  },
+  "player": {
+    "health":10,
+    "inventory":["zombie armor","zombie katana"],
+    "currentLocation":"Bar"
+  }
+}

@@ -30,12 +30,13 @@
   "Medical Bay": {
     "east": "Central Hub",
     "NPC": "visitor",
-    "Item": ["health kit", "lever"],
+    "Item": ["health kit","battery"],
     "Description": "The smell of iron fills the room. The walls are painted red and there's a few bodies lying on the ground. One is holding a lever. There are medical supply boxes on the ground and some on the shelves, all empty. There may be more to find towards the back of the room. As you head that way to investigate, you're startled by a visitor to the station who looks near death."
   },
   "Escape Shuttle": {
+    "NPC" : "robot",
     "east": "Landing Dock",
-    "Item": ["oxygen tank"],
+    "Item": ["oxygen tank", "lever"],
     "Description": "The area is littered with cargo boxes, rats, and wires hanging loosely from the walls. Only the life support systems seem to be untouched. The exit to the east is the only way out."
   },
   "Ship": {

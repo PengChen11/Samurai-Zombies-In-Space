@@ -1,17 +1,22 @@
 {
+  "error": "Sorry Dave, this is NOT a valid command! ",
   "help" : {
     "instructions" : ["     Command      ","=============================================","Movement: go (north, south, east, west)",
-      "Observation: look [around]","Get Information: talk [NPC]","Actions: get [item], drop [item], fight [zombie], heal, use [item]",
+      "Observation: look [around]","Get Information: talk [NPC]","Actions: get [item], drop [item], fight [zombie], use [item], save",
       "q to quit"
     ]
     },
   "fight": {
-    "instructions" : ["You're attacking the zombie.","Player:HP. Zombie:HP.","You swing your katana. Zombie has:HP",
-      "You used your fists. Zombie has :HP","The Zombie hits you. You have :HP","You managed to kill the Zombie!",
+    "instructions" : ["You're attacking the zombie. ","Player:HP. Zombie:HP.","You swing your katana. Zombie has:HP",
+      "You used your fists. Zombie has HP:","The Zombie hits you. You have HP: ","You hit the zombie. Zombie has HP: ","You managed to kill the Zombie!",
       "Looks like you've been killed. Womp womp.","Just because you can, doesn't mean you should.",
-      "\nDave, stay focused. You can pick a fight later."
+      "\nDave, stay focused. You can pick a fight later.", " \n You've received a key from that zombie!"
       ]
   },
+  "talk": {
+  "instructions": ["\nA ZOMBIE APPEARS BITING THE : "
+  ]
+},
   "examine": {
     "instructions": ["\nItems in room: [","\nRuh roh. No items here!"
           ]
@@ -21,12 +26,13 @@
           ]
   },
   "use": {
-    "instructions" : ["What should I use this on?","You can't do that Dave."
+    "instructions" : ["What should I use this on?","You can't do that Dave.", "The robot releases the lever from its hands!", "You unlock the toolbox with the key and get the space wrench!", "You can't use ", " in the ",
+      "I think the lever will fix this but I need some kind of TOOL to put in place"
     ]
   },
   "look": {
     "instructions" : ["Don't look too hard now.","You don't see a ",
-      "\nThe Zombie hits you. You have ","\nYou can fight the zombie or go to other locations","HP. "
+      "\nThe Zombie hits you. You have ","\nYou can fight the zombie or go to other locations","HP. ","You remember seeing a key dangling on one of the zombies when you got off the ship", "There's a ", " in the room with you, maybe you could talk to them?"
     ]
   },
   "status": {
@@ -46,7 +52,7 @@
     ]
   },
   "pick": {
-    "instructions" : ["Placed "," in your inventory\n" ,"You already have the "," doesn't exist\n"
+    "instructions" : ["Placed "," in your inventory\n" ,"You already have the "," doesn't exist\n", "You can't pry that from the robots cold uncharged hands."
     ]
    }
 }

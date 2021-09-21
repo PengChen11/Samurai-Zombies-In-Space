@@ -5,11 +5,16 @@ import java.util.Random;
 public class Zombie {
     Integer health;
     String location;  // until the locations are implemented
-
+    Integer strength;
     // CONSTRUCTOR
     public Zombie(Integer health, String location) {
         this.health = health;
         this.location = location;
+        this.strength = 5;
+    }
+
+    private Zombie(Integer health){
+        this.health = health;
     }
 
     //METHODS
@@ -40,5 +45,9 @@ public class Zombie {
         } else {
             setHealth(currentHp);
         }
+    }
+
+    public static Zombie getInstance(){
+        return new Zombie(6);
     }
 }

@@ -35,3 +35,5 @@ hs_err_pid*
 .DS_Store
 
 target/
+
+cfg/save/

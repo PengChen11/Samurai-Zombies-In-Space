@@ -1,10 +1,17 @@
 package com.character;
 
 import com.item.Item;
+import com.item.Weapon;
+import com.location.Locations;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileReader;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -14,14 +21,17 @@ public class PlayerTest {
     Player player;
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
+        Item.getItems("cfg/Items.json");
+        Weapon.getWeapons("cfg/Weapons.json");
+        Locations.initWithJsonFile("cfg/sampleLocations.json");
         player = Player.PLAYER;
     }
 
     @After
     public void teardown() {
         // Reset defaults on enum
-        player.setLocation("Loading Dock");
+        player.setCurrentLocation(Locations.LandingDock);
         player.clearInventory();
         player.setHealth(20);
     }
@@ -33,20 +43,20 @@ public class PlayerTest {
 
     @Test
     public void getLocationDefault() {
-        assertEquals("Loading Dock", player.getLocation());
+        assertEquals(Locations.LandingDock, player.getCurrentLocation());
     }
 
     @Test
-    public void checkInventoryPositive() {
+    public void checkInventoryPositive() throws IOException {
         item1 = new Item("spork", "Loading Dock");
         item2 = new Item("shovel", "med bay");
 
-        player.setLocation("Loading Dock");
+        player.setCurrentLocation(Locations.LandingDock);
         assertTrue(player.addToInventory(item1));
         // github action tests
 //        assertFalse(player.addToInventory(item1));
 
-        player.setLocation("med bay");
+        player.setCurrentLocation(Locations.MedicalBay);
         assertTrue(player.addToInventory(item2));
 
         assertTrue(player.checkInventory(item1));
@@ -59,7 +69,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void checkInventoryNegativeNullSetItem() {
+    public void checkInventoryNegativeNullSetItem() throws IOException {
         item1 = null;
         player.addToInventory(item1);
         item2 = new Item("spork", "Loading Dock");
@@ -67,7 +77,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void checkInventoryNegativeDifferentItemNameSameLocation() {
+    public void checkInventoryNegativeDifferentItemNameSameLocation() throws IOException {
         item1 = new Item("finger", "Loading Dock");
         item2 = new Item("spork", "Loading Dock");
         player.addToInventory(item1);
@@ -75,7 +85,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void checkInventoryPositiveDifferentItemDifferentLocation() {
+    public void checkInventoryPositiveDifferentItemDifferentLocation() throws IOException {
         item1 = new Item("finger", "Loading Dock");
         item2 = new Item("spork", "med bay");
         player.addToInventory(item1);
@@ -83,61 +93,30 @@ public class PlayerTest {
     }
 
     @Test
-    public void getInventoryPositiveTwoItems() {
+    public void getInventoryPositiveTwoItems() throws IOException {
         item1 = new Item("finger", "Loading Dock");
         item2 = new Item("spork", "med bay");
-        player.setLocation("Loading Dock");
+        player.setCurrentLocation(Locations.LandingDock);
         player.addToInventory(item1);
-        player.setLocation("med bay");
+        player.setCurrentLocation(Locations.MedicalBay);
         player.addToInventory(item2);
         ArrayList<Item> inventory = new ArrayList<>();
         inventory.add(item1);
         inventory.add(item2);
 
         assertEquals(inventory, player.getInventory());
+
     }
 
     @Test
-    public void removeInventoryPositive() {
+    public void getInventorySizeCorrectForExistingItems() throws IOException {
         item1 = new Item("finger", "Loading Dock");
         item2 = new Item("spork", "med bay");
+        player.setCurrentLocation(Locations.LandingDock);
         player.addToInventory(item1);
-        player.addToInventory(item2);
-        ArrayList<Item> inventory = new ArrayList<>();
-        inventory.add(item1);
-        player.removeInventory(item2);
-
-        assertEquals(inventory, player.getInventory());
-    }
-
-    @Test
-    public void removeInventoryNegative() {
-        item1 = new Item("finger", "Loading Dock");
-        item2 = new Item("spork", "med bay");
-        player.addToInventory(item1);
-        player.removeInventory(item1);
-        assertEquals(new ArrayList<>(), player.getInventory());
-    }
-
-    @Test
-    public void getInventorySizeCorrectForExistingItems() {
-        item1 = new Item("finger", "Loading Dock");
-        item2 = new Item("spork", "med bay");
-        player.setLocation("Loading Dock");
-        player.addToInventory(item1);
-        player.setLocation("med bay");
+        player.setCurrentLocation(Locations.MedicalBay);
         player.addToInventory(item2);
         assertEquals((Integer) 2, player.getInventorySize());
-    }
-
-    @Test
-    public void getInventorySizeCorrectAfterItemRemoval() {
-        item1 = new Item("finger", "Loading Dock");
-        item2 = new Item("spork", "med bay");
-        player.addToInventory(item1);
-        player.addToInventory(item2);
-        player.removeInventory(item2);
-        assertEquals((Integer) 1, player.getInventorySize());
     }
 
     @Test
@@ -161,14 +140,25 @@ public class PlayerTest {
 
     @Test
     public void getLocationChanged() {
-        player.setLocation("med bay");
-        assertEquals("med bay", player.getLocation());
+        player.setCurrentLocation(Locations.MedicalBay);
+        assertEquals(Locations.MedicalBay, player.getCurrentLocation());
     }
 
     @Test
-    public void getLocationNull() {
-        player.setLocation(null);
-        assertEquals(null, player.getLocation());
+    public void updatePlayerFromSavedGameDataShouldWork() throws Exception {
+        Object gameData = new JSONParser().parse(new FileReader("cfg/tests/sampleSavedGameDataForTest(Do_NOT_Modify)" +
+                ".json"));
+        JSONObject gameDataObj = (JSONObject) gameData;
+        JSONObject playerDataObj = (JSONObject) gameDataObj.get("player");
+        Player.PLAYER.updatePlayerFromSavedGameData(playerDataObj);
+
+        // Player location should change
+        assertEquals(Locations.Bar, Player.PLAYER.getCurrentLocation());
+        // Player HP should be updated
+        assertEquals(Integer.valueOf(10), Player.PLAYER.getHealth());
+        // Player inventory should be updated
+        assertEquals("zombie armor", Player.PLAYER.getInventory().get(0).getName());
     }
+
 
 }

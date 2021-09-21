@@ -2,40 +2,38 @@ package com.character;
 
 
 import com.item.Item;
-import java.util.ArrayList;
-import java.util.List;
+import com.item.Weapon;
+import com.location.Locations;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
-/**
- * A singleton class to represent the single player in the game.
- * property: ArrayList of inventory items
- * property: Integer representing level of health
- * property: String representing current location of the player
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
 public enum Player {
     PLAYER;
 
     List<Item> inventory;
     Integer health;
-    String location;  // until the locations are implemented
+    Integer maxHealth = 20;
     boolean fightingZombie;
-    Integer zombiesFollowing;
-    List<String> areasVisited;
+    Locations currentLocation;
+    Integer strength;
 
-    /**
-     * Constructor
-     */
     Player() {
-        this.inventory = new ArrayList<>();
-        this.health = 20;
-        this.location = "Landing Dock";
-        this.fightingZombie = false;
-        this.zombiesFollowing = 0;
-        this.areasVisited = new ArrayList<>();
+        initPlayer();
+    }
+
+    public Integer getMaxHealth(){
+        return maxHealth;
     }
 
     /**
      * Checks for presence of an item in inventory
-     * @param item
+     * @param item-
      * @return item's presence as boolean
      */
     public boolean checkInventory(Item item) {
@@ -44,7 +42,7 @@ public enum Player {
 
     /**
      * Checks for any item with a String name in inventory
-     * @param name
+     * @param name-
      * @return boolean
      */
     public boolean checkInventoryName(String name) {
@@ -56,28 +54,6 @@ public enum Player {
             }
         }
         return returnVal;
-    }
-
-    public boolean checkAreasVisited(String location){
-        boolean returnVal = false;
-        for (String area : getAreasVisited()) {
-            if (area.equals(location)) {
-                returnVal = true;
-                break;
-            }
-        }
-        return returnVal;
-    }
-
-    public List<String> getAreasVisited() {
-        return areasVisited;
-    }
-
-    public boolean addAreasVisited(String location) {
-        if (!checkAreasVisited(location)) {
-            this.areasVisited.add(location);
-        }
-        return false;
     }
 
     /**
@@ -101,20 +77,15 @@ public enum Player {
         return true;
     }
 
+    public void loadInventoryFromSavedGameData(List<Item> itemList){
+        this.inventory = itemList;
+    }
+
     // for testing, mostly
     public void clearInventory() {
         this.inventory = new ArrayList<>();
     }
 
-    /**
-     * Remove an item from inventory
-     * @param item
-     * @return String location of item
-     */
-    public String removeInventory(Item item) {
-        this.inventory.remove(item);
-        return item.getLocation();
-    }
 
     public boolean removeInventory(String itemName) {
         for (int i = 0; i < inventory.size(); i++) {
@@ -124,6 +95,18 @@ public enum Player {
             }
         }
         return false;
+    }
+
+    public void dropToCurrentLocation(String itemName){
+        Item item = null;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).getName().equals(itemName)) {
+                item = inventory.get(i);
+                inventory.remove(i);
+                break;
+            }
+        }
+        currentLocation.addItem(item);
     }
 
     /**
@@ -150,44 +133,68 @@ public enum Player {
         this.health = health;
     }
 
-    /**
-     * Returns player's current location
-     * @return
-     */
-    public String getLocation() {
-        return location;
-    }
-
-    /**
-     * Sets player's location
-     * @param location
-     */
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setFightingZombie(boolean fighting){
-        this.fightingZombie = fighting;
-    }
-
-    public boolean getFightingZombie() {
-        return fightingZombie;
+    public void addToHealth(Integer addition){
+        this.health = health + addition > maxHealth?
+                20:health + addition;
     }
 
     public int attack(){
         return (int) (Math.random() * 5) + 1;
     }
 
-    public Integer getZombiesFollowing() {
-        return zombiesFollowing;
-    }
-
-    public void addZombiesFollowing() {
-        this.zombiesFollowing = zombiesFollowing += 1;
-    }
-
     public void takeDamage(int damageTaken){
         int currentHp = getHealth() - damageTaken;
         setHealth(currentHp);
+    }
+
+    public Locations getCurrentLocation(){
+        return this.currentLocation;
+    }
+
+    public void setCurrentLocation(Locations currentLocation){
+        this.currentLocation = currentLocation;
+    }
+
+    public Integer getStrength() {
+        return strength;
+    }
+
+    public void setStrength(Integer strength) {
+        this.strength = strength;
+    }
+
+    public void updatePlayerFromSavedGameData(JSONObject playerData){
+        Map<String, Locations> locationsMap = Locations.getEnumMap();
+        HashMap<String, Weapon> weaponsMap = Weapon.weaponsMap;
+        HashMap<String, Item> itemsMap = Item.itemsMap;
+
+        this.setHealth((int)(long) playerData.get("health"));
+        this.setCurrentLocation(locationsMap.get((String) playerData.get("currentLocation")));
+
+        List<Item> newItemList = new ArrayList<>();
+        JSONArray savedInventory = (JSONArray) playerData.get("inventory");
+
+        for (Object itemObj : savedInventory ){
+            String itemName = (String) itemObj;
+            Weapon weaponInPlayerInventory = weaponsMap.get(itemName);
+            if (weaponInPlayerInventory != null) {
+                newItemList.add(weaponInPlayerInventory);
+                continue;
+            }
+            Item itemInPlayerInventory = itemsMap.get(itemName);
+            if (itemInPlayerInventory != null){
+                newItemList.add(itemInPlayerInventory);
+            }
+        }
+
+        this.loadInventoryFromSavedGameData(newItemList);
+    }
+
+    public void initPlayer(){
+        this.inventory = new ArrayList<>();
+        this.health = 20;
+        this.fightingZombie = false;
+        this.currentLocation = Locations.LandingDock;
+        this.strength = 5;
     }
 }
