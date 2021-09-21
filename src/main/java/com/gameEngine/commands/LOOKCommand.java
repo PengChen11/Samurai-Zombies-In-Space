@@ -31,7 +31,12 @@ public class LOOKCommand implements CommandInterface {
         if (command[1] == null || command[1].isBlank() || "around".equalsIgnoreCase(command[1])) {
             GameEngine.GAME_ENGINE.goodCommand = true;
             gameBuilder.append(Player.PLAYER.getCurrentLocation().getDescription()).append("\n");
-
+            if(Player.PLAYER.getCurrentLocation().equals(Locations.RepairWorkshop)){
+                gameBuilder.append(instructs.get("look").get("instructions").get(5));
+            }
+            if(Player.PLAYER.getCurrentLocation().getNpc() != null){
+                gameBuilder.append( "\n" + instructs.get("look").get("instructions").get(6) + Player.PLAYER.getCurrentLocation().getNpc().getName() +  instructs.get("look").get("instructions").get(7));
+            }
             appendItemsToDescription(gameBuilder, instructs);
             if (Player.PLAYER.getCurrentLocation().getZombie() != null) {
                 if (((Background)(GameSceneControllerNew.getBackground())) != null) {
